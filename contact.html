@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us - Neon Clothing</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/contact.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        NEON
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('products') }}">
+            Shop
+        </a>
+
+        <a href="{{ url_for('wishlist') }}">
+            Wishlist
+        </a>
+
+        <a href="{{ url_for('contact') }}"
+           class="active">
+            Contact
+        </a>
+
+        <a href="{{ url_for('login') }}">
+            Login
+        </a>
+
+        <a href="{{ url_for('register') }}">
+            Register
+        </a>
+
+        <a href="{{ url_for('cart') }}">
+            Cart
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     CONTACT PAGE
+===================================================== -->
+
+<main class="contact-page">
+
+
+    <!-- HERO -->
+
+    <section class="contact-hero">
+
+        <span class="contact-label">
+            GET IN TOUCH
+        </span>
+
+        <h1>
+            Contact <span>Neon Clothing</span>
+        </h1>
+
+        <p>
+            Have a question about our products, orders or services?
+            Send us a message and our team will get back to you.
+        </p>
+
+    </section>
+
+
+    <!-- CONTACT CONTENT -->
+
+    <section class="contact-section">
+
+        <div class="contact-container">
+
+
+            <!-- =================================================
+                 LEFT SIDE - INFORMATION
+            ================================================== -->
+
+            <div class="contact-info">
+
+
+                <span class="info-label">
+                    CONTACT INFORMATION
+                </span>
+
+
+                <h2>
+                    Let's talk.
+                </h2>
+
+
+                <p class="info-description">
+                    Whether you need help with a product, your order,
+                    size selection or anything else, we're here to help.
+                </p>
+
+
+                <!-- ADDRESS -->
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        📍
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Visit Us
+                        </h3>
+
+                        <p>
+                            Neon Clothing
+                        </p>
+
+                        <p>
+                            No 77A 10th Cross
+                        </p>
+
+                        <p>
+                            Vidyamanya Nagar Andhrahalli, Bengaluru
+                        </p>
+
+                        <p>
+                            Karnataka 560091, India
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        ☎
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Call Us
+                        </h3>
+
+                        <p>
+                           +91 78291 57731
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        ✉
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Email Us
+                        </h3>
+
+                        <p>
+                            neonclothing@gmail.com
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INSTAGRAM -->
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        ◎
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Follow Us
+                        </h3>
+
+                        <a
+                            href="https://www.instagram.com/neon__clothing_?stkn=eWtvdDZhZjJlaXVx"
+                            target="_blank"
+                            class="instagram-link"
+                        >
+                            @neon__clothing_
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 RIGHT SIDE - CONTACT FORM
+            ================================================== -->
+
+            <div class="contact-form-box">
+
+
+                <div class="form-heading">
+
+                    <span>
+                        SEND A MESSAGE
+                    </span>
+
+                    <h2>
+                        How can we help?
+                    </h2>
+
+                    <p>
+                        Fill in the details below and we'll respond
+                        as soon as possible.
+                    </p>
+
+                </div>
+
+
+                <!-- FLASH MESSAGES -->
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+
+                    {% if messages %}
+
+                        <div class="flash-area">
+
+                            {% for category, message in messages %}
+
+                                <div class="flash-message {{ category }}">
+                                    {{ message }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+
+                <!-- FORM -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for('contact') }}"
+                    class="contact-form"
+                >
+
+
+                    <div class="form-row">
+
+
+                        <div class="form-group">
+
+                            <label for="name">
+                                FULL NAME
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                EMAIL ADDRESS
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-row">
+
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                PHONE NUMBER
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="Enter your phone number"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="subject">
+                                SUBJECT
+                            </label>
+
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                placeholder="What is your message about?"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="message">
+                            YOUR MESSAGE
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="7"
+                            placeholder="Write your message here..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="send-button"
+                    >
+
+                        SEND MESSAGE
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+     GOOGLE MAP
+===================================================== -->
+
+<section class="map-section">
+
+    <div class="map-container">
+
+        <div class="map-heading">
+
+            <span>FIND OUR STORE</span>
+
+            <h2>
+                Visit Neon Clothing
+            </h2>
+
+            <p>
+                Find us in Vidyamanya Nagar, Bengaluru.
+            </p>
+
+        </div>
+
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.4851434061748!2d77.4875271!3d13.0047482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d005bd7f157%3A0x76b2cd3fe8382ea2!2sNeon%20clothing!5e0!3m2!1sen!2sin!4v1788932909829!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+
+
+        <div class="map-actions">
+
+            <a
+                href="https://www.google.com/maps/place/Neon+clothing/@13.0047482,77.4875271,17z/data=!3m1!4b1!4m6!3m5!1s0x3bae3d005bd7f157:0x76b2cd3fe8382ea2!8m2!3d13.0047482!4d77.4875271!16s%2Fg%2F11zf6gvvsz!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+                class="map-button"
+            >
+                OPEN GOOGLE MAPS →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <p>
+        © 2026 Neon Clothing. All rights reserved.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Placed | Neon Clothing</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/order-success.css') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            NEON<span>.</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('products') }}">Shop</a>
+            <a href="{{ url_for('wishlist') }}">Wishlist</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('cart') }}">Cart</a>
+        </div>
+
+    </nav>
+
+
+    <!-- ORDER SUCCESS -->
+
+    <main class="success-page">
+
+        <div class="success-container">
+
+            <!-- SUCCESS ICON -->
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+
+            <!-- HEADING -->
+
+            <h1>Order Placed Successfully!</h1>
+
+            <p class="success-message">
+                Thank you for shopping with
+                <strong>Neon Clothing</strong>.
+            </p>
+
+            <p class="success-subtext">
+                Your order has been received and is being processed.
+            </p>
+
+
+            <!-- ORDER CARD -->
+
+            <div class="order-card">
+
+                <div class="order-row">
+
+                    <div>
+                        <span class="label">
+                            ORDER ID
+                        </span>
+
+                        <strong class="order-id">
+                            #{{ order.order_id }}
+                        </strong>
+                    </div>
+
+
+                    <div class="divider"></div>
+
+
+                    <div>
+                        <span class="label">
+                            TOTAL AMOUNT
+                        </span>
+
+                        <strong class="order-total">
+                            ₹{{ order.total }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="success-actions">
+
+                <a href="{{ url_for('orders') }}"
+                   class="btn-primary">
+                    VIEW MY ORDERS
+                </a>
+
+                <a href="{{ url_for('products') }}"
+                   class="btn-secondary">
+                    CONTINUE SHOPPING
+                </a>
+
+            </div>
+
+
+            <!-- SMALL INFO -->
+
+            <div class="success-note">
+
+                <span>✓</span>
+
+                <p>
+                    Your order details are available in
+                    <strong>My Orders</strong>.
+                </p>
+
+            </div>
+
+
+            <p class="brand-message">
+                Thank you for choosing <strong>NEON CLOTHING</strong>
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 Neon Clothing. All rights reserved.
+        </p>
+
+    </footer>
+
+</body>
+</html>

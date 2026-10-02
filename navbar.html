@@ -1,0 +1,665 @@
+<!-- =========================================================
+     NEON CLOTHING - NAVBAR
+========================================================= -->
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="neon-announcement">
+
+    <div class="neon-announcement-track">
+
+        <span>NEW SEASON — NEW STYLES</span>
+        <span>FREE SHIPPING ON ORDERS ABOVE ₹999</span>
+        <span>FRESH DROPS ARE HERE</span>
+        <span>NEON CLOTHING</span>
+
+    </div>
+
+</div>
+
+
+<!-- HEADER -->
+<header class="neon-header">
+
+    <!-- MAIN HEADER -->
+    <div class="neon-header-main">
+
+        <!-- MOBILE MENU BUTTON -->
+        <button
+            type="button"
+            class="neon-mobile-menu"
+            id="neonMobileMenu"
+            aria-label="Open menu"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+
+        <!-- LOGO -->
+        <a
+            href="{{ url_for('home') }}"
+            class="neon-logo"
+        >
+
+            <span class="neon-logo-name">
+                NEON
+            </span>
+
+            <span class="neon-logo-subtitle">
+                CLOTHING
+            </span>
+
+        </a>
+
+
+        <!-- HEADER ACTIONS -->
+        <div class="neon-header-actions">
+
+            <!-- SEARCH -->
+            <button
+                type="button"
+                class="neon-action"
+                id="neonSearchButton"
+                aria-label="Search"
+                title="Search"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <circle
+                        cx="11"
+                        cy="11"
+                        r="6.5"
+                    ></circle>
+
+                    <path
+                        d="M16 16L21 21"
+                    ></path>
+
+                </svg>
+
+            </button>
+
+
+            <!-- ACCOUNT -->
+            <a
+                href="{{ url_for('login') }}"
+                class="neon-action"
+                aria-label="Account"
+                title="Account"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <circle
+                        cx="12"
+                        cy="8"
+                        r="3.5"
+                    ></circle>
+
+                    <path
+                        d="M5 20c0-4 2.8-6.2 7-6.2s7 2.2 7 6.2"
+                    ></path>
+
+                </svg>
+
+            </a>
+
+
+            <!-- WISHLIST -->
+           <a
+    href="{{ url_for('wishlist') }}"
+    class="neon-action wishlist-nav-link"
+    aria-label="Wishlist"
+    title="Wishlist"
+>
+
+                <svg viewBox="0 0 24 24">
+
+                    <path
+                        d="M20.8 8.6c0 5.2-8.8 10-8.8 10s-8.8-4.8-8.8-10A4.7 4.7 0 0 1 12 5.3a4.7 4.7 0 0 1 8.8 3.3Z"
+                    ></path>
+
+                </svg>
+
+                <span
+                    class="neon-count"
+                    id="wishlistCount"
+                >
+                    0
+                </span>
+
+            </a>
+
+
+            <!-- CART -->
+            <a
+                href="{{ url_for('cart') }}"
+                class="neon-action"
+                aria-label="Cart"
+                title="Cart"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path
+                        d="M4 5h2l1.2 10.2a2 2 0 0 0 2 1.8h7.4a2 2 0 0 0 2-1.6L20 8H7"
+                    ></path>
+
+                    <circle
+                        cx="10"
+                        cy="20"
+                        r="1"
+                    ></circle>
+
+                    <circle
+                        cx="18"
+                        cy="20"
+                        r="1"
+                    ></circle>
+
+                </svg>
+
+                <span class="neon-count">
+                    {{ session.get('cart', [])|length }}
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         DESKTOP NAVIGATION
+    ====================================================== -->
+
+    <nav
+        class="neon-navigation"
+        id="neonNavigation"
+    >
+
+        <!-- HOME -->
+        <a
+            href="{{ url_for('home') }}"
+            class="neon-nav-link"
+        >
+            HOME
+        </a>
+
+
+        <!-- SHOP -->
+        <div class="neon-nav-dropdown">
+
+            <a
+                href="{{ url_for('shop') }}"
+                class="neon-nav-link"
+            >
+                SHOP
+                <span class="nav-chevron">↓</span>
+            </a>
+
+
+            <!-- MEGA MENU -->
+            <div class="neon-mega-menu">
+
+                <!-- TOPWEAR -->
+                <div class="mega-column">
+
+                    <span class="mega-title">
+                        TOPWEAR
+                    </span>
+
+                    <a href="{{ url_for('shop', category='T-Shirts') }}">
+                        T-Shirts
+                    </a>
+
+                    <a href="{{ url_for('shop', category='Shirts') }}">
+                        Shirts
+                    </a>
+
+                    <a href="{{ url_for('shop', category='Hoodies') }}">
+                        Hoodies
+                    </a>
+
+                    <a href="{{ url_for('shop') }}">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <!-- BOTTOMWEAR -->
+                <div class="mega-column">
+
+                    <span class="mega-title">
+                        BOTTOMWEAR
+                    </span>
+
+                    <a href="{{ url_for('shop', category='Jeans') }}">
+                        Jeans
+                    </a>
+
+                    <a href="{{ url_for('shop', category='Track Pants') }}">
+                        Track Pants
+                    </a>
+
+                    <a href="{{ url_for('shop', category='Formal Pants') }}">
+                        Formal Pants
+                    </a>
+
+                    <a href="{{ url_for('shop') }}">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <!-- COLLECTIONS -->
+                <div class="mega-column">
+
+                    <span class="mega-title">
+                        COLLECTIONS
+                    </span>
+
+                    <a href="{{ url_for('shop') }}">
+                        New Arrivals
+                    </a>
+
+                    <a href="{{ url_for('shop') }}">
+                        Trending
+                    </a>
+
+                    <a href="{{ url_for('shop') }}">
+                        Best Sellers
+                    </a>
+
+                    <a href="{{ url_for('shop') }}">
+                        All Products
+                    </a>
+
+                </div>
+
+
+                <!-- FEATURED -->
+                <div class="mega-featured">
+
+                    <div class="mega-featured-inner">
+
+                        <span>
+                            NEON CLOTHING
+                        </span>
+
+                        <h3>
+                            DEFINE<br>
+                            YOUR STYLE.
+                        </h3>
+
+                        <a href="{{ url_for('shop') }}">
+                            SHOP NOW →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- NEW ARRIVALS -->
+        <a
+            href="{{ url_for('shop') }}"
+            class="neon-nav-link"
+        >
+            NEW ARRIVALS
+        </a>
+
+
+        <!-- COLLECTIONS -->
+        <a
+            href="{{ url_for('shop') }}"
+            class="neon-nav-link"
+        >
+            COLLECTIONS
+        </a>
+
+
+        <!-- TRACK ORDER -->
+        <a
+            href="{{ url_for('track_order') }}"
+            class="neon-nav-link"
+        >
+            TRACK ORDER
+        </a>
+
+
+        <!-- OUR STORE -->
+        <a
+            href="{{ url_for('our_store') }}"
+            class="neon-nav-link"
+        >
+            OUR STORE
+        </a>
+
+
+        <!-- ABOUT US -->
+        <a
+            href="{{ url_for('about_us') }}"
+            class="neon-nav-link"
+        >
+            ABOUT US
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================================================
+     MOBILE MENU
+========================================================= -->
+
+<div
+    class="neon-mobile-panel"
+    id="neonMobilePanel"
+>
+
+    <div class="mobile-panel-header">
+
+        <span>
+            MENU
+        </span>
+
+        <button
+            type="button"
+            id="neonMobileClose"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="mobile-menu-links">
+
+        <a href="{{ url_for('home') }}">
+            HOME
+        </a>
+
+        <a href="{{ url_for('shop') }}">
+            SHOP
+        </a>
+
+        <a href="{{ url_for('shop') }}">
+            NEW ARRIVALS
+        </a>
+
+        <a href="{{ url_for('shop') }}">
+            COLLECTIONS
+        </a>
+
+        <a href="{{ url_for('track_order') }}">
+            TRACK ORDER
+        </a>
+
+        <a href="{{ url_for('our_store') }}">
+            OUR STORE
+        </a>
+
+        <a href="{{ url_for('about_us') }}">
+            ABOUT US
+        </a>
+
+
+        <div class="mobile-divider"></div>
+
+
+        <a href="{{ url_for('login') }}">
+            ACCOUNT
+        </a>
+
+        <a href="{{ url_for('wishlist') }}">
+            WISHLIST
+        </a>
+
+        <a href="{{ url_for('cart') }}">
+            CART
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SEARCH OVERLAY
+========================================================= -->
+
+<div
+    class="neon-search-overlay"
+    id="neonSearchOverlay"
+>
+
+    <div class="neon-search-modal">
+
+        <button
+            type="button"
+            class="neon-search-close"
+            id="neonSearchClose"
+        >
+            ×
+        </button>
+
+
+        <span class="search-small-title">
+            SEARCH NEON
+        </span>
+
+        <h2>
+            What are you looking for?
+        </h2>
+
+
+        <form
+            method="GET"
+            action="{{ url_for('shop') }}"
+            class="neon-search-form"
+        >
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search shirts, jeans, track pants..."
+                autocomplete="off"
+            >
+
+            <button type="submit">
+                SEARCH →
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     NAVBAR JAVASCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* SEARCH */
+
+    const searchButton =
+        document.getElementById("neonSearchButton");
+
+    const searchOverlay =
+        document.getElementById("neonSearchOverlay");
+
+    const searchClose =
+        document.getElementById("neonSearchClose");
+
+
+    if (searchButton && searchOverlay) {
+
+        searchButton.addEventListener("click", function () {
+
+            searchOverlay.classList.add("active");
+
+            const input =
+                searchOverlay.querySelector("input");
+
+            if (input) {
+
+                setTimeout(function () {
+                    input.focus();
+                }, 150);
+
+            }
+
+        });
+
+    }
+
+
+    if (searchClose && searchOverlay) {
+
+        searchClose.addEventListener("click", function () {
+
+            searchOverlay.classList.remove("active");
+
+        });
+
+    }
+
+
+    if (searchOverlay) {
+
+        searchOverlay.addEventListener("click", function (event) {
+
+            if (event.target === searchOverlay) {
+
+                searchOverlay.classList.remove("active");
+
+            }
+
+        });
+
+    }
+
+
+    document.addEventListener("keydown", function (event) {
+
+        if (
+            event.key === "Escape" &&
+            searchOverlay
+        ) {
+
+            searchOverlay.classList.remove("active");
+
+        }
+
+    });
+
+
+    /* WISHLIST COUNT */
+
+    function updateWishlistCount() {
+
+        let wishlist = [];
+
+        try {
+
+            wishlist = JSON.parse(
+                localStorage.getItem("wishlist") || "[]"
+            );
+
+        } catch (error) {
+
+            wishlist = [];
+
+        }
+
+
+        const count =
+            document.getElementById("wishlistCount");
+
+
+        if (count) {
+
+            count.textContent =
+                wishlist.length;
+
+        }
+
+    }
+
+
+    updateWishlistCount();
+
+
+    window.addEventListener(
+        "storage",
+        function (event) {
+
+            if (event.key === "wishlist") {
+
+                updateWishlistCount();
+
+            }
+
+        }
+    );
+
+
+    /* MOBILE MENU */
+
+    const mobileMenu =
+        document.getElementById("neonMobileMenu");
+
+    const mobilePanel =
+        document.getElementById("neonMobilePanel");
+
+    const mobileClose =
+        document.getElementById("neonMobileClose");
+
+
+    if (mobileMenu && mobilePanel) {
+
+        mobileMenu.addEventListener("click", function () {
+
+            mobilePanel.classList.add("active");
+
+            document.body.classList.add("menu-open");
+
+        });
+
+    }
+
+
+    if (mobileClose && mobilePanel) {
+
+        mobileClose.addEventListener("click", function () {
+
+            mobilePanel.classList.remove("active");
+
+            document.body.classList.remove("menu-open");
+
+        });
+
+    }
+
+});
+
+</script>
+<script
+    src="{{ url_for('static', filename='js/wishlist.js') }}"
+></script>

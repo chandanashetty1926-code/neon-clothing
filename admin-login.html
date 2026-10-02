@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Login | Neon Clothing</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #0b0b0b;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-login-container {
+            width: 100%;
+            max-width: 430px;
+            padding: 20px;
+        }
+
+        .admin-login-card {
+            background: #151515;
+            border: 1px solid #292929;
+            border-radius: 14px;
+            padding: 40px;
+            box-shadow: 0 0 35px rgba(223, 255, 0, 0.08);
+        }
+
+        .logo {
+            text-align: center;
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+        }
+
+        .logo span {
+            color: #dfff00;
+        }
+
+        .admin-label {
+            text-align: center;
+            color: #dfff00;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-title h1 {
+            margin: 0 0 8px;
+            font-size: 24px;
+        }
+
+        .login-title p {
+            margin: 0;
+            color: #777777;
+            font-size: 12px;
+        }
+
+        .flash-container {
+            margin-bottom: 20px;
+        }
+
+        .flash-message {
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .flash-message.error {
+            background: rgba(255, 80, 80, 0.10);
+            border: 1px solid rgba(255, 80, 80, 0.20);
+            color: #ff8585;
+        }
+
+        .flash-message.success {
+            background: rgba(223, 255, 0, 0.10);
+            border: 1px solid rgba(223, 255, 0, 0.20);
+            color: #dfff00;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cccccc;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 45px;
+            padding: 0 14px;
+            background: #0d0d0d;
+            color: #ffffff;
+            border: 1px solid #333333;
+            border-radius: 7px;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .form-group input:focus {
+            border-color: #dfff00;
+        }
+
+        .login-button {
+            width: 100%;
+            height: 46px;
+            border: none;
+            border-radius: 7px;
+            background: #dfff00;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .login-button:hover {
+            background: #ffffff;
+        }
+
+        .back-store {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #777777;
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        .back-store:hover {
+            color: #dfff00;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="admin-login-container">
+
+    <div class="admin-login-card">
+
+        <div class="logo">
+            NEON<span>.</span>
+        </div>
+
+        <div class="admin-label">
+            ADMIN PANEL
+        </div>
+
+        <div class="login-title">
+
+            <h1>
+                Administrator Login
+            </h1>
+
+            <p>
+                Login to manage Neon Clothing
+            </p>
+
+        </div>
+
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                <div class="flash-container">
+
+                    {% for category, message in messages %}
+
+                        <div class="flash-message {{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <form
+            method="POST"
+            action="{{ url_for('admin_login') }}"
+        >
+
+            <div class="form-group">
+
+                <label for="email">
+                    Admin Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter admin email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Admin Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter admin password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-button"
+            >
+                LOGIN TO ADMIN PANEL
+            </button>
+
+        </form>
+
+
+        <a
+            href="{{ url_for('home') }}"
+            class="back-store"
+        >
+            ← Back to Neon Clothing
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

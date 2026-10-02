@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product.name }} | Neon Clothing</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/shop.css') }}"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #111;
+            background: #fff;
+        }
+
+        /* =========================================
+           ANNOUNCEMENT BAR
+        ========================================= */
+
+        .announcement-bar {
+            background: #111;
+            color: #fff;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .announcement-track {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            white-space: nowrap;
+        }
+
+        .announcement-line {
+            color: #dfff00;
+        }
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .site-header {
+            background: #fff;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .header-top {
+            max-width: 1250px;
+            margin: auto;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: #111;
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .logo-main {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .logo-sub {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-top: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 18px;
+        }
+
+        .header-icon {
+            text-decoration: none;
+            font-size: 21px;
+            color: #111;
+        }
+
+        .main-nav {
+            max-width: 1250px;
+            margin: auto;
+            padding: 0 30px 18px;
+            display: flex;
+            gap: 32px;
+        }
+
+        .main-nav a {
+            color: #111;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+        }
+
+        .main-nav a:hover {
+            color: #777;
+        }
+
+        /* =========================================
+           PRODUCT PAGE
+        ========================================= */
+
+        .product-detail-page {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 45px 30px 90px;
+        }
+
+        .back-shop {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #777;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .back-shop:hover {
+            color: #111;
+        }
+
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* =========================================
+           PRODUCT IMAGE
+        ========================================= */
+
+        .detail-image {
+            position: relative;
+            background: #f3f3f3;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+        }
+
+        .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .detail-no-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111;
+            color: #dfff00;
+            font-size: 35px;
+            font-weight: 900;
+            letter-spacing: 5px;
+        }
+
+        .detail-sale {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: #ef4035;
+            color: #fff;
+            padding: 9px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            z-index: 2;
+        }
+
+        /* =========================================
+           PRODUCT INFORMATION
+        ========================================= */
+
+        .detail-info {
+            padding-top: 5px;
+        }
+
+        .detail-category {
+            color: #888;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 13px;
+        }
+
+        .detail-info h1 {
+            font-size: 40px;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin: 0 0 18px;
+        }
+
+        .detail-description {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 22px;
+        }
+
+        /* =========================================
+           PRICE
+        ========================================= */
+
+        .detail-price {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .detail-old-price {
+            color: #888;
+            text-decoration: line-through;
+            font-size: 15px;
+        }
+
+        .detail-final-price {
+            color: #e73527;
+            font-weight: 800;
+            font-size: 26px;
+        }
+
+        .detail-regular-price {
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        /* =========================================
+           SIZE
+        ========================================= */
+
+        .size-title {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .detail-sizes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .detail-size {
+            position: relative;
+        }
+
+        .detail-size input {
+            display: none;
+        }
+
+        .detail-size label {
+            width: 52px;
+            height: 44px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .detail-size input:checked + label {
+            background: #111;
+            color: #fff;
+            border-color: #111;
+        }
+
+        .detail-size label:hover {
+            border-color: #111;
+        }
+
+        /* =========================================
+           QUANTITY
+        ========================================= */
+
+        .quantity-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .quantity-row label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .quantity-row input {
+            width: 80px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           ADD CART
+        ========================================= */
+
+        .add-cart-detail {
+            width: 100%;
+            border: none;
+            background: #111;
+            color: #fff;
+            padding: 17px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            transition: .2s;
+        }
+
+        .add-cart-detail:hover {
+            background: #dfff00;
+            color: #111;
+        }
+
+        .stock-text {
+            margin-top: 12px;
+            color: #777;
+            font-size: 12px;
+        }
+
+        .out-stock {
+            color: #e73527;
+            font-weight: 700;
+        }
+
+        /* =========================================
+           DELIVERY DETAILS
+        ========================================= */
+
+        .delivery-box {
+            margin-top: 28px;
+            border: 1px solid #e0e0e0;
+            background: #fff;
+        }
+
+        .delivery-title {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .delivery-content {
+            padding: 20px;
+        }
+
+        .location-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .location-icon {
+            font-size: 21px;
+        }
+
+        .location-text {
+            flex: 1;
+        }
+
+        .location-label {
+            display: block;
+            color: #777;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            margin-bottom: 4px;
+        }
+
+        .location-value {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .change-location {
+            border: 1px solid #111;
+            background: #fff;
+            color: #111;
+            padding: 8px 13px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .change-location:hover {
+            background: #111;
+            color: #fff;
+        }
+
+        /* =========================================
+           PINCODE
+        ========================================= */
+
+        .pincode-area {
+            display: none;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f7f7f7;
+        }
+
+        .pincode-area.active {
+            display: block;
+        }
+
+        .pincode-title {
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .pincode-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pincode-input {
+            flex: 1;
+            height: 42px;
+            border: 1px solid #ccc;
+            padding: 0 12px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .pincode-button {
+            border: none;
+            background: #111;
+            color: #fff;
+            padding: 0 18px;
+            height: 42px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .pincode-button:hover {
+            background: #dfff00;
+            color: #111;
+        }
+
+        .pincode-message {
+            margin-top: 9px;
+            font-size: 12px;
+        }
+
+        /* =========================================
+           DELIVERY DATE
+        ========================================= */
+
+        .delivery-date {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .delivery-icon {
+            font-size: 20px;
+        }
+
+        .delivery-main {
+            flex: 1;
+        }
+
+        .delivery-label {
+            display: block;
+            color: #777;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            margin-bottom: 5px;
+        }
+
+        .delivery-date-text {
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .delivery-free {
+            color: #168b42;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        /* =========================================
+           BENEFITS
+        ========================================= */
+
+        .delivery-benefits {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-top: 1px solid #eee;
+        }
+
+        .delivery-benefit {
+            padding: 15px 10px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 11px;
+            color: #555;
+        }
+
+        .delivery-benefit:nth-child(odd) {
+            border-right: 1px solid #eee;
+        }
+
+        .benefit-icon {
+            font-size: 17px;
+        }
+
+        .fulfilled-box {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 2px;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .fulfilled-box strong {
+            color: #111;
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .site-footer {
+            background: #111;
+            color: #fff;
+            margin-top: 40px;
+        }
+
+        .footer-main {
+            max-width: 1250px;
+            margin: auto;
+            padding: 55px 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .footer-brand p {
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-column h4 {
+            color: #dfff00;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin: 0 0 8px;
+        }
+
+        .footer-column a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .footer-column a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #292929;
+            max-width: 1250px;
+            margin: auto;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            color: #777;
+            font-size: 11px;
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 850px) {
+
+            .header-top {
+                padding: 18px 20px;
+            }
+
+            .main-nav {
+                padding: 0 20px 18px;
+                gap: 18px;
+                overflow-x: auto;
+            }
+
+            .product-detail-page {
+                padding: 30px 18px 60px;
+            }
+
+            .product-detail-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .detail-info h1 {
+                font-size: 32px;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
+                padding: 40px 20px;
+            }
+
+            .footer-bottom {
+                padding: 18px 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .announcement-track {
+                font-size: 9px;
+                gap: 10px;
+            }
+
+            .logo-main {
+                font-size: 23px;
+            }
+
+            .header-icon {
+                font-size: 18px;
+            }
+
+            .product-detail-page {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .detail-image {
+                aspect-ratio: 4 / 5;
+            }
+
+            .pincode-form {
+                flex-direction: column;
+            }
+
+            .pincode-button {
+                width: 100%;
+            }
+
+            .delivery-benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .delivery-benefit:nth-child(odd) {
+                border-right: none;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- =========================================
+     ANNOUNCEMENT
+========================================= -->
+
+<div class="announcement-bar">
+    <div class="announcement-track">
+
+        <span>NEON CLOTHING</span>
+
+        <span class="announcement-line">—</span>
+
+        <span>NEW SEASON, NEW STYLE</span>
+
+        <span class="announcement-line">—</span>
+
+        <span>FAST DELIVERY</span>
+
+    </div>
+</div>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header class="site-header">
+
+    <div class="header-top">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="logo"
+        >
+            <span class="logo-main">NEON</span>
+            <span class="logo-sub">CLOTHING</span>
+        </a>
+
+        <div class="header-actions">
+
+            <a
+                href="{{ url_for('shop') }}"
+                class="header-icon"
+                title="Shop"
+            >
+                🛍
+            </a>
+
+            <a
+                href="{{ url_for('cart') }}"
+                class="header-icon"
+                title="Cart"
+            >
+                🛒
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <nav class="main-nav">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('shop') }}">
+            Shop
+        </a>
+
+        <a href="{{ url_for('shop') }}">
+            Products
+        </a>
+
+        <a href="{{ url_for('track_order') }}">
+            Track Order
+        </a>
+
+        <a href="{{ url_for('our_store') }}">
+            Our Store
+        </a>
+
+        <a href="{{ url_for('about_us') }}">
+            About Us
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================================
+     PRODUCT DETAILS
+========================================= -->
+
+<main class="product-detail-page">
+
+    <a
+        href="{{ url_for('shop') }}"
+        class="back-shop"
+    >
+        ← BACK TO SHOP
+    </a>
+
+
+    <div class="product-detail-grid">
+
+
+        <!-- =====================================
+             PRODUCT IMAGE
+        ====================================== -->
+
+        <div class="detail-image">
+
+            {% if product.discount and product.discount > 0 %}
+
+                <span class="detail-sale">
+                    -{{ product.discount|float|round|int }}%
+                </span>
+
+            {% endif %}
+
+
+            {% if product.image %}
+
+                {% if
+                    product.image.startswith('http://')
+                    or
+                    product.image.startswith('https://')
+                %}
+
+                    <img
+                        src="{{ product.image }}"
+                        alt="{{ product.name }}"
+                    >
+
+                {% elif product.image.startswith('/static/') %}
+
+                    <img
+                        src="{{ product.image }}"
+                        alt="{{ product.name }}"
+                    >
+
+                {% else %}
+
+                    <img
+                        src="{{ url_for(
+                            'static',
+                            filename=product.image.replace('\\','/')
+                        ) }}"
+                        alt="{{ product.name }}"
+                    >
+
+                {% endif %}
+
+            {% else %}
+
+                <div class="detail-no-image">
+                    NEON
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- =====================================
+             PRODUCT INFORMATION
+        ====================================== -->
+
+        <div class="detail-info">
+
+            <div class="detail-category">
+
+                {{ product.category }}
+
+                {% if product.subcategory %}
+                    · {{ product.subcategory }}
+                {% endif %}
+
+            </div>
+
+
+            <h1>
+                {{ product.name }}
+            </h1>
+
+
+            <p class="detail-description">
+                {{ product.description }}
+            </p>
+
+
+            <!-- PRICE -->
+
+            {% set final_price =
+                (product.price|float)
+                -
+                (
+                    (product.price|float)
+                    *
+                    ((product.discount or 0)|float)
+                    / 100
+                )
+            %}
+
+
+            <div class="detail-price">
+
+                {% if product.discount and product.discount > 0 %}
+
+                    <span class="detail-old-price">
+                        ₹{{ "%.0f"|format(product.price|float) }}
+                    </span>
+
+                    <span class="detail-final-price">
+                        ₹{{ "%.0f"|format(final_price) }}
+                    </span>
+
+                {% else %}
+
+                    <span class="detail-regular-price">
+                        ₹{{ "%.0f"|format(product.price|float) }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- =================================
+                 ADD TO CART
+            ================================== -->
+
+            {% if product.stock and product.stock > 0 %}
+
+                <form
+                    method="POST"
+                    action="{{ url_for('add_to_cart') }}"
+                >
+
+                    <input
+                        type="hidden"
+                        name="product_id"
+                        value="{{ product.id }}"
+                    >
+
+
+<div class="size-title">
+    Select Size
+</div>
+
+<div class="detail-sizes">
+
+    {% for size in product_sizes %}
+
+        <div class="detail-size">
+
+            <input
+                type="radio"
+                id="size-{{ size }}"
+                name="size"
+                value="{{ size }}"
+                {% if loop.first %}checked{% endif %}
+                required
+            >
+
+            <label for="size-{{ size }}">
+                {{ size }}
+            </label>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+
+                    <div class="quantity-row">
+
+                        <label for="quantity">
+                            Quantity
+                        </label>
+
+                        <input
+                            id="quantity"
+                            type="number"
+                            name="quantity"
+                            value="1"
+                            min="1"
+                            max="{{ product.stock }}"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="add-cart-detail"
+                    >
+                        ADD TO CART
+                    </button>
+
+
+                    <div class="stock-text">
+                        {{ product.stock }} item(s) available
+                    </div>
+
+                </form>
+
+            {% else %}
+
+                <div class="stock-text out-stock">
+                    OUT OF STOCK
+                </div>
+
+            {% endif %}
+
+
+            <!-- =================================
+                 DELIVERY DETAILS
+            ================================== -->
+
+            <div class="delivery-box">
+
+                <div class="delivery-title">
+                    Delivery Details
+                </div>
+
+
+                <div class="delivery-content">
+
+
+                    <!-- LOCATION -->
+
+                    <div class="location-row">
+
+                        <div class="location-icon">
+                            📍
+                        </div>
+
+                        <div class="location-text">
+
+                            <span class="location-label">
+                                Delivery Location
+                            </span>
+
+                            <span
+                                class="location-value"
+                                id="locationValue"
+                            >
+                                Location not set
+                            </span>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="change-location"
+                            id="changeLocation"
+                        >
+                            SELECT
+                        </button>
+
+                    </div>
+
+
+                    <!-- PINCODE -->
+
+                    <div
+                        class="pincode-area"
+                        id="pincodeArea"
+                    >
+
+                        <div class="pincode-title">
+                            Enter your delivery pincode
+                        </div>
+
+                        <div class="pincode-form">
+
+                            <input
+                                type="text"
+                                id="pincodeInput"
+                                class="pincode-input"
+                                placeholder="Enter 6-digit pincode"
+                                maxlength="6"
+                                inputmode="numeric"
+                            >
+
+                            <button
+                                type="button"
+                                class="pincode-button"
+                                id="checkPincode"
+                            >
+                                CHECK
+                            </button>
+
+                        </div>
+
+                        <div
+                            class="pincode-message"
+                            id="pincodeMessage"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- DELIVERY DATE -->
+
+                    <div class="delivery-date">
+
+                        <div class="delivery-icon">
+                            🚚
+                        </div>
+
+                        <div class="delivery-main">
+
+                            <span class="delivery-label">
+                                Delivery
+                            </span>
+
+                            <div class="delivery-date-text">
+                                Delivery in 3 days
+                            </div>
+
+                            <div
+                                class="delivery-free"
+                                id="deliveryDateText"
+                            >
+                                Enter pincode to see expected delivery date
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BENEFITS -->
+
+                    <div class="delivery-benefits">
+
+                        <div class="delivery-benefit">
+
+                            <span class="benefit-icon">
+                                ↩
+                            </span>
+
+                            <span>
+                                10-Day Return
+                            </span>
+
+                        </div>
+
+
+                        <div class="delivery-benefit">
+
+                            <span class="benefit-icon">
+                                ✓
+                            </span>
+
+                            <span>
+                                Cancellation upto 24hrs
+                            </span>
+
+                        </div>
+
+
+                        <div class="delivery-benefit">
+
+                            <span class="benefit-icon">
+                                ₹
+                            </span>
+
+                            <span>
+                                Cash on Delivery
+                            </span>
+
+                        </div>
+
+
+                        <div class="delivery-benefit">
+
+                            <span class="benefit-icon">
+                                🔒
+                            </span>
+
+                            <span>
+                                Secure Payments
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FULFILLED -->
+
+                    <div class="fulfilled-box">
+
+                        Fulfilled by
+                        <strong>NEON CLOTHING</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer class="site-footer">
+
+    <div class="footer-main">
+
+        <div class="footer-brand">
+
+            <div class="footer-logo">
+                NEON
+            </div>
+
+            <p>
+                Modern clothing for everyday style.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>SHOP</h4>
+
+            <a href="{{ url_for('shop', category='Shirts') }}">
+                Shirts
+            </a>
+
+            <a href="{{ url_for('shop', category='T-Shirts') }}">
+                T-Shirts
+            </a>
+
+            <a href="{{ url_for('shop', category='Jeans') }}">
+                Jeans
+            </a>
+
+            <a href="{{ url_for('shop', category='Hoodies') }}">
+                Hoodies
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>HELP</h4>
+
+            <a href="{{ url_for('track_order') }}">
+                Track Order
+            </a>
+
+            <a href="{{ url_for('contact') }}">
+                Contact
+            </a>
+
+            <a href="{{ url_for('about_us') }}">
+                About Us
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>ACCOUNT</h4>
+
+            <a href="{{ url_for('login') }}">
+                Login
+            </a>
+
+            <a href="{{ url_for('orders') }}">
+                My Orders
+            </a>
+
+            <a href="{{ url_for('cart') }}">
+                Cart
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 Neon Clothing
+        </span>
+
+        <span>
+            All Rights Reserved
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================
+     DELIVERY JAVASCRIPT
+========================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const changeLocation =
+        document.getElementById("changeLocation");
+
+    const pincodeArea =
+        document.getElementById("pincodeArea");
+
+    const pincodeInput =
+        document.getElementById("pincodeInput");
+
+    const checkPincode =
+        document.getElementById("checkPincode");
+
+    const pincodeMessage =
+        document.getElementById("pincodeMessage");
+
+    const locationValue =
+        document.getElementById("locationValue");
+
+    const deliveryDateText =
+        document.getElementById("deliveryDateText");
+
+
+    /* =========================================
+       OPEN PINCODE BOX
+    ========================================= */
+
+    changeLocation.addEventListener("click", function () {
+
+        pincodeArea.classList.toggle("active");
+
+        if (pincodeArea.classList.contains("active")) {
+
+            pincodeInput.focus();
+
+        }
+
+    });
+
+
+    /* =========================================
+       CHECK PINCODE
+    ========================================= */
+
+    checkPincode.addEventListener("click", function () {
+
+        const pincode =
+            pincodeInput.value.trim();
+
+
+        /* Validate pincode */
+
+        if (!/^[0-9]{6}$/.test(pincode)) {
+
+            pincodeMessage.textContent =
+                "Please enter a valid 6-digit pincode.";
+
+            pincodeMessage.style.color =
+                "#e73527";
+
+            return;
+        }
+
+
+        /* Show entered location */
+
+        locationValue.textContent =
+            pincode;
+
+
+        /* Calculate delivery date */
+
+        const today = new Date();
+
+        const deliveryDate = new Date(today);
+
+        deliveryDate.setDate(
+            today.getDate() + 3
+        );
+
+
+        const options = {
+            day: "numeric",
+            month: "short",
+            weekday: "short"
+        };
+
+
+        const formattedDate =
+            deliveryDate.toLocaleDateString(
+                "en-IN",
+                options
+            );
+
+
+        deliveryDateText.textContent =
+            "Expected delivery by " +
+            formattedDate;
+
+
+        pincodeMessage.textContent =
+            "Delivery available to this pincode.";
+
+        pincodeMessage.style.color =
+            "#168b42";
+
+
+        changeLocation.textContent =
+            "CHANGE";
+
+    });
+
+
+    /* =========================================
+       ENTER KEY
+    ========================================= */
+
+    pincodeInput.addEventListener(
+        "keypress",
+        function (event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                checkPincode.click();
+
+            }
+
+        }
+    );
+
+});
+
+</script>
+
+</body>
+</html>

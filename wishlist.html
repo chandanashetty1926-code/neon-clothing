@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Wishlist - Neon Clothing</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/products.css') }}">
+
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        NEON
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('products') }}">
+            Shop
+        </a>
+
+        <a href="{{ url_for('wishlist') }}"
+           class="active">
+            Wishlist
+        </a>
+
+        <a href="{{ url_for('contact') }}">
+            Contact
+        </a>
+
+        <a href="{{ url_for('login') }}">
+            Login
+        </a>
+
+        <a href="{{ url_for('register') }}">
+            Register
+        </a>
+
+        <a href="{{ url_for('cart') }}">
+            Cart
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= WISHLIST PAGE ================= -->
+
+<main class="products-page">
+
+    <section class="products-hero">
+
+        <h1>
+            My Wishlist
+        </h1>
+
+        <p>
+            Your favourite Neon Clothing products
+        </p>
+
+    </section>
+
+
+    <section class="shop-section">
+
+        {% if products %}
+
+        <div class="shop-header">
+
+            <h2>
+                Wishlist
+            </h2>
+
+            <span>
+                {{ products|length }} item(s)
+            </span>
+
+        </div>
+
+
+        <div class="product-grid">
+
+            {% for product in products %}
+
+            <div class="product-card">
+
+
+                <!-- PRODUCT IMAGE -->
+
+                <div class="product-image">
+
+                    <img
+                        src="{{ product['image'] }}"
+                        alt="{{ product['name'] }}"
+                    >
+
+                    <span class="product-badge">
+                        SAVED
+                    </span>
+
+<button 
+    type="button"
+    class="wishlist liked"
+    data-product-id="{{ product['id'] }}"
+    data-wishlist-remove="{{ product['id'] }}"
+    title="Remove from wishlist"
+    aria-label="Remove from wishlist"
+>
+    ♥
+</button>
+
+                </div>
+
+
+                <!-- PRODUCT INFO -->
+
+                <div class="product-info">
+
+                    <p class="product-category">
+                        {{ product['category'] }}
+                    </p>
+
+
+                    <h3>
+
+                        <a href="{{ url_for(
+                            'product_details',
+                            product_id=product['id']
+                        ) }}">
+
+                            {{ product['name'] }}
+
+                        </a>
+
+                    </h3>
+
+
+                    <p class="product-description">
+
+                        {{ product['description'] }}
+
+                    </p>
+
+
+                    <!-- PRICE -->
+
+                    <p class="product-price">
+
+                        ₹{{ product['price'] }}
+
+                    </p>
+
+
+                    <!-- VIEW PRODUCT -->
+
+                    <a
+                        href="{{ url_for(
+                            'product_details',
+                            product_id=product['id']
+                        ) }}"
+                        class="view-product"
+                    >
+
+                        VIEW PRODUCT
+
+                    </a>
+
+
+                    <!-- ADD TO CART -->
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('add_to_cart') }}"
+                        class="add-cart-form"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="product_id"
+                            value="{{ product['id'] }}"
+                        >
+
+
+                        <label class="size-label">
+                            SELECT SIZE
+                        </label>
+
+
+                        <select
+                            name="size"
+                            class="size-select"
+                            required
+                        >
+
+                            <option
+                                value=""
+                                selected
+                                disabled
+                            >
+                                Select Size
+                            </option>
+
+                            <option value="XS">XS</option>
+
+                            <option value="S">S</option>
+
+                            <option value="M">M</option>
+
+                            <option value="L">L</option>
+
+                            <option value="XL">XL</option>
+
+                            <option value="XXL">XXL</option>
+
+                        </select>
+
+
+                        <input
+                            type="hidden"
+                            name="quantity"
+                            value="1"
+                        >
+
+
+                        <button
+                            type="submit"
+                            class="cart-button"
+                        >
+                            🛒 ADD TO CART
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+        <!-- EMPTY WISHLIST -->
+
+        <div class="no-products">
+
+            <h3>
+                Your wishlist is empty
+            </h3>
+
+            <p>
+                Save your favourite products by clicking the heart icon.
+            </p>
+
+
+            <a
+                href="{{ url_for('products') }}"
+                class="cart-button"
+                style="
+                    max-width:220px;
+                    margin:20px auto;
+                    text-decoration:none;
+                "
+            >
+                SHOP NOW
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 Neon Clothing. All rights reserved.
+    </p>
+
+</footer>
+
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
+</body>
+
+</html>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    document
+        .querySelectorAll("[data-wishlist-remove]")
+        .forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const productId =
+                        Number(
+                            this.getAttribute(
+                                "data-wishlist-remove"
+                            )
+                        );
+
+                    let wishlist = [];
+
+                    try {
+
+                        wishlist =
+                            JSON.parse(
+                                localStorage.getItem(
+                                    "wishlist"
+                                ) || "[]"
+                            )
+                            .map(Number);
+
+                    } catch (error) {
+
+                        wishlist = [];
+
+                    }
+
+
+                    wishlist =
+                        wishlist.filter(
+                            function (id) {
+
+                                return id !== productId;
+
+                            }
+                        );
+
+
+                    localStorage.setItem(
+                        "wishlist",
+                        JSON.stringify(wishlist)
+                    );
+
+
+                    if (
+                        wishlist.length > 0
+                    ) {
+
+                        window.location.href =
+                            "/wishlist?ids=" +
+                            wishlist.join(",");
+
+                    } else {
+
+                        window.location.href =
+                            "/wishlist";
+
+                    }
+
+                }
+            );
+
+        });
+
+});
+
+</script>

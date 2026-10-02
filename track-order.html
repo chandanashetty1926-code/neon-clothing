@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Track Order - NEON CLOTHING</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <style>
+
+        .neon-page-hero {
+            text-align: center;
+            padding: 75px 20px 65px;
+        }
+
+        .neon-page-hero .eyebrow {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #777;
+            margin-bottom: 18px;
+        }
+
+        .neon-page-hero h1 {
+            margin: 0;
+            font-size: 46px;
+            font-weight: 400;
+        }
+
+        .neon-page-hero p {
+            margin-top: 16px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .track-section {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 10px 20px 100px;
+        }
+
+        .track-description {
+            text-align: center;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 45px;
+        }
+
+        .track-form {
+            border: 1px solid #e5e5e5;
+            padding: 40px;
+            background: #fff;
+        }
+
+        .track-field {
+            margin-bottom: 25px;
+        }
+
+        .track-field label {
+            display: block;
+            margin-bottom: 10px;
+
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+        }
+
+        .track-field input {
+            width: 100%;
+            height: 54px;
+
+            border: 1px solid #ddd;
+            outline: none;
+
+            padding: 0 17px;
+
+            font-size: 14px;
+        }
+
+        .track-field input:focus {
+            border-color: #111;
+        }
+
+        .track-button {
+            width: 100%;
+            height: 54px;
+
+            border: 1px solid #111;
+
+            background: #111;
+            color: #fff;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .track-button:hover {
+            background: #333;
+        }
+
+        .track-result {
+            margin-top: 35px;
+            padding: 25px;
+            border: 1px solid #ddd;
+        }
+
+        @media (max-width: 600px) {
+
+            .neon-page-hero {
+                padding: 55px 20px 45px;
+            }
+
+            .neon-page-hero h1 {
+                font-size: 36px;
+            }
+
+            .track-form {
+                padding: 25px;
+            }
+
+            .track-error {
+    color: #ef4035;
+    background: #fff5f5;
+    border-color: #ef4035;
+}
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    {% include 'navbar.html' %}
+
+
+    <main>
+
+        <section class="neon-page-hero">
+
+            <div class="eyebrow">
+                NEON CLOTHING
+            </div>
+
+            <h1>
+                Track Order
+            </h1>
+
+            <p>
+                Home &nbsp;›&nbsp; Track Order
+            </p>
+
+        </section>
+
+
+        <section class="track-section">
+
+            <p class="track-description">
+                To track your order, please enter your
+                Order ID and the phone number used during
+                checkout. Then press the "Track Order"
+                button.
+            </p>
+
+
+            <form
+                method="POST"
+                action="{{ url_for('track_order') }}"
+                class="track-form"
+            >
+
+                <div class="track-field">
+
+                    <label for="order_id">
+                        Order Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="order_id"
+                        name="order_id"
+                        placeholder="Enter your order number"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="track-field">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter phone number used for order"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="track-button"
+                >
+                    TRACK ORDER
+                </button>
+
+            </form>
+
+
+            {% if order %}
+
+            <div class="track-result">
+
+                <h3>
+                    Order #{{ order.id }}
+                </h3>
+
+                <p>
+                    Status:
+                    <strong>
+                        {{ order.status }}
+                    </strong>
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

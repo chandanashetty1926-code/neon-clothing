@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Checkout | Neon Clothing</title>
+
+
+    <!-- MAIN WEBSITE CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+
+    <!-- CHECKOUT CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/checkout.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+{% include 'navbar.html' %}
+
+
+
+<!-- =====================================================
+     CHECKOUT PAGE
+===================================================== -->
+
+<main class="checkout-page">
+
+
+    <!-- =================================================
+         CHECKOUT HEADER
+    ================================================== -->
+
+    <section class="checkout-top">
+
+        <div class="checkout-top-inner">
+
+            <div>
+
+                <p class="checkout-eyebrow">
+                    NEON CLOTHING
+                </p>
+
+                <h1>
+                    Checkout
+                </h1>
+
+                <p class="checkout-subtitle">
+                    Complete your delivery and payment details.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         FLASH MESSAGES
+    ================================================== -->
+
+    <div class="checkout-flashes">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+    </div>
+
+
+
+    <!-- =================================================
+         CHECKOUT LAYOUT
+    ================================================== -->
+
+    <section class="checkout-container">
+
+
+        <!-- =================================================
+             LEFT COLUMN
+        ================================================== -->
+
+        <div class="checkout-left">
+
+
+            <!-- =================================================
+                 CHECKOUT CARD
+            ================================================== -->
+
+            <div class="checkout-card">
+
+
+                <!-- =================================================
+                     FORM
+                ================================================== -->
+
+                <form
+                    action="{{ url_for('place_order') }}"
+                    method="POST"
+                    class="checkout-form"
+                    id="checkoutForm"
+                >
+
+
+                    <!-- =============================================
+                         DELIVERY ADDRESS
+                    ============================================== -->
+
+                    <div class="checkout-step-heading">
+
+                        <div class="step-number">
+                            1
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Delivery Address
+                            </h2>
+
+                            <p>
+                                Enter the address where you want your order delivered.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group full-width">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- PHONE + CITY -->
+
+                    <div class="form-row">
+
+
+                        <!-- PHONE -->
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="10-digit mobile number"
+                                inputmode="numeric"
+                                maxlength="10"
+                                pattern="[0-9]{10}"
+                                autocomplete="tel"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- CITY -->
+
+                        <div class="form-group">
+
+                            <label for="city">
+                                City
+                            </label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                name="city"
+                                placeholder="Enter your city"
+                                autocomplete="address-level2"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="form-group full-width">
+
+                        <label for="address">
+                            Complete Address
+                        </label>
+
+                        <textarea
+                            id="address"
+                            name="address"
+                            rows="4"
+                            placeholder="House / Flat No., Street, Area, Landmark"
+                            autocomplete="street-address"
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+
+                    <!-- PINCODE -->
+
+                    <div class="form-group pincode-group">
+
+                        <label for="pincode">
+                            Pincode
+                        </label>
+
+                        <input
+                            type="text"
+                            id="pincode"
+                            name="pincode"
+                            placeholder="6-digit pincode"
+                            inputmode="numeric"
+                            maxlength="6"
+                            pattern="[0-9]{6}"
+                            autocomplete="postal-code"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         PAYMENT SECTION
+                    ================================================== -->
+
+                    <div class="payment-section">
+
+
+                        <!-- PAYMENT HEADING -->
+
+                        <div class="checkout-step-heading">
+
+                            <div class="step-number">
+                                2
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Payment Method
+                                </h2>
+
+                                <p>
+                                    Choose how you want to pay.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- UPI OPTION -->
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment_method"
+                                value="upi"
+                                checked
+                                required
+                            >
+
+                            <span class="custom-radio"></span>
+
+                            <div class="payment-option-content">
+
+                                <div class="payment-option-title">
+
+                                    <strong>
+                                        UPI / Online Payment
+                                    </strong>
+
+                                    <span class="payment-tag">
+                                        RECOMMENDED
+                                    </span>
+
+                                </div>
+
+                                <p>
+                                    Pay securely using Google Pay,
+                                    PhonePe, Paytm, BHIM or another
+                                    supported UPI app.
+                                </p>
+
+                            </div>
+
+                        </label>
+
+
+
+                        <!-- =================================================
+                             UPI PAYMENT BOX
+                        ================================================== -->
+
+                        <div class="upi-payment-box">
+
+
+                            <!-- UPI HEADER -->
+
+                            <div class="upi-header">
+
+                                <div>
+
+                                    <p class="upi-label">
+                                        ONLINE PAYMENT
+                                    </p>
+
+                                    <h3>
+                                        Pay using UPI
+                                    </h3>
+
+                                    <p>
+                                        Scan the QR code or open your UPI app.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="upi-amount">
+
+                                    <span>
+                                        PAYABLE
+                                    </span>
+
+                                    <strong>
+                                        ₹{{ "%.2f"|format(grand_total) }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- UPI CONTENT -->
+
+                            <div class="upi-content">
+
+
+                                <!-- =====================================
+                                     QR CODE
+                                ====================================== -->
+
+                                <div class="upi-qr-card">
+
+                                    <div class="qr-title">
+                                        Scan & Pay
+                                    </div>
+
+                                    <img
+                                        id="upiQr"
+                                        src=""
+                                        alt="Neon Clothing UPI QR Code"
+                                    >
+
+                                    <p>
+                                        Scan using any UPI app
+                                    </p>
+
+                                </div>
+
+
+
+                                <!-- =====================================
+                                     UPI DETAILS
+                                ====================================== -->
+
+                                <div class="upi-details">
+
+
+                                    <!-- PAY WITH UPI APP -->
+
+                                    <a
+                                        href="#"
+                                        id="payWithUpi"
+                                        class="upi-pay-button"
+                                    >
+                                        PAY WITH UPI APP
+                                        <span>→</span>
+                                    </a>
+
+
+
+                                    <!-- PRIMARY UPI -->
+
+                                    <div class="upi-id-card">
+
+                                        <div>
+
+                                            <span class="upi-id-label">
+                                                PRIMARY UPI ID
+                                            </span>
+
+                                            <strong>
+                                                9071837346@kotakbank
+                                            </strong>
+
+                                        </div>
+
+                                        <button
+                                            type="button"
+                                            class="copy-button"
+                                            onclick="copyText('9071837346@kotakbank')"
+                                        >
+                                            COPY
+                                        </button>
+
+                                    </div>
+
+
+
+                                    <!-- ALTERNATE UPI -->
+
+                                    <div class="upi-id-card">
+
+                                        <div>
+
+                                            <span class="upi-id-label">
+                                                ALTERNATE UPI ID
+                                            </span>
+
+                                            <strong>
+                                                BHARATPE.9Y0D0W1O0B855397@unitype
+                                            </strong>
+
+                                        </div>
+
+                                        <button
+                                            type="button"
+                                            class="copy-button"
+                                            onclick="copyText('BHARATPE.9Y0D0W1O0B855397@unitype')"
+                                        >
+                                            COPY
+                                        </button>
+
+                                    </div>
+
+
+
+                                    <!-- PAYMENT CONFIRMATION -->
+
+                                    <label class="payment-confirmation">
+
+                                        <input
+                                            type="checkbox"
+                                            id="payment_confirmed"
+                                            name="payment_confirmed"
+                                            value="1"
+                                        >
+
+                                        <span>
+                                            I have completed the UPI payment
+                                            for the exact amount shown above.
+                                        </span>
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- SECURITY MESSAGE -->
+
+                            <div class="payment-security">
+
+                                <span>
+                                    🔒
+                                </span>
+
+                                <span>
+                                    Secure online payment through UPI.
+                                    Cash on Delivery is currently unavailable.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         PLACE ORDER
+                    ================================================== -->
+
+                    <button
+                        type="submit"
+                        class="place-order-btn"
+                        id="placeOrderButton"
+                    >
+
+                        <span>
+                            PLACE ORDER
+                        </span>
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             RIGHT COLUMN
+        ================================================== -->
+
+        <aside class="checkout-right">
+
+
+            <!-- ORDER SUMMARY -->
+
+            <div class="order-summary">
+
+
+                <!-- SUMMARY HEADER -->
+
+                <div class="summary-heading">
+
+                    <div>
+
+                        <p>
+                            YOUR ORDER
+                        </p>
+
+                        <h2>
+                            Order Summary
+                        </h2>
+
+                    </div>
+
+                    <span class="item-count">
+
+                        {{ cart_items|length }}
+
+                        {% if cart_items|length == 1 %}
+                            ITEM
+                        {% else %}
+                            ITEMS
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRODUCTS
+                ================================================== -->
+
+                <div class="summary-products">
+
+                    {% for item in cart_items %}
+
+                    <div class="summary-product">
+
+
+                        <!-- IMAGE -->
+
+                        <div class="summary-image">
+
+                            <img
+                                src="{{ item.product.image }}"
+                                alt="{{ item.product.name }}"
+                            >
+
+                            <span class="quantity-badge">
+                                {{ item.quantity }}
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- INFO -->
+
+                        <div class="summary-info">
+
+                            <h3>
+                                {{ item.product.name }}
+                            </h3>
+
+                            <p>
+                                Size:
+                                <strong>
+                                    {{ item.size }}
+                                </strong>
+                            </p>
+
+                            <p>
+                                Qty:
+                                <strong>
+                                    {{ item.quantity }}
+                                </strong>
+                            </p>
+
+                        </div>
+
+
+
+                        <!-- PRICE -->
+
+                        <div class="summary-product-price">
+
+                            ₹{{ item.total }}
+
+                        </div>
+
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRICE BREAKDOWN
+                ================================================== -->
+
+                <div class="price-breakdown">
+
+
+                    <!-- ORIGINAL PRICE -->
+
+                    <div class="summary-row">
+
+                        <span>
+                            Original Price
+                        </span>
+
+                        <strong>
+                            ₹{{ "%.0f"|format(original_subtotal) }}
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- DISCOUNT -->
+
+                    {% if discount_total > 0 %}
+
+                    <div class="summary-row discount-row">
+
+                        <span>
+                            Discount
+                        </span>
+
+                        <strong>
+                            −₹{{ "%.0f"|format(discount_total) }}
+                        </strong>
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <!-- SUBTOTAL -->
+
+                    <div class="summary-row">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong>
+                            ₹{{ "%.0f"|format(subtotal) }}
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- DELIVERY -->
+
+                    <div class="summary-row">
+
+                        <span>
+                            Delivery
+                        </span>
+
+                        {% if delivery_charge == 0 %}
+
+                            <strong class="free-delivery">
+                                FREE
+                            </strong>
+
+                        {% else %}
+
+                            <strong>
+                                ₹{{ delivery_charge }}
+                            </strong>
+
+                        {% endif %}
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FREE DELIVERY MESSAGE
+                ================================================== -->
+
+                {% if subtotal < free_delivery_limit %}
+
+                <div class="free-delivery-note">
+
+                    <span>
+                        🚚
+                    </span>
+
+                    <p>
+
+                        Add
+
+                        <strong>
+                            ₹{{ "%.0f"|format(free_delivery_limit - subtotal) }}
+                        </strong>
+
+                        more to unlock
+
+                        <strong>
+                            FREE DELIVERY
+                        </strong>
+
+                    </p>
+
+                </div>
+
+                {% else %}
+
+                <div class="free-delivery-success">
+
+                    ✓
+
+                    <span>
+                        You unlocked FREE DELIVERY
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     TOTAL
+                ================================================== -->
+
+                <div class="summary-total">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong>
+                        ₹{{ "%.0f"|format(grand_total) }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- SAVINGS -->
+
+                {% if discount_total > 0 %}
+
+                <div class="total-savings">
+
+                    You saved
+                    ₹{{ "%.0f"|format(discount_total) }}
+
+                </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     SECURITY
+                ================================================== -->
+
+                <div class="checkout-security">
+
+                    <div class="security-icon">
+                        🔒
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Secure Checkout
+                        </strong>
+
+                        <p>
+                            Your order is processed securely.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- CONTINUE SHOPPING -->
+
+            <a
+                href="{{ url_for('products') }}"
+                class="continue-shopping"
+            >
+                ← Continue Shopping
+            </a>
+
+
+        </aside>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="checkout-footer">
+
+    <div class="footer-logo">
+        NEON
+    </div>
+
+    <p>
+        © 2026 Neon Clothing. All rights reserved.
+    </p>
+
+</footer>
+
+
+
+<!-- =====================================================
+     UPI JAVASCRIPT
+===================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* =================================================
+       UPI DETAILS
+    ================================================= */
+
+    const PRIMARY_UPI = "9071837346@kotakbank";
+
+    const AMOUNT = "{{ '%.2f'|format(grand_total) }}";
+
+
+    /* =================================================
+       CREATE UPI PAYMENT URL
+    ================================================= */
+
+    const upiUri =
+        "upi://pay" +
+        "?pa=" + encodeURIComponent(PRIMARY_UPI) +
+        "&pn=" + encodeURIComponent("Neon Clothing") +
+        "&am=" + encodeURIComponent(AMOUNT) +
+        "&cu=INR" +
+        "&tn=" + encodeURIComponent("Neon Clothing Order Payment");
+
+
+
+    /* =================================================
+       CREATE QR CODE
+    ================================================= */
+
+    const qrImage =
+        document.getElementById("upiQr");
+
+    if (qrImage) {
+
+        const qrUrl =
+            "https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=" +
+            encodeURIComponent(upiUri);
+
+        qrImage.src = qrUrl;
+
+    }
+
+
+
+    /* =================================================
+       PAY WITH UPI APP
+    ================================================= */
+
+    const upiButton =
+        document.getElementById("payWithUpi");
+
+    if (upiButton) {
+
+        upiButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                window.location.href = upiUri;
+
+            }
+        );
+
+    }
+
+
+
+    /* =================================================
+       COPY UPI ID
+    ================================================= */
+
+    window.copyText = function (value) {
+
+        if (
+            navigator.clipboard &&
+            window.isSecureContext
+        ) {
+
+            navigator.clipboard
+                .writeText(value)
+
+                .then(function () {
+
+                    alert("UPI ID copied!");
+
+                })
+
+                .catch(function () {
+
+                    fallbackCopy(value);
+
+                });
+
+        }
+
+        else {
+
+            fallbackCopy(value);
+
+        }
+
+    };
+
+
+
+    /* =================================================
+       FALLBACK COPY
+    ================================================= */
+
+    function fallbackCopy(value) {
+
+        const textarea =
+            document.createElement("textarea");
+
+        textarea.value = value;
+
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        textarea.style.top = "0";
+        textarea.style.opacity = "0";
+
+        document.body.appendChild(textarea);
+
+        textarea.focus();
+        textarea.select();
+
+        try {
+
+            document.execCommand("copy");
+
+            alert("UPI ID copied!");
+
+        }
+
+        catch (error) {
+
+            alert(
+                "Please copy this UPI ID manually:\n\n" +
+                value
+            );
+
+        }
+
+        document.body.removeChild(textarea);
+
+    }
+
+
+
+    /* =================================================
+       CHECKOUT FORM VALIDATION
+    ================================================= */
+
+    const checkoutForm =
+        document.getElementById("checkoutForm");
+
+
+    if (checkoutForm) {
+
+        checkoutForm.addEventListener(
+            "submit",
+            function (event) {
+
+
+                /* -----------------------------------------
+                   PAYMENT METHOD
+                ----------------------------------------- */
+
+                const paymentMethod =
+                    document.querySelector(
+                        'input[name="payment_method"]:checked'
+                    );
+
+
+                /* -----------------------------------------
+                   PAYMENT CONFIRMATION
+                ----------------------------------------- */
+
+                const paymentConfirmed =
+                    document.getElementById(
+                        "payment_confirmed"
+                    );
+
+
+                /* -----------------------------------------
+                   CHECK PAYMENT METHOD
+                ----------------------------------------- */
+
+                if (
+                    !paymentMethod ||
+                    paymentMethod.value !== "upi"
+                ) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "Please select UPI / Online Payment."
+                    );
+
+                    return;
+
+                }
+
+
+                /* -----------------------------------------
+                   CHECK PAYMENT CONFIRMATION
+                ----------------------------------------- */
+
+                if (
+                    !paymentConfirmed ||
+                    !paymentConfirmed.checked
+                ) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "Please complete the UPI payment and tick the payment confirmation box."
+                    );
+
+                    if (paymentConfirmed) {
+
+                        paymentConfirmed.focus();
+
+                    }
+
+                    return;
+
+                }
+
+            }
+        );
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>

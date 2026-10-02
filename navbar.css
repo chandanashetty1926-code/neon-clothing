@@ -1,0 +1,1801 @@
+/* =========================================================
+   NEON CLOTHING
+   PREMIUM FASHION NAVBAR
+========================================================= */
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --neon-black: #0b0b0b;
+    --neon-dark: #151515;
+    --neon-white: #ffffff;
+
+    --neon-gray: #6f6f6f;
+    --neon-light-gray: #f6f6f6;
+
+    --neon-border: #e7e7e7;
+
+    --neon-accent: #dfff00;
+
+    --neon-red: #e53935;
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+.neon-announcement,
+.neon-header,
+.neon-mobile-panel,
+.neon-search-overlay {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+}
+
+
+.neon-announcement *,
+.neon-header *,
+.neon-mobile-panel *,
+.neon-search-overlay * {
+
+    box-sizing:
+        border-box;
+
+}
+
+
+.neon-header a,
+.neon-mobile-panel a {
+
+    text-decoration:
+        none;
+
+}
+
+
+/* =========================================================
+   ANNOUNCEMENT BAR
+========================================================= */
+
+.neon-announcement {
+
+    width:
+        100%;
+
+    height:
+        36px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    overflow:
+        hidden;
+
+    background:
+        var(--neon-black);
+
+    color:
+        #ffffff;
+
+}
+
+
+.announcement-track {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        55px;
+
+    width:
+        max-content;
+
+    white-space:
+        nowrap;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1.2px;
+
+}
+
+
+.announcement-track span {
+
+    position:
+        relative;
+
+}
+
+
+.announcement-track span::after {
+
+    content:
+        "•";
+
+    position:
+        absolute;
+
+    right:
+        -31px;
+
+    color:
+        var(--neon-accent);
+
+}
+
+
+/* =========================================================
+   MAIN HEADER
+========================================================= */
+
+.neon-header {
+
+    position:
+        sticky;
+
+    top:
+        0;
+
+    z-index:
+        8000;
+
+    width:
+        100%;
+
+    background:
+        rgba(255,255,255,.97);
+
+    border-bottom:
+        1px solid
+        var(--neon-border);
+
+    backdrop-filter:
+        blur(12px);
+
+}
+
+
+/* =========================================================
+   HEADER MAIN
+========================================================= */
+
+.neon-header-main {
+
+    position:
+        relative;
+
+    min-height:
+        88px;
+
+    padding:
+        0 50px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr
+        auto
+        1fr;
+
+    align-items:
+        center;
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.neon-logo {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        var(--neon-black);
+
+    line-height:
+        1;
+
+}
+
+
+.neon-logo-name {
+
+    font-size:
+        34px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        -2.8px;
+
+    transition:
+        letter-spacing .25s ease;
+
+}
+
+
+.neon-logo:hover .neon-logo-name {
+
+    letter-spacing:
+        -1.5px;
+
+}
+
+
+.neon-logo-subtitle {
+
+    margin-top:
+        7px;
+
+    font-size:
+        7px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        4px;
+
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.neon-header-actions {
+
+    justify-self:
+        end;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+}
+
+
+.neon-action {
+
+    position:
+        relative;
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        var(--neon-black);
+
+    cursor:
+        pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+
+}
+
+
+.neon-action:hover {
+
+    background:
+        var(--neon-light-gray);
+
+}
+
+
+.neon-action svg {
+
+    width:
+        20px;
+
+    height:
+        20px;
+
+    display:
+        block;
+
+    fill:
+        none;
+
+    stroke:
+        currentColor;
+
+    stroke-width:
+        1.6;
+
+    stroke-linecap:
+        round;
+
+    stroke-linejoin:
+        round;
+
+}
+
+
+/* =========================================================
+   COUNT BADGE
+========================================================= */
+
+.neon-count {
+
+    position:
+        absolute;
+
+    top:
+        2px;
+
+    right:
+        0;
+
+    min-width:
+        16px;
+
+    height:
+        16px;
+
+    padding:
+        0 4px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--neon-red);
+
+    color:
+        #ffffff;
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+    line-height:
+        1;
+
+}
+
+
+/* =========================================================
+   DESKTOP NAVIGATION
+========================================================= */
+
+.neon-navigation {
+
+    min-height:
+        54px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        39px;
+
+    border-top:
+        1px solid
+        var(--neon-border);
+
+    background:
+        #ffffff;
+
+}
+
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+
+.neon-nav-link {
+
+    position:
+        relative;
+
+    height:
+        54px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    color:
+        #1a1a1a;
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .8px;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.neon-nav-link::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    bottom:
+        0;
+
+    width:
+        0;
+
+    height:
+        2px;
+
+    margin:
+        auto;
+
+    background:
+        var(--neon-accent);
+
+    transition:
+        width .25s ease;
+
+}
+
+
+.neon-nav-link:hover {
+
+    color:
+        #000000;
+
+}
+
+
+.neon-nav-link:hover::after {
+
+    width:
+        100%;
+
+}
+
+
+/* =========================================================
+   SHOP DROPDOWN
+========================================================= */
+
+.neon-nav-dropdown {
+
+    height:
+        54px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    position:
+        static;
+
+}
+
+
+.nav-chevron {
+
+    font-size:
+        10px;
+
+    transition:
+        transform .25s ease;
+
+}
+
+
+.neon-nav-dropdown:hover
+.nav-chevron {
+
+    transform:
+        rotate(180deg);
+
+}
+
+
+/* =========================================================
+   MEGA MENU
+========================================================= */
+
+.neon-mega-menu {
+
+    position:
+        absolute;
+
+    top:
+        100%;
+
+    left:
+        0;
+
+    width:
+        100%;
+
+    min-height:
+        315px;
+
+    padding:
+        42px 6vw;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr
+        1fr
+        1fr
+        2.1fr;
+
+    gap:
+        45px;
+
+    background:
+        #ffffff;
+
+    border-top:
+        1px solid
+        var(--neon-border);
+
+    border-bottom:
+        1px solid
+        var(--neon-border);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.09);
+
+    opacity:
+        0;
+
+    visibility:
+        hidden;
+
+    pointer-events:
+        none;
+
+    transform:
+        translateY(-8px);
+
+    transition:
+        opacity .22s ease,
+        visibility .22s ease,
+        transform .22s ease;
+
+}
+
+
+.neon-nav-dropdown:hover
+.neon-mega-menu {
+
+    opacity:
+        1;
+
+    visibility:
+        visible;
+
+    pointer-events:
+        auto;
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =========================================================
+   MEGA MENU COLUMNS
+========================================================= */
+
+.mega-column {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+}
+
+
+.mega-title {
+
+    margin-bottom:
+        24px;
+
+    color:
+        #111111;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.5px;
+
+}
+
+
+.mega-column a {
+
+    width:
+        fit-content;
+
+    margin-bottom:
+        15px;
+
+    color:
+        #777777;
+
+    font-size:
+        13px;
+
+    transition:
+        color .2s ease,
+        transform .2s ease;
+
+}
+
+
+.mega-column a:hover {
+
+    color:
+        #111111;
+
+    transform:
+        translateX(5px);
+
+}
+
+
+/* =========================================================
+   FEATURED MEGA MENU
+========================================================= */
+
+.mega-featured {
+
+    min-height:
+        220px;
+
+    overflow:
+        hidden;
+
+    background:
+        #111111;
+
+}
+
+
+.mega-featured-inner {
+
+    position:
+        relative;
+
+    height:
+        100%;
+
+    min-height:
+        220px;
+
+    padding:
+        35px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        flex-start;
+
+    justify-content:
+        center;
+
+    overflow:
+        hidden;
+
+}
+
+
+.mega-featured-inner::after {
+
+    content:
+        "NEON";
+
+    position:
+        absolute;
+
+    right:
+        -30px;
+
+    bottom:
+        -42px;
+
+    color:
+        rgba(255,255,255,.055);
+
+    font-size:
+        125px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        -9px;
+
+}
+
+
+.mega-featured-inner span {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    color:
+        var(--neon-accent);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        2px;
+
+}
+
+
+.mega-featured-inner h3 {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    margin:
+        10px 0 20px;
+
+    color:
+        #ffffff;
+
+    font-size:
+        31px;
+
+    line-height:
+        1.05;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        -1.2px;
+
+}
+
+
+.mega-featured-inner a {
+
+    position:
+        relative;
+
+    z-index:
+        3;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-height:
+        38px;
+
+    padding:
+        0 18px;
+
+    background:
+        var(--neon-accent);
+
+    color:
+        #111111;
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1px;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+
+}
+
+
+.mega-featured-inner a:hover {
+
+    background:
+        #ffffff;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =========================================================
+   SEARCH OVERLAY
+========================================================= */
+
+.neon-search-overlay {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        99999;
+
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    justify-content:
+        center;
+
+    padding-top:
+        155px;
+
+    background:
+        rgba(0,0,0,.62);
+
+    opacity:
+        0;
+
+    visibility:
+        hidden;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+
+}
+
+
+.neon-search-overlay.active {
+
+    opacity:
+        1;
+
+    visibility:
+        visible;
+
+}
+
+
+/* =========================================================
+   SEARCH MODAL
+========================================================= */
+
+.neon-search-modal {
+
+    position:
+        relative;
+
+    width:
+        min(760px, 92vw);
+
+    padding:
+        42px;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.3);
+
+    transform:
+        translateY(-12px);
+
+    transition:
+        transform .25s ease;
+
+}
+
+
+.neon-search-overlay.active
+.neon-search-modal {
+
+    transform:
+        translateY(0);
+
+}
+
+
+.search-small-title {
+
+    display:
+        block;
+
+    margin-bottom:
+        10px;
+
+    color:
+        #777777;
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        2px;
+
+}
+
+
+.neon-search-modal h2 {
+
+    margin:
+        0 0 25px;
+
+    color:
+        #111111;
+
+    font-size:
+        30px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        -1px;
+
+}
+
+
+/* =========================================================
+   SEARCH FORM
+========================================================= */
+
+.neon-search-form {
+
+    display:
+        flex;
+
+    border-bottom:
+        1px solid
+        #111111;
+
+}
+
+
+.neon-search-form input {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+    height:
+        54px;
+
+    padding:
+        0 5px;
+
+    border:
+        none;
+
+    outline:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        #111111;
+
+    font-size:
+        14px;
+
+}
+
+
+.neon-search-form input::placeholder {
+
+    color:
+        #999999;
+
+}
+
+
+.neon-search-form button {
+
+    min-width:
+        130px;
+
+    border:
+        none;
+
+    background:
+        #111111;
+
+    color:
+        #ffffff;
+
+    cursor:
+        pointer;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1px;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+
+}
+
+
+.neon-search-form button:hover {
+
+    background:
+        var(--neon-accent);
+
+    color:
+        #111111;
+
+}
+
+
+/* =========================================================
+   SEARCH CLOSE
+========================================================= */
+
+.neon-search-close {
+
+    position:
+        absolute;
+
+    top:
+        17px;
+
+    right:
+        20px;
+
+    width:
+        35px;
+
+    height:
+        35px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        #111111;
+
+    font-size:
+        29px;
+
+    font-weight:
+        300;
+
+    cursor:
+        pointer;
+
+}
+
+
+/* =========================================================
+   MOBILE MENU BUTTON
+========================================================= */
+
+.neon-mobile-menu {
+
+    display:
+        none;
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    padding:
+        0;
+
+    border:
+        none;
+
+    background:
+        transparent;
+
+    cursor:
+        pointer;
+
+}
+
+
+.neon-mobile-menu span {
+
+    display:
+        block;
+
+    width:
+        20px;
+
+    height:
+        1.5px;
+
+    margin:
+        5px auto;
+
+    background:
+        #111111;
+
+}
+
+
+/* =========================================================
+   MOBILE PANEL
+========================================================= */
+
+.neon-mobile-panel {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        100000;
+
+    width:
+        100%;
+
+    height:
+        100vh;
+
+    overflow-y:
+        auto;
+
+    background:
+        #ffffff;
+
+    transform:
+        translateX(-100%);
+
+    transition:
+        transform .35s cubic-bezier(.77,0,.18,1);
+
+}
+
+
+.neon-mobile-panel.active {
+
+    transform:
+        translateX(0);
+
+}
+
+
+body.menu-open {
+
+    overflow:
+        hidden;
+
+}
+
+
+/* =========================================================
+   MOBILE PANEL HEADER
+========================================================= */
+
+.mobile-panel-header {
+
+    min-height:
+        80px;
+
+    padding:
+        0 20px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    border-bottom:
+        1px solid
+        var(--neon-border);
+
+}
+
+
+.mobile-panel-header span {
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        2px;
+
+}
+
+
+.mobile-panel-header button {
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    border:
+        none;
+
+    background:
+        transparent;
+
+    font-size:
+        30px;
+
+    font-weight:
+        300;
+
+    cursor:
+        pointer;
+
+}
+
+
+/* =========================================================
+   MOBILE LINKS
+========================================================= */
+
+.mobile-menu-links {
+
+    padding:
+        25px 20px 50px;
+
+}
+
+
+.mobile-menu-links a {
+
+    display:
+        block;
+
+    padding:
+        17px 0;
+
+    border-bottom:
+        1px solid
+        #eeeeee;
+
+    color:
+        #111111;
+
+    font-size:
+        15px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .7px;
+
+}
+
+
+.mobile-menu-links a:hover {
+
+    color:
+        #777777;
+
+}
+
+
+.mobile-divider {
+
+    height:
+        25px;
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .neon-header-main {
+
+        padding:
+            0 25px;
+
+    }
+
+
+    .neon-navigation {
+
+        gap:
+            23px;
+
+        padding:
+            0 20px;
+
+        overflow-x:
+            auto;
+
+        justify-content:
+            flex-start;
+
+        scrollbar-width:
+            none;
+
+    }
+
+
+    .neon-navigation::-webkit-scrollbar {
+
+        display:
+            none;
+
+    }
+
+
+    .neon-nav-link {
+
+        flex-shrink:
+            0;
+
+    }
+
+
+    .neon-mega-menu {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+        max-height:
+            70vh;
+
+        overflow-y:
+            auto;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+
+    /* ANNOUNCEMENT */
+
+    .neon-announcement {
+
+        height:
+            32px;
+
+    }
+
+
+    .announcement-track {
+
+        justify-content:
+            flex-start;
+
+        gap:
+            45px;
+
+        font-size:
+            8px;
+
+        letter-spacing:
+            .9px;
+
+        animation:
+            neonAnnouncement 20s linear infinite;
+
+    }
+
+
+    @keyframes neonAnnouncement {
+
+        from {
+            transform:
+                translateX(0);
+        }
+
+        to {
+            transform:
+                translateX(-35%);
+        }
+
+    }
+
+
+    /* HEADER */
+
+    .neon-header-main {
+
+        min-height:
+            72px;
+
+        padding:
+            0 14px;
+
+        grid-template-columns:
+            1fr
+            auto
+            1fr;
+
+    }
+
+
+    /* MOBILE BUTTON */
+
+    .neon-mobile-menu {
+
+        display:
+            block;
+
+        justify-self:
+            start;
+
+    }
+
+
+    /* LOGO */
+
+    .neon-logo-name {
+
+        font-size:
+            26px;
+
+        letter-spacing:
+            -2px;
+
+    }
+
+
+    .neon-logo-subtitle {
+
+        margin-top:
+            5px;
+
+        font-size:
+            6px;
+
+        letter-spacing:
+            3px;
+
+    }
+
+
+    /* ACTIONS */
+
+    .neon-header-actions {
+
+        gap:
+            1px;
+
+    }
+
+
+    .neon-action {
+
+        width:
+            35px;
+
+        height:
+            35px;
+
+    }
+
+
+    .neon-action svg {
+
+        width:
+            18px;
+
+        height:
+            18px;
+
+    }
+
+
+    .desktop-action {
+
+        display:
+            none;
+
+    }
+
+
+    .neon-count {
+
+        top:
+            0;
+
+        right:
+            -1px;
+
+        min-width:
+            14px;
+
+        height:
+            14px;
+
+        font-size:
+            7px;
+
+    }
+
+
+    /* DESKTOP NAV HIDDEN */
+
+    .neon-navigation {
+
+        display:
+            none;
+
+    }
+
+
+    /* SEARCH */
+
+    .neon-search-overlay {
+
+        padding-top:
+            90px;
+
+    }
+
+
+    .neon-search-modal {
+
+        width:
+            94vw;
+
+        padding:
+            30px 22px;
+
+    }
+
+
+    .neon-search-modal h2 {
+
+        font-size:
+            24px;
+
+    }
+
+
+    .neon-search-form {
+
+        flex-direction:
+            column;
+
+        border-bottom:
+            none;
+
+        gap:
+            12px;
+
+    }
+
+
+    .neon-search-form input {
+
+        height:
+            50px;
+
+        padding:
+            0 12px;
+
+        border:
+            1px solid
+            #dddddd;
+
+    }
+
+
+    .neon-search-form button {
+
+        width:
+            100%;
+
+        height:
+            48px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .neon-header-main {
+
+        padding:
+            0 10px;
+
+    }
+
+
+    .neon-action {
+
+        width:
+            32px;
+
+    }
+
+
+    .neon-logo-name {
+
+        font-size:
+            24px;
+
+    }
+
+}

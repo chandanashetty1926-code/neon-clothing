@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Neon Clothing</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080808;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            width: 100%;
+            height: 72px;
+            background: #111111;
+            border-bottom: 1px solid #292929;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 45px;
+        }
+
+        .logo {
+            color: #dfff00;
+            text-decoration: none;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #dddddd;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #dfff00;
+        }
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .register-page {
+            min-height: calc(100vh - 72px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 50px 20px;
+        }
+
+        .register-wrapper {
+            width: 100%;
+            max-width: 1100px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            background: #111111;
+            border: 1px solid #292929;
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* =========================
+           LEFT SIDE
+        ========================= */
+
+        .register-brand {
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(223, 255, 0, 0.15),
+                    transparent 40%
+                ),
+                #0d0d0d;
+
+            padding: 60px 50px;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .register-brand-content {
+            max-width: 420px;
+        }
+
+        .brand-mark {
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #dfff00;
+            color: #000000;
+
+            font-size: 25px;
+            font-weight: 900;
+
+            border-radius: 10px;
+
+            margin-bottom: 30px;
+        }
+
+        .brand-small {
+            color: #dfff00;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+
+            margin-bottom: 18px;
+        }
+
+        .register-brand h1 {
+            font-size: 64px;
+            line-height: 1;
+            font-weight: 900;
+
+            margin-bottom: 25px;
+        }
+
+        .register-brand h1 span {
+            color: #dfff00;
+        }
+
+        .brand-description {
+            color: #a0a0a0;
+            font-size: 17px;
+            line-height: 1.7;
+
+            margin-bottom: 35px;
+        }
+
+        .brand-line {
+            width: 70px;
+            height: 3px;
+            background: #dfff00;
+
+            margin-bottom: 30px;
+        }
+
+        .benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .benefit {
+            color: #cccccc;
+            font-size: 14px;
+        }
+
+        .benefit span {
+            color: #dfff00;
+            font-weight: 900;
+            margin-right: 10px;
+        }
+
+        /* =========================
+           RIGHT SIDE
+        ========================= */
+
+        .register-form-section {
+            padding: 50px;
+            background: #111111;
+        }
+
+        .form-title {
+            font-size: 30px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            color: #888888;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .flash-message {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+
+            background: #241414;
+            border: 1px solid #613333;
+
+            color: #ff8d8d;
+            font-size: 13px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+
+            color: #dddddd;
+            font-size: 13px;
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 15px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #dfff00;
+            font-weight: 900;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+
+            padding: 14px 15px 14px 42px;
+
+            background: #0a0a0a;
+            color: #ffffff;
+
+            border: 1px solid #333333;
+            border-radius: 7px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #dfff00;
+            box-shadow: 0 0 0 2px rgba(223, 255, 0, 0.08);
+        }
+
+        .input-wrapper input::placeholder {
+            color: #666666;
+        }
+
+        .input-help {
+            color: #666666;
+            font-size: 11px;
+            margin-top: 6px;
+        }
+
+        /* =========================
+           TERMS
+        ========================= */
+
+        .terms-section {
+            margin: 8px 0 25px;
+        }
+
+        .terms-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            color: #888888;
+            font-size: 12px;
+            line-height: 1.5;
+
+            cursor: pointer;
+        }
+
+        .terms-label input {
+            margin-top: 3px;
+            accent-color: #dfff00;
+        }
+
+        .terms-label a {
+            color: #dfff00;
+            text-decoration: none;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .register-button {
+            width: 100%;
+
+            padding: 15px;
+
+            background: #dfff00;
+            color: #000000;
+
+            border: none;
+            border-radius: 7px;
+
+            font-size: 14px;
+            font-weight: 900;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .register-button:hover {
+            background: #cbe900;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           LOGIN
+        ========================= */
+
+        .login-section {
+            text-align: center;
+            margin-top: 25px;
+
+            color: #777777;
+            font-size: 13px;
+        }
+
+        .login-section a {
+            color: #dfff00;
+            text-decoration: none;
+            font-weight: 700;
+
+            margin-left: 5px;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #888888;
+            text-decoration: none;
+
+            font-size: 12px;
+        }
+
+        .back-home:hover {
+            color: #dfff00;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .register-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .register-brand {
+                padding: 40px 30px;
+            }
+
+            .register-form-section {
+                padding: 40px 30px;
+            }
+
+            .register-brand h1 {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                height: auto;
+                padding: 18px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .register-page {
+                padding: 25px 12px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('home') }}" class="logo">
+            NEON<span>.</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('products') }}">
+                Products
+            </a>
+
+            <a href="{{ url_for('wishlist') }}">
+                Wishlist
+            </a>
+
+            <a href="{{ url_for('cart') }}">
+                Cart
+            </a>
+
+            <a href="{{ url_for('orders') }}">
+                Orders
+            </a>
+
+            <a href="{{ url_for('login') }}">
+                Profile
+            </a>
+
+            <a href="/admin">
+                Admin Panel
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- REGISTER PAGE -->
+
+    <main class="register-page">
+
+        <div class="register-wrapper">
+
+            <!-- LEFT BRAND -->
+
+            <section class="register-brand">
+
+                <div class="register-brand-content">
+
+                    <div class="brand-mark">
+                        N
+                    </div>
+
+                    <p class="brand-small">
+                        JOIN THE COMMUNITY
+                    </p>
+
+                    <h1>
+                        NEON<span>.</span>
+                    </h1>
+
+                    <p class="brand-description">
+                        Create your account and discover a new way
+                        to shop modern fashion at Neon Clothing.
+                    </p>
+
+                    <div class="brand-line"></div>
+
+                    <div class="benefits">
+
+                        <div class="benefit">
+                            <span>✓</span>
+                            Discover the latest fashion
+                        </div>
+
+                        <div class="benefit">
+                            <span>✓</span>
+                            Manage your orders easily
+                        </div>
+
+                        <div class="benefit">
+                            <span>✓</span>
+                            Save your favourite products
+                        </div>
+
+                        <div class="benefit">
+                            <span>✓</span>
+                            Enjoy a better shopping experience
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- FORM -->
+
+            <section class="register-form-section">
+
+                <h2 class="form-title">
+                    Create Account
+                </h2>
+
+                <p class="form-subtitle">
+                    Register to start shopping with Neon Clothing.
+                </p>
+
+
+                <!-- FLASH MESSAGES -->
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+
+                    {% if messages %}
+
+                        {% for category, message in messages %}
+
+                            <div class="flash-message">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endwith %}
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for('register') }}"
+                >
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                N
+                            </span>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                required
+                                autocomplete="name"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                required
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                •
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a password"
+                                required
+                                minlength="6"
+                                autocomplete="new-password"
+                            >
+
+                        </div>
+
+                        <p class="input-help">
+                            Use at least 6 characters.
+                        </p>
+
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="confirm_password">
+                            Confirm Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                •
+                            </span>
+
+                            <input
+                                type="password"
+                                id="confirm_password"
+                                name="confirm_password"
+                                placeholder="Confirm your password"
+                                required
+                                minlength="6"
+                                autocomplete="new-password"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TERMS -->
+
+                    <div class="terms-section">
+
+                        <label class="terms-label">
+
+                            <input
+                                type="checkbox"
+                                name="terms"
+                                required
+                            >
+
+                            <span>
+                                I agree to the
+                                <a href="#">
+                                    Terms & Conditions
+                                </a>
+                                and
+                                <a href="#">
+                                    Privacy Policy
+                                </a>.
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="register-button"
+                    >
+                        CREATE MY ACCOUNT
+                    </button>
+
+                </form>
+
+
+                <!-- LOGIN -->
+
+                <div class="login-section">
+
+                    Already have an account?
+
+                    <a href="{{ url_for('login') }}">
+                        Login
+                    </a>
+
+                </div>
+
+
+                <!-- BACK HOME -->
+
+                <a
+                    href="{{ url_for('home') }}"
+                    class="back-home"
+                >
+                    ← Back to Home
+                </a>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Orders | Neon Clothing</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <style>
+
+        body {
+            margin: 0;
+            background: #0b0b0b;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .orders-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 25px;
+        }
+
+        .orders-title {
+            text-align: center;
+            color: #dfff00;
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+        }
+
+        .order-card {
+            background: #151515;
+            border: 1px solid #292929;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #292929;
+        }
+
+        .order-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: rgba(223, 255, 0, 0.12);
+            border: 1px solid rgba(223, 255, 0, 0.30);
+            color: #dfff00;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .order-details {
+            padding: 20px 0;
+            color: #bbbbbb;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        .order-details p {
+            margin: 4px 0;
+        }
+
+        .order-details strong {
+            color: #ffffff;
+        }
+
+        .products-title {
+            color: #dfff00;
+            font-size: 14px;
+            margin: 10px 0 15px;
+        }
+
+        .order-item {
+            background: #101010;
+            border: 1px solid #252525;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+        }
+
+        .order-item strong {
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .order-item p {
+            margin: 6px 0 0;
+            color: #999999;
+            font-size: 12px;
+        }
+
+        .order-total {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid #292929;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .order-total span {
+            color: #dfff00;
+        }
+
+        .empty-orders {
+            text-align: center;
+            background: #151515;
+            border: 1px solid #292929;
+            border-radius: 14px;
+            padding: 60px 20px;
+        }
+
+        .empty-orders h2 {
+            margin-bottom: 15px;
+        }
+
+        .empty-orders p {
+            color: #777777;
+            margin-bottom: 25px;
+        }
+
+        .shop-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #dfff00;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: 900;
+            font-size: 12px;
+        }
+
+        .shop-button:hover {
+            background: #ffffff;
+        }
+
+        .payment {
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 600px) {
+
+            .orders-page {
+                padding: 30px 15px;
+            }
+
+            .orders-title {
+                font-size: 27px;
+            }
+
+            .order-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="orders-page">
+
+    <h1 class="orders-title">
+        MY ORDERS
+    </h1>
+
+
+    {% if orders %}
+
+
+        {% for order in orders %}
+
+
+        <div class="order-card">
+
+
+            <!-- ORDER HEADER -->
+
+            <div class="order-header">
+
+                <h2>
+                    Order #{{ order["order_id"] }}
+                </h2>
+
+                <span class="status">
+                    {{ order.get("status", "Pending") }}
+                </span>
+
+            </div>
+
+
+            <!-- ORDER DETAILS -->
+
+            <div class="order-details">
+
+                <p>
+                    <strong>Name:</strong>
+                    {{ order["name"] }}
+                </p>
+
+                <p>
+                    <strong>Phone:</strong>
+                    {{ order["phone"] }}
+                </p>
+
+                <p>
+                    <strong>Address:</strong>
+                    {{ order["address"] }},
+                    {{ order["city"] }} -
+                    {{ order["pincode"] }}
+                </p>
+
+                <p>
+                    <strong>Payment:</strong>
+                    <span class="payment">
+                        {{ order["payment_method"] }}
+                    </span>
+                </p>
+
+                <p>
+                    <strong>Ordered:</strong>
+                    {{ order["created_at"] }}
+                </p>
+
+            </div>
+
+
+            <!-- PRODUCTS -->
+
+            <h3 class="products-title">
+                Products
+            </h3>
+
+
+            {% for item in order["items"] %}
+
+
+            <div class="order-item">
+
+                <strong>
+                    {{ item["name"] }}
+                </strong>
+
+                <p>
+
+                    Size:
+                    {{ item["size"] }}
+
+                    |
+
+                    Quantity:
+                    {{ item["quantity"] }}
+
+                    |
+
+                    ₹{{ "%.2f"|format(item["total"]|float) }}
+
+                </p>
+
+            </div>
+
+
+            {% endfor %}
+
+
+            <!-- TOTAL -->
+
+            <div class="order-total">
+
+                Total:
+
+                <span>
+                    ₹{{ "%.2f"|format(order["total"]|float) }}
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <!-- EMPTY ORDERS -->
+
+        <div class="empty-orders">
+
+            <h2>
+                No orders yet.
+            </h2>
+
+            <p>
+                You haven't placed any orders yet.
+            </p>
+
+            <a
+                href="{{ url_for('products') }}"
+                class="shop-button"
+            >
+                START SHOPPING
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+</body>
+
+</html>

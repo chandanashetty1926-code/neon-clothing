@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>About Us - NEON CLOTHING</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <style>
+
+        .about-page {
+            background: #fff;
+        }
+
+        .about-hero {
+            width: 100%;
+            text-align: center;
+            padding: 70px 20px 65px;
+        }
+
+        .about-hero span {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #777;
+        }
+
+        .about-hero h1 {
+            margin: 18px 0 12px;
+
+            font-size: 48px;
+            font-weight: 400;
+        }
+
+        .about-hero p {
+            color: #666;
+            font-size: 14px;
+        }
+
+
+        .about-image {
+            width: 100%;
+            height: 520px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+
+        .about-story {
+            max-width: 850px;
+
+            margin: auto;
+
+            text-align: center;
+
+            padding: 85px 25px 100px;
+        }
+
+        .about-story span {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #777;
+        }
+
+        .about-story h2 {
+            margin: 18px 0 30px;
+
+            font-size: 42px;
+            font-weight: 400;
+        }
+
+        .about-story p {
+            margin: 0 auto 20px;
+
+            max-width: 720px;
+
+            color: #666;
+
+            font-size: 16px;
+
+            line-height: 1.9;
+        }
+
+
+        .about-values {
+            background: #f6f6f6;
+
+            padding: 80px 40px;
+
+            text-align: center;
+        }
+
+        .about-values h2 {
+            font-size: 36px;
+            font-weight: 400;
+
+            margin: 0 0 45px;
+        }
+
+        .about-value-grid {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+        .about-value {
+            background: #fff;
+
+            padding: 40px 30px;
+        }
+
+        .about-value h3 {
+            font-size: 17px;
+            margin: 0 0 15px;
+        }
+
+        .about-value p {
+            margin: 0;
+
+            color: #666;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+
+        @media (max-width: 800px) {
+
+            .about-hero h1 {
+                font-size: 38px;
+            }
+
+            .about-image {
+                height: 350px;
+            }
+
+            .about-story h2 {
+                font-size: 32px;
+            }
+
+            .about-value-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    {% include 'navbar.html' %}
+
+
+    <main class="about-page">
+
+
+        <section class="about-hero">
+
+            <span>
+                NEON CLOTHING
+            </span>
+
+            <h1>
+                About Us
+            </h1>
+
+            <p>
+                Home &nbsp;›&nbsp; About Us
+            </p>
+
+        </section>
+
+
+        <!--
+        If you have an actual store/about image,
+        replace this image URL with:
+        {{ url_for('static', filename='images/your-image.jpg') }}
+        -->
+
+        <img
+            class="about-image"
+            src="https://placehold.co/1800x700/111111/dfff00?text=NEON+CLOTHING"
+            alt="NEON CLOTHING"
+        >
+
+
+        <section class="about-story">
+
+            <span>
+                OUR STORY
+            </span>
+
+            <h2>
+                Welcome to the world of NEON CLOTHING
+            </h2>
+
+            <p>
+                NEON CLOTHING is built around modern men's fashion,
+                everyday comfort and effortless style.
+            </p>
+
+            <p>
+                From everyday essentials to statement pieces,
+                our collection is designed to help you create
+                a wardrobe that feels confident, comfortable
+                and completely your own.
+            </p>
+
+        </section>
+
+
+        <section class="about-values">
+
+            <h2>
+                Why NEON?
+            </h2>
+
+
+            <div class="about-value-grid">
+
+
+                <div class="about-value">
+
+                    <h3>
+                        MODERN STYLE
+                    </h3>
+
+                    <p>
+                        Clean silhouettes and contemporary
+                        styles made for everyday life.
+                    </p>
+
+                </div>
+
+
+                <div class="about-value">
+
+                    <h3>
+                        QUALITY
+                    </h3>
+
+                    <p>
+                        We focus on comfortable clothing
+                        designed for regular wear.
+                    </p>
+
+                </div>
+
+
+                <div class="about-value">
+
+                    <h3>
+                        YOUR STYLE
+                    </h3>
+
+                    <p>
+                        Easy-to-wear pieces that let you
+                        express your own personality.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

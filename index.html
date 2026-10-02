@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NEON CLOTHING | Wear Your Style</title>
+
+
+    <!-- =====================================
+         MAIN CSS
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+
+    <!-- =====================================
+         NAVBAR CSS
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/navbar.css') }}"
+    >
+
+
+    <!-- =====================================
+         PAGE-SPECIFIC STYLES
+    ====================================== -->
+
+    <style>
+
+        /* =====================================
+           VISIT STORE
+        ===================================== */
+
+        .visit-store {
+            background: #ffffff;
+            padding: 90px 6%;
+            text-align: center;
+        }
+
+        .visit-store-small {
+            color: #777777;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+
+        .visit-store h2 {
+            font-size: 42px;
+            font-weight: 900;
+            color: #111111;
+            margin-bottom: 12px;
+        }
+
+        .visit-store-subtitle {
+            color: #777777;
+            font-size: 16px;
+            margin-bottom: 45px;
+        }
+
+        .store-content {
+            max-width: 1250px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 25px;
+
+            text-align: left;
+        }
+
+        .store-card {
+            border: 1px solid #e5e5e5;
+            border-radius: 14px;
+
+            padding: 35px;
+
+            background: #ffffff;
+        }
+
+        .store-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #111111;
+        }
+
+        .store-card p {
+            color: #666666;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .store-button {
+            display: inline-block;
+
+            background: #111111;
+            color: #ffffff;
+
+            padding: 14px 24px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            border-radius: 6px;
+
+            transition: 0.3s;
+        }
+
+        .store-button:hover {
+            background: #dfff00;
+            color: #000000;
+        }
+
+        .instagram-card {
+            background: #111111;
+            color: #ffffff;
+        }
+
+        .instagram-card h3 {
+            color: #ffffff;
+        }
+
+        .instagram-card p {
+            color: #aaaaaa;
+        }
+
+        .instagram-button {
+            background: #dfff00;
+            color: #000000;
+        }
+
+        .instagram-button:hover {
+            background: #ffffff;
+        }
+
+
+        /* =====================================
+           FOOTER
+        ====================================== */
+
+        footer {
+            background: #0b0b0b;
+            color: #ffffff;
+
+            text-align: center;
+
+            padding: 55px 20px;
+        }
+
+        .footer-logo {
+            font-size: 32px;
+            font-weight: 900;
+
+            letter-spacing: 5px;
+
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: #dfff00;
+        }
+
+        footer p {
+            color: #777777;
+
+            font-size: 13px;
+
+            margin: 6px 0;
+        }
+
+
+        /* =====================================
+           RESPONSIVE STORE
+        ====================================== */
+
+        @media (max-width: 800px) {
+
+            .store-content {
+                grid-template-columns: 1fr;
+            }
+
+            .visit-store {
+                padding: 65px 20px;
+            }
+
+            .visit-store h2 {
+                font-size: 32px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+{% include 'navbar.html' %}
+
+
+
+<!-- =========================================
+     HERO SECTION
+========================================= -->
+
+<section class="hero">
+
+
+    <!-- HERO VIDEO -->
+
+    <video
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+    >
+
+        <source
+            src="{{ url_for('static', filename='videos/hero-video.mp4') }}"
+            type="video/mp4"
+        >
+
+        Your browser does not support the video tag.
+
+    </video>
+
+
+    <!-- DARK OVERLAY -->
+
+    <div class="hero-overlay"></div>
+
+
+    <!-- HERO CONTENT -->
+
+    <div class="hero-content">
+
+        <p class="hero-small-text">
+            NEON MEN'S COLLECTION
+        </p>
+
+
+        <h1>
+            DEFINE YOUR<br>
+            EVERYDAY.
+        </h1>
+
+
+        <p class="hero-description">
+            Modern essentials. Bold silhouettes.
+            Designed for the way you move.
+        </p>
+
+
+        <div class="hero-buttons">
+
+
+            <!-- SHOP MEN'S COLLECTION -->
+
+            <a
+                href="{{ url_for('products') }}"
+                class="hero-btn hero-btn-primary"
+            >
+                SHOP MEN'S COLLECTION
+            </a>
+
+
+            <!-- EXPLORE -->
+
+            <a
+                href="{{ url_for('products') }}"
+                class="hero-btn hero-btn-outline"
+            >
+                EXPLORE NOW
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SHOP BY CATEGORY
+===================================================== -->
+
+<section class="shop-by-category">
+
+    <div class="category-heading">
+
+        <span class="category-eyebrow">
+            EXPLORE NEON
+        </span>
+
+        <h2>
+            SHOP BY<br>
+            CATEGORY
+        </h2>
+
+        <p>
+            Essential styles made for every side of you.
+        </p>
+
+    </div>
+
+
+    <div class="category-grid">
+
+
+        <!-- ================= T-SHIRTS ================= -->
+
+        <a
+            href="{{ url_for('products', category='T-Shirts') }}"
+            class="category-card"
+        >
+
+            <div class="category-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85"
+                    alt="T-Shirts"
+                >
+
+                <div class="category-overlay"></div>
+
+            </div>
+
+
+            <div class="category-content">
+
+                <span class="category-number">
+                    01
+                </span>
+
+                <h3>
+                    T-SHIRTS
+                </h3>
+
+                <span class="category-link">
+                    SHOP COLLECTION →
+                </span>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- ================= SHIRTS ================= -->
+
+        <a
+            href="{{ url_for('products', category='Shirts') }}"
+            class="category-card"
+        >
+
+            <div class="category-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=85"
+                    alt="Shirts"
+                >
+
+                <div class="category-overlay"></div>
+
+            </div>
+
+
+            <div class="category-content">
+
+                <span class="category-number">
+                    02
+                </span>
+
+                <h3>
+                    SHIRTS
+                </h3>
+
+                <span class="category-link">
+                    SHOP COLLECTION →
+                </span>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- ================= JEANS ================= -->
+
+        <a
+            href="{{ url_for('products', category='Jeans') }}"
+            class="category-card"
+        >
+
+            <div class="category-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=900&q=85"
+                    alt="Jeans"
+                >
+
+                <div class="category-overlay"></div>
+
+            </div>
+
+
+            <div class="category-content">
+
+                <span class="category-number">
+                    03
+                </span>
+
+                <h3>
+                    JEANS
+                </h3>
+
+                <span class="category-link">
+                    SHOP COLLECTION →
+                </span>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- ================= TRACK PANTS ================= -->
+
+        <a
+            href="{{ url_for('products', category='Track Pants') }}"
+            class="category-card"
+        >
+
+            <div class="category-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=900&q=85"
+                    alt="Track Pants"
+                >
+
+                <div class="category-overlay"></div>
+
+            </div>
+
+
+            <div class="category-content">
+
+                <span class="category-number">
+                    04
+                </span>
+
+                <h3>
+                    TRACK<br>
+                    PANTS
+                </h3>
+
+                <span class="category-link">
+                    SHOP COLLECTION →
+                </span>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     NEW ARRIVALS
+========================================= -->
+
+<section class="new-arrivals">
+
+
+    <!-- LEFT CONTENT -->
+
+    <div class="new-arrivals-text">
+
+        <p class="section-small">
+            STYLE THAT STANDS OUT
+        </p>
+
+        <h2>
+            NEW ARRIVALS
+        </h2>
+
+        <p>
+            Discover the latest styles
+            from Neon Clothing.
+        </p>
+
+
+        <a
+            href="{{ url_for('products') }}"
+            class="primary-button"
+        >
+            SHOP NOW →
+        </a>
+
+    </div>
+
+
+    <!-- RIGHT CONTENT -->
+
+    <div class="new-arrivals-box">
+
+        <span>
+            NEON
+        </span>
+
+        <h3>
+            Trending Collection
+        </h3>
+
+        <p>
+            Fresh styles. Bold looks.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     VISIT OUR STORE
+========================================= -->
+
+<section class="visit-store">
+
+
+    <p class="visit-store-small">
+        COME VISIT US
+    </p>
+
+
+    <h2>
+        VISIT NEON CLOTHING
+    </h2>
+
+
+    <p class="visit-store-subtitle">
+        Find us in Bengaluru and experience
+        Neon Clothing in person.
+    </p>
+
+
+    <div class="store-content">
+
+
+        <!-- =================================
+             STORE CARD
+        ================================== -->
+
+        <div class="store-card">
+
+            <h3>
+                📍 Visit Our Store
+            </h3>
+
+
+            <p>
+                Visit Neon Clothing in Bengaluru.
+                Explore our latest men's collections,
+                try your favourite styles and shop
+                in person.
+            </p>
+
+
+            <a
+                href="https://maps.app.goo.gl/HQtNrXv9GTfzYJT59?g_st=iw"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="store-button"
+            >
+                GET DIRECTIONS →
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================
+             INSTAGRAM CARD
+        ================================== -->
+
+        <div class="store-card instagram-card">
+
+            <h3>
+                Follow NEON
+            </h3>
+
+
+            <p>
+                Follow our official Instagram for
+                new drops, latest collections,
+                outfit inspiration and Neon Clothing
+                updates.
+            </p>
+
+
+            <a
+                href="https://www.instagram.com/neon__clothing_/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="store-button instagram-button"
+            >
+                FOLLOW ON INSTAGRAM →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+
+    <div class="footer-logo">
+        NEON<span>.</span>
+    </div>
+
+
+    <p>
+        © 2026 Neon Clothing. All Rights Reserved.
+    </p>
+
+
+    <p>
+        Wear Your Style.
+    </p>
+
+
+</footer>
+
+
+
+</body>
+
+</html>

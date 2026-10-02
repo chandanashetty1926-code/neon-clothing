@@ -1,0 +1,4319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Shop | Neon Clothing
+    </title>
+
+
+    <style>
+
+        /* =========================================================
+           NEON CLOTHING SHOP
+           CLEAN FASHION STORE DESIGN
+        ========================================================= */
+
+        :root {
+
+            --black: #111111;
+            --white: #ffffff;
+            --cream: #fafaf8;
+            --light: #f5f5f3;
+            --border: #e6e6e3;
+            --text: #171717;
+            --muted: #777777;
+            --soft: #999999;
+            --neon: #dfff00;
+            --sale: #ed4939;
+
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: var(--white);
+
+            color: var(--text);
+
+            line-height: 1.5;
+
+        }
+
+
+        body,
+        button,
+        input,
+        select {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        button {
+            border: none;
+            cursor: pointer;
+        }
+
+
+
+        /* =========================================================
+           ANNOUNCEMENT
+        ========================================================= */
+
+        .announcement {
+
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: var(--black);
+
+            color: var(--white);
+
+            overflow: hidden;
+
+        }
+
+
+        .announcement-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 18px;
+
+            padding: 0 20px;
+
+            white-space: nowrap;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .announcement-accent {
+            color: var(--neon);
+        }
+
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .header {
+
+            background: var(--white);
+
+            border-bottom:
+                1px solid var(--border);
+
+            position: relative;
+
+            z-index: 1000;
+
+        }
+
+
+        .header-main {
+
+            height: 94px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+
+            padding: 0 40px;
+
+        }
+
+
+
+        /* =========================================================
+           LOGO
+        ========================================================= */
+
+        .brand {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            line-height: 1;
+
+        }
+
+
+        .brand-main {
+
+            font-size: 32px;
+
+            font-weight: 900;
+
+            letter-spacing: -2.5px;
+
+        }
+
+
+        .brand-sub {
+
+            margin-top: 7px;
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: 4px;
+
+        }
+
+
+
+        /* =========================================================
+           HEADER ACTIONS
+        ========================================================= */
+
+        .header-actions {
+
+            position: absolute;
+
+            right: 38px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+        }
+
+
+        .icon-button {
+
+            width: 30px;
+
+            height: 34px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+
+            background: transparent;
+
+            color: var(--black);
+
+            font-size: 22px;
+
+            transition: transform .2s ease;
+
+        }
+
+
+        .icon-button:hover {
+            transform: scale(1.08);
+        }
+
+
+        .badge {
+
+            position: absolute;
+
+            right: -8px;
+
+            top: -5px;
+
+            min-width: 17px;
+
+            height: 17px;
+
+            padding: 0 4px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50px;
+
+            background: var(--sale);
+
+            color: var(--white);
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+        }
+
+
+
+        /* =========================================================
+           MAIN NAVIGATION
+        ========================================================= */
+
+        .main-nav {
+
+            min-height: 54px;
+
+            border-top:
+                1px solid var(--border);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 38px;
+
+        }
+
+
+        .main-nav > a,
+        .shop-nav {
+
+            height: 54px;
+
+            display: flex;
+
+            align-items: center;
+
+            position: relative;
+
+            color: #222222;
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            white-space: nowrap;
+
+        }
+
+
+        .main-nav > a::after,
+        .shop-nav > a::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+
+            bottom: 0;
+
+            width: 0;
+
+            height: 2px;
+
+            background: var(--neon);
+
+            transition: width .2s ease;
+
+        }
+
+
+        .main-nav > a:hover::after,
+        .shop-nav:hover > a::after {
+
+            width: 100%;
+        }
+
+
+        .shop-nav {
+
+            position: static;
+
+        }
+
+
+        .shop-nav > a {
+
+            height: 54px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+        }
+
+
+        .nav-arrow {
+            font-size: 10px;
+        }
+
+
+
+        /* =========================================================
+           NAV MEGA MENU
+        ========================================================= */
+
+        .mega-menu {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 148px;
+
+            width: 100%;
+
+            background: var(--white);
+
+            border-top:
+                1px solid var(--border);
+
+            border-bottom:
+                1px solid var(--border);
+
+            box-shadow:
+                0 18px 50px
+                rgba(0, 0, 0, .08);
+
+            padding: 34px 6vw;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 1fr 2fr;
+
+            gap: 45px;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transform: translateY(-10px);
+
+            transition:
+                opacity .2s ease,
+                visibility .2s ease,
+                transform .2s ease;
+
+        }
+
+
+        .shop-nav:hover .mega-menu {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+
+            transform: translateY(0);
+
+        }
+
+
+        .mega-heading {
+
+            margin-bottom: 16px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.2px;
+
+        }
+
+
+        .mega-links a {
+
+            display: block;
+
+            padding: 6px 0;
+
+            color: #777777;
+
+            font-size: 12px;
+
+            transition:
+                color .2s ease,
+                transform .2s ease;
+
+        }
+
+
+        .mega-links a:hover {
+
+            color: var(--black);
+
+            transform: translateX(4px);
+
+        }
+
+
+
+        /* =========================================================
+           SEARCH
+        ========================================================= */
+
+        .search-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 10000;
+
+            background:
+                rgba(0,0,0,.58);
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: center;
+
+            padding-top: 145px;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition: opacity .2s ease;
+
+        }
+
+
+        .search-overlay.open {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+
+        }
+
+
+        .search-box {
+
+            width:
+                min(720px, 92vw);
+
+            background: var(--white);
+
+            padding: 28px;
+
+            position: relative;
+
+        }
+
+
+        .search-title {
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .search-form {
+
+            display: flex;
+
+            gap: 8px;
+
+        }
+
+
+        .search-form input {
+
+            flex: 1;
+
+            min-width: 0;
+
+            height: 48px;
+
+            border:
+                1px solid var(--border);
+
+            outline: none;
+
+            padding: 0 14px;
+
+            font-size: 13px;
+
+        }
+
+
+        .search-submit {
+
+            height: 48px;
+
+            padding: 0 22px;
+
+            background: var(--black);
+
+            color: var(--white);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .search-close {
+
+            position: absolute;
+
+            top: -40px;
+
+            right: 0;
+
+            background: transparent;
+
+            color: var(--white);
+
+            font-size: 28px;
+
+        }
+
+
+
+        /* =========================================================
+           SHOP HERO
+        ========================================================= */
+
+        .shop-page {
+
+            max-width: 1500px;
+
+            margin: 0 auto;
+
+            padding:
+                55px
+                36px
+                100px;
+
+        }
+
+
+        .shop-intro {
+
+            text-align: center;
+
+            margin-bottom: 48px;
+
+        }
+
+
+        .shop-kicker {
+
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: var(--soft);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 2.5px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .shop-title {
+
+            font-size:
+                clamp(46px, 6vw, 72px);
+
+            font-weight: 700;
+
+            line-height: 1;
+
+            letter-spacing: -4px;
+
+        }
+
+
+        .shop-description {
+
+            max-width: 590px;
+
+            margin:
+                18px auto 0;
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.8;
+
+        }
+
+
+
+        /* =========================================================
+           CATEGORY NAVIGATION
+        ========================================================= */
+
+        .category-navigation {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 30px;
+
+            flex-wrap: wrap;
+
+            border-top:
+                1px solid var(--border);
+
+            border-bottom:
+                1px solid var(--border);
+
+            padding: 18px 0;
+
+        }
+
+
+        .category-item {
+
+            position: relative;
+
+        }
+
+
+        .category-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            background: transparent;
+
+            color: #222222;
+
+            padding: 5px 0;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .7px;
+
+            white-space: nowrap;
+
+        }
+
+
+        .category-link:hover {
+
+            color: var(--black);
+
+        }
+
+
+        .category-link.active {
+
+            color: var(--black);
+
+        }
+
+
+        .category-link.active::after {
+
+            content: "";
+
+            position: absolute;
+
+            bottom: -19px;
+
+            left: 0;
+
+            right: 0;
+
+            height: 2px;
+
+            background: var(--neon);
+
+        }
+
+
+        .category-chevron {
+            font-size: 10px;
+        }
+
+
+
+        /* =========================================================
+           CATEGORY DROPDOWN
+        ========================================================= */
+
+        .category-dropdown {
+
+            position: absolute;
+
+            top: calc(100% + 18px);
+
+            left: 50%;
+
+            transform:
+                translateX(-50%)
+                translateY(-8px);
+
+            width: 230px;
+
+            background: var(--white);
+
+            border:
+                1px solid var(--border);
+
+            box-shadow:
+                0 20px 45px
+                rgba(0,0,0,.10);
+
+            padding: 8px 0;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition:
+                opacity .2s ease,
+                visibility .2s ease,
+                transform .2s ease;
+
+            z-index: 5000;
+
+        }
+
+
+        .category-item:hover .category-dropdown {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+
+            transform:
+                translateX(-50%)
+                translateY(0);
+
+        }
+
+
+        .category-dropdown a {
+
+            display: block;
+
+            padding:
+                10px
+                18px;
+
+            color: #555555;
+
+            font-size: 11px;
+
+            font-weight: 500;
+
+            transition:
+                background .18s ease,
+                color .18s ease,
+                padding-left .18s ease;
+
+        }
+
+
+        .category-dropdown a:hover {
+
+            background: var(--light);
+
+            color: var(--black);
+
+            padding-left: 23px;
+
+        }
+
+
+
+        /* =========================================================
+           MOBILE CATEGORY DROPDOWN
+        ========================================================= */
+
+        .category-dropdown-mobile {
+
+            display: none;
+
+        }
+
+
+
+        /* =========================================================
+           TOOLBAR
+        ========================================================= */
+
+        .toolbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 27px 0;
+
+        }
+
+
+        .result-count {
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+        }
+
+
+        .result-count strong {
+
+            color: var(--black);
+
+        }
+
+
+        .toolbar-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+        }
+
+
+        .filter-toggle {
+
+            display: none;
+
+            height: 40px;
+
+            padding: 0 14px;
+
+            background: var(--white);
+
+            border:
+                1px solid var(--border);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .sort-select {
+
+            height: 40px;
+
+            min-width: 175px;
+
+            padding:
+                0 12px;
+
+            background: var(--white);
+
+            border:
+                1px solid var(--border);
+
+            color: var(--black);
+
+            outline: none;
+
+            font-size: 10px;
+
+        }
+
+
+
+        /* =========================================================
+           MAIN SHOP GRID
+        ========================================================= */
+
+        .shop-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                205px
+                minmax(0,1fr);
+
+            gap: 34px;
+
+        }
+
+
+
+        /* =========================================================
+           FILTER SIDEBAR
+        ========================================================= */
+
+        .filters {
+
+            position: sticky;
+
+            top: 20px;
+
+            align-self: start;
+
+        }
+
+
+        .filter-main-title {
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .filter-block {
+
+            padding:
+                20px 0;
+
+            border-top:
+                1px solid var(--border);
+
+        }
+
+
+        .filter-block h4 {
+
+            margin-bottom: 15px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: .8px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .filter-link {
+
+            display: block;
+
+            padding: 5px 0;
+
+            color: #777777;
+
+            font-size: 11px;
+
+            transition: color .2s ease;
+
+        }
+
+
+        .filter-link:hover,
+        .filter-link.active {
+
+            color: var(--black);
+
+            font-weight: 700;
+
+        }
+
+
+        .filter-sub-link {
+
+            display: block;
+
+            padding:
+                4px 0 4px 10px;
+
+            color: #888888;
+
+            font-size: 10px;
+
+        }
+
+
+        .filter-sub-link:hover,
+        .filter-sub-link.active {
+
+            color: var(--black);
+
+        }
+
+
+        .price-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 6px;
+
+        }
+
+
+        .price-input {
+
+            width: 100%;
+
+            height: 38px;
+
+            border:
+                1px solid var(--border);
+
+            padding: 0 9px;
+
+            outline: none;
+
+            font-size: 10px;
+
+        }
+
+
+        .price-button {
+
+            width: 100%;
+
+            height: 38px;
+
+            margin-top: 7px;
+
+            background: var(--black);
+
+            color: var(--white);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .price-clear {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 8px;
+
+            color: var(--soft);
+
+            font-size: 9px;
+
+            cursor: pointer;
+
+        }
+
+
+
+        /* =========================================================
+           COLLECTION HEADING
+        ========================================================= */
+
+        .collection-header {
+
+            margin-bottom: 24px;
+
+        }
+
+
+        .collection-label {
+
+            color: var(--soft);
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .collection-title {
+
+            margin-top: 5px;
+
+            font-size: 25px;
+
+            font-weight: 600;
+
+            letter-spacing: -1px;
+
+        }
+
+
+
+        /* =========================================================
+           PRODUCT GRID
+        ========================================================= */
+
+        .product-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap:
+                42px
+                17px;
+
+        }
+
+
+        .product-card {
+
+            min-width: 0;
+
+        }
+
+
+
+        /* =========================================================
+           PRODUCT IMAGE
+        ========================================================= */
+
+        .product-visual {
+
+            position: relative;
+
+            overflow: hidden;
+
+            background: #efefed;
+
+            aspect-ratio: 3 / 4;
+
+        }
+
+
+        .product-image-link {
+
+            display: block;
+
+            width: 100%;
+
+            height: 100%;
+
+        }
+
+
+        .product-visual img {
+
+            width: 100%;
+
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition:
+                transform .5s ease;
+
+        }
+
+
+        .product-card:hover
+        .product-visual img {
+
+            transform: scale(1.035);
+
+        }
+
+
+
+        /* =========================================================
+           BADGES
+        ========================================================= */
+
+        .badge-sale {
+
+            position: absolute;
+
+            top: 12px;
+
+            left: 12px;
+
+            padding:
+                6px 10px;
+
+            background: var(--sale);
+
+            color: var(--white);
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: .5px;
+
+            z-index: 5;
+
+        }
+
+
+        .badge-new {
+
+            position: absolute;
+
+            top: 12px;
+
+            left: 12px;
+
+            padding:
+                6px 10px;
+
+            background: var(--neon);
+
+            color: var(--black);
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            z-index: 5;
+
+        }
+
+
+
+        /* =========================================================
+           WISHLIST
+        ========================================================= */
+
+        .wishlist {
+
+            position: absolute;
+
+            top: 12px;
+
+            right: 12px;
+
+            width: 36px;
+
+            height: 36px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,.96);
+
+            color: var(--black);
+
+            font-size: 19px;
+
+            z-index: 5;
+
+            transition:
+                transform .2s ease;
+
+        }
+
+
+        .wishlist:hover {
+
+            transform: scale(1.06);
+
+        }
+
+
+        .wishlist.active {
+
+            color: var(--sale);
+
+        }
+
+
+
+        /* =========================================================
+           QUICK SHOP
+        ========================================================= */
+
+        .quick-shop {
+
+            position: absolute;
+
+            left: 12px;
+
+            right: 12px;
+
+            bottom: 12px;
+
+            height: 42px;
+
+            background:
+                rgba(255,255,255,.96);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: var(--black);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            opacity: 0;
+
+            transform: translateY(8px);
+
+            transition:
+                opacity .2s ease,
+                transform .2s ease;
+
+        }
+
+
+        .product-card:hover .quick-shop {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+
+        .quick-shop:hover {
+
+            background: var(--black);
+
+            color: var(--white);
+
+        }
+
+
+
+        /* =========================================================
+           PRODUCT DETAILS
+        ========================================================= */
+
+        .product-details {
+
+            padding-top: 12px;
+
+        }
+
+
+        .product-category {
+
+            color: var(--soft);
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .product-category span {
+
+            color: #b0b0b0;
+
+            font-weight: 500;
+
+        }
+
+
+        .product-name {
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            line-height: 1.4;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .product-price {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .price-old {
+
+            color: #999999;
+
+            font-size: 11px;
+
+            text-decoration: line-through;
+
+        }
+
+
+        .price-sale {
+
+            color: var(--sale);
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+
+        .price-normal {
+
+            color: var(--black);
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+
+
+        /* =========================================================
+           SIZE
+        ========================================================= */
+
+        .sizes {
+
+            display: flex;
+
+            gap: 4px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 11px;
+
+        }
+
+
+        .size {
+
+            min-width: 27px;
+
+            height: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border:
+                1px solid var(--border);
+
+            color: #777777;
+
+            font-size: 8px;
+
+        }
+
+
+
+        /* =========================================================
+           CART FORM
+        ========================================================= */
+
+        .cart-form {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                auto;
+
+            gap: 6px;
+
+        }
+
+
+        .size-select {
+
+            width: 100%;
+
+            height: 38px;
+
+            padding: 0 8px;
+
+            border:
+                1px solid var(--border);
+
+            background: var(--white);
+
+            outline: none;
+
+            font-size: 9px;
+
+        }
+
+
+        .add-button {
+
+            min-width: 100px;
+
+            height: 38px;
+
+            padding: 0 12px;
+
+            background: var(--black);
+
+            color: var(--white);
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: .8px;
+
+        }
+
+
+        .add-button:hover {
+
+            background: #2c2c2c;
+
+        }
+
+
+        .stock {
+
+            margin-top: 7px;
+
+            color: var(--soft);
+
+            font-size: 8px;
+
+        }
+
+
+
+        /* =========================================================
+           EMPTY
+        ========================================================= */
+
+        .empty {
+
+            padding:
+                90px 20px;
+
+            border:
+                1px solid var(--border);
+
+            text-align: center;
+
+        }
+
+
+        .empty h2 {
+
+            font-size: 24px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .empty p {
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .empty a {
+
+            display: inline-flex;
+
+            height: 40px;
+
+            padding: 0 18px;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: var(--black);
+
+            color: var(--white);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: .8px;
+
+        }
+
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+
+            background: var(--black);
+
+            color: var(--white);
+
+            margin-top: 15px;
+
+        }
+
+
+        .footer-inner {
+
+            max-width: 1500px;
+
+            margin: 0 auto;
+
+            padding:
+                65px
+                36px
+                45px;
+
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr 1fr;
+
+            gap: 45px;
+
+        }
+
+
+        .footer-brand-name {
+
+            font-size: 27px;
+
+            font-weight: 900;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .footer-brand p {
+
+            max-width: 300px;
+
+            margin-top: 12px;
+
+            color: #888888;
+
+            font-size: 11px;
+
+            line-height: 1.8;
+
+        }
+
+
+        .footer-column h4 {
+
+            margin-bottom: 16px;
+
+            font-size: 9px;
+
+            letter-spacing: 1.5px;
+
+        }
+
+
+        .footer-column a {
+
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: #888888;
+
+            font-size: 10px;
+
+        }
+
+
+        .footer-column a:hover {
+
+            color: var(--white);
+
+        }
+
+
+        .footer-bottom {
+
+            border-top:
+                1px solid #262626;
+
+            max-width: 1500px;
+
+            margin: 0 auto;
+
+            padding:
+                18px
+                36px
+                23px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #696969;
+
+            font-size: 9px;
+
+        }
+
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1200px) {
+
+            .product-grid {
+
+                grid-template-columns:
+                    repeat(3, minmax(0,1fr));
+
+            }
+
+        }
+
+
+        @media (max-width: 950px) {
+
+            .header-actions {
+
+                right: 18px;
+
+                gap: 10px;
+
+            }
+
+
+            .main-nav {
+
+                overflow-x: auto;
+
+                justify-content: flex-start;
+
+                padding: 0 20px;
+
+                gap: 25px;
+
+                scrollbar-width: none;
+
+            }
+
+
+            .main-nav::-webkit-scrollbar {
+
+                display: none;
+
+            }
+
+
+            .mega-menu {
+
+                display: none;
+
+            }
+
+
+            .shop-layout {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .filters {
+
+                display: none;
+
+            }
+
+
+            .filter-toggle {
+
+                display: inline-flex;
+
+                align-items: center;
+
+                justify-content: center;
+
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .announcement {
+
+                justify-content: flex-start;
+
+            }
+
+
+            .announcement-inner {
+
+                overflow-x: auto;
+
+                justify-content: flex-start;
+
+                scrollbar-width: none;
+
+            }
+
+
+            .announcement-inner::-webkit-scrollbar {
+
+                display: none;
+
+            }
+
+
+            .header-main {
+
+                height: 80px;
+
+                padding: 0 15px;
+
+            }
+
+
+            .brand-main {
+
+                font-size: 25px;
+
+            }
+
+
+            .header-actions {
+
+                right: 8px;
+
+                gap: 5px;
+
+            }
+
+
+            .icon-button {
+
+                width: 27px;
+
+                font-size: 19px;
+
+            }
+
+
+            .shop-page {
+
+                padding:
+                    40px
+                    15px
+                    70px;
+
+            }
+
+
+            .shop-title {
+
+                font-size: 48px;
+
+                letter-spacing: -3px;
+
+            }
+
+
+            .category-navigation {
+
+                justify-content: flex-start;
+
+                overflow-x: auto;
+
+                flex-wrap: nowrap;
+
+                scrollbar-width: none;
+
+                gap: 25px;
+
+            }
+
+
+            .category-navigation::-webkit-scrollbar {
+
+                display: none;
+
+            }
+
+
+            .category-link {
+
+                flex-shrink: 0;
+
+            }
+
+
+            .category-dropdown {
+
+                display: none;
+
+            }
+
+
+            .category-item:hover
+            .category-dropdown {
+
+                display: none;
+
+            }
+
+
+            .toolbar {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 14px;
+
+            }
+
+
+            .toolbar-right {
+
+                width: 100%;
+
+                justify-content: space-between;
+
+            }
+
+
+            .product-grid {
+
+                grid-template-columns:
+                    repeat(2, minmax(0,1fr));
+
+                gap:
+                    34px
+                    12px;
+
+            }
+
+
+            .cart-form {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .add-button {
+
+                width: 100%;
+
+            }
+
+
+            .quick-shop {
+
+                display: none;
+
+            }
+
+
+            .footer-inner {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+                padding:
+                    50px
+                    20px
+                    35px;
+
+            }
+
+
+            .footer-bottom {
+
+                padding:
+                    18px
+                    20px;
+
+                flex-direction: column;
+
+                gap: 6px;
+
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .product-name {
+
+                font-size: 11px;
+
+            }
+
+
+            .product-grid {
+
+                gap:
+                    28px
+                    10px;
+
+            }
+
+
+            .wishlist {
+
+                width: 32px;
+
+                height: 32px;
+
+                font-size: 17px;
+
+            }
+
+
+            .footer-inner {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+
+<body>
+
+
+
+<!-- =========================================================
+     ANNOUNCEMENT
+========================================================= -->
+
+<div class="announcement">
+
+    <div class="announcement-inner">
+
+        <span>
+            FREE SHIPPING ON ORDERS ABOVE ₹999
+        </span>
+
+        <span class="announcement-accent">
+            —
+        </span>
+
+        <span>
+            NEW SEASON
+        </span>
+
+        <span class="announcement-accent">
+            —
+        </span>
+
+        <span>
+            NEON CLOTHING
+        </span>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+
+    <div class="header-main">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="{{ url_for('home') }}"
+            class="brand"
+        >
+
+            <span class="brand-main">
+                NEON
+            </span>
+
+            <span class="brand-sub">
+                CLOTHING
+            </span>
+
+        </a>
+
+
+
+        <!-- ACTIONS -->
+
+        <div class="header-actions">
+
+
+            <!-- SEARCH -->
+
+            <button
+                type="button"
+                class="icon-button"
+                onclick="openSearch()"
+                title="Search"
+            >
+                ⌕
+            </button>
+
+
+            <!-- ACCOUNT -->
+
+            <a
+                href="{{ url_for('login') }}"
+                class="icon-button"
+                title="Account"
+            >
+                ♙
+            </a>
+
+
+            <!-- WISHLIST -->
+
+            <a
+                href="{{ url_for('wishlist') }}"
+                class="icon-button wishlist-nav-link"
+                title="Wishlist"
+            >
+
+                ♡
+
+                <span
+                    class="badge"
+                    id="wishlistCount"
+                >
+                    0
+                </span>
+
+            </a>
+
+
+            <!-- CART -->
+
+            <a
+                href="{{ url_for('cart') }}"
+                class="icon-button"
+                title="Cart"
+            >
+
+                🛍
+
+                <span class="badge">
+
+                    {{ session.get('cart', [])|length }}
+
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         MAIN NAV
+    ========================================================= -->
+
+    <nav class="main-nav">
+
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+
+        <!-- SHOP -->
+
+        <div class="shop-nav">
+
+            <a href="{{ url_for('shop') }}">
+
+                Shop
+
+                <span class="nav-arrow">
+                    ▾
+                </span>
+
+            </a>
+
+
+            <div class="mega-menu">
+
+
+                <!-- TOPWEAR -->
+
+                <div>
+
+                    <div class="mega-heading">
+                        TOPWEAR
+                    </div>
+
+                    <div class="mega-links">
+
+                        <a
+                            href="{{ url_for(
+                                'shop',
+                                category='Shirts'
+                            ) }}"
+                        >
+                            Shirts
+                        </a>
+
+                        <a
+                            href="{{ url_for(
+                                'shop',
+                                category='T-Shirts'
+                            ) }}"
+                        >
+                            T-Shirts
+                        </a>
+
+                        <a
+                            href="{{ url_for(
+                                'shop',
+                                category='Hoodies'
+                            ) }}"
+                        >
+                            Hoodies
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BOTTOMWEAR -->
+
+                <div>
+
+                    <div class="mega-heading">
+                        BOTTOMWEAR
+                    </div>
+
+                    <div class="mega-links">
+
+                        <a
+                            href="{{ url_for(
+                                'shop',
+                                category='Jeans'
+                            ) }}"
+                        >
+                            Jeans
+                        </a>
+
+                        <a
+                            href="{{ url_for(
+                                'shop',
+                                category='Track Pants'
+                            ) }}"
+                        >
+                            Track Pants
+                        </a>
+
+                        <a
+                            href="{{ url_for(
+                                'shop',
+                                category='Formal Pants'
+                            ) }}"
+                        >
+                            Formal Pants
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- HELP -->
+
+                <div>
+
+                    <div class="mega-heading">
+                        EXPLORE
+                    </div>
+
+                    <div class="mega-links">
+
+                        <a href="{{ url_for('shop') }}">
+                            View All Products
+                        </a>
+
+                        <a href="{{ url_for('track_order') }}">
+                            Track Order
+                        </a>
+
+                        <a href="{{ url_for('our_store') }}">
+                            Our Store
+                        </a>
+
+                        <a href="{{ url_for('about_us') }}">
+                            About Us
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FEATURE -->
+
+                <div
+                    style="
+                        background:#f5f5f3;
+                        padding:26px;
+                        display:flex;
+                        flex-direction:column;
+                        justify-content:center;
+                    "
+                >
+
+                    <span
+                        style="
+                            font-size:9px;
+                            letter-spacing:2px;
+                            font-weight:800;
+                            color:#888;
+                        "
+                    >
+                        NEON COLLECTION
+                    </span>
+
+                    <strong
+                        style="
+                            font-size:26px;
+                            margin-top:8px;
+                            letter-spacing:-1px;
+                        "
+                    >
+                        NEW SEASON
+                    </strong>
+
+                    <span
+                        style="
+                            margin-top:8px;
+                            color:#777;
+                            font-size:11px;
+                        "
+                    >
+                        Discover the latest styles.
+                    </span>
+
+                    <a
+                        href="{{ url_for('shop') }}"
+                        style="
+                            margin-top:18px;
+                            display:inline-flex;
+                            width:max-content;
+                            background:#111;
+                            color:#fff;
+                            padding:11px 16px;
+                            font-size:8px;
+                            font-weight:800;
+                            letter-spacing:1px;
+                        "
+                    >
+                        SHOP NOW
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <a href="{{ url_for('shop') }}">
+            Products
+        </a>
+
+
+        <a href="{{ url_for('track_order') }}">
+            Track Order
+        </a>
+
+
+        <a href="{{ url_for('our_store') }}">
+            Our Store
+        </a>
+
+
+        <a href="{{ url_for('about_us') }}">
+            About Us
+        </a>
+
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================================================
+     SEARCH OVERLAY
+========================================================= -->
+
+<div
+    class="search-overlay"
+    id="searchOverlay"
+>
+
+
+    <div class="search-box">
+
+
+        <button
+            type="button"
+            class="search-close"
+            onclick="closeSearch()"
+        >
+            ×
+        </button>
+
+
+        <div class="search-title">
+            SEARCH NEON CLOTHING
+        </div>
+
+
+        <form
+            class="search-form"
+            onsubmit="return searchProducts(event)"
+        >
+
+            <input
+                type="text"
+                id="shopSearchInput"
+                placeholder="Search shirts, jeans, hoodies..."
+                autocomplete="off"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="search-submit"
+            >
+                SEARCH
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     SHOP PAGE
+========================================================= -->
+
+<main class="shop-page">
+
+
+    <!-- =========================================================
+         INTRO
+    ========================================================= -->
+
+    <section class="shop-intro">
+
+        <span class="shop-kicker">
+            NEON CLOTHING
+        </span>
+
+        <h1 class="shop-title">
+            Shop
+        </h1>
+
+        <p class="shop-description">
+            Explore our latest collection of
+            modern shirts, T-shirts, jeans,
+            hoodies, track pants and formal pants.
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         CATEGORY NAVIGATION
+    ========================================================= -->
+
+    <section class="category-navigation">
+
+
+        <!-- ALL -->
+
+        <div class="category-item">
+
+            <a
+                href="{{ url_for('shop') }}"
+                class="category-link
+                {% if selected_category == 'All' %}
+                    active
+                {% endif %}"
+            >
+                All
+            </a>
+
+        </div>
+
+
+
+        <!-- DYNAMIC CATEGORIES -->
+
+        {% for category in categories %}
+
+            <div class="category-item">
+
+
+                <a
+                    href="{{ url_for(
+                        'shop',
+                        category=category
+                    ) }}"
+                    class="category-link
+                    {% if selected_category|lower == category|lower %}
+                        active
+                    {% endif %}"
+                >
+
+                    {{ category }}
+
+                    {% if product_types.get(category) %}
+
+                        <span class="category-chevron">
+                            ▾
+                        </span>
+
+                    {% endif %}
+
+                </a>
+
+
+
+                <!-- SUBCATEGORY DROPDOWN -->
+
+                {% if product_types.get(category) %}
+
+                    <div class="category-dropdown">
+
+
+                        <a
+                            href="{{ url_for(
+                                'shop',
+                                category=category
+                            ) }}"
+                        >
+                            All {{ category }}
+                        </a>
+
+
+                        {% for type in product_types.get(
+                            category,
+                            []
+                        ) %}
+
+                            <a
+                                href="{{ url_for(
+                                    'shop',
+                                    category=category,
+                                    subcategory=type
+                                ) }}"
+                            >
+                                {{ type }}
+                            </a>
+
+                        {% endfor %}
+
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+        {% endfor %}
+
+
+    </section>
+
+
+
+    <!-- =========================================================
+         TOOLBAR
+    ========================================================= -->
+
+    <section class="toolbar">
+
+
+        <div class="result-count">
+
+            <strong>
+                {{ products|length }}
+            </strong>
+
+            products
+
+        </div>
+
+
+        <div class="toolbar-right">
+
+
+            <button
+                type="button"
+                class="filter-toggle"
+                onclick="toggleFilter()"
+            >
+                FILTER
+            </button>
+
+
+            <form
+                method="GET"
+                action="{{ url_for('shop') }}"
+            >
+
+
+                {% if selected_category != "All" %}
+
+                    <input
+                        type="hidden"
+                        name="category"
+                        value="{{ selected_category }}"
+                    >
+
+                {% endif %}
+
+
+                {% if selected_subcategory != "All" %}
+
+                    <input
+                        type="hidden"
+                        name="subcategory"
+                        value="{{ selected_subcategory }}"
+                    >
+
+                {% endif %}
+
+
+                <select
+                    name="sort"
+                    class="sort-select"
+                    onchange="this.form.submit()"
+                >
+
+                    <option
+                        value="latest"
+                        {% if selected_sort == "latest" %}
+                            selected
+                        {% endif %}
+                    >
+                        Latest
+                    </option>
+
+
+                    <option
+                        value="price-low"
+                        {% if selected_sort == "price-low" %}
+                            selected
+                        {% endif %}
+                    >
+                        Price: Low to High
+                    </option>
+
+
+                    <option
+                        value="price-high"
+                        {% if selected_sort == "price-high" %}
+                            selected
+                        {% endif %}
+                    >
+                        Price: High to Low
+                    </option>
+
+
+                    <option
+                        value="discount"
+                        {% if selected_sort == "discount" %}
+                            selected
+                        {% endif %}
+                    >
+                        Biggest Discount
+                    </option>
+
+
+                    <option
+                        value="name"
+                        {% if selected_sort == "name" %}
+                            selected
+                        {% endif %}
+                    >
+                        Name
+                    </option>
+
+                </select>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         SHOP LAYOUT
+    ========================================================= -->
+
+    <section class="shop-layout">
+
+
+        <!-- =====================================================
+             FILTERS
+        ===================================================== -->
+
+        <aside
+            class="filters"
+            id="filterSidebar"
+        >
+
+
+            <div class="filter-main-title">
+                Filter
+            </div>
+
+
+
+            <!-- CATEGORY -->
+
+            <div class="filter-block">
+
+                <h4>
+                    Categories
+                </h4>
+
+
+                <a
+                    href="{{ url_for('shop') }}"
+                    class="filter-link
+                    {% if selected_category == 'All' %}
+                        active
+                    {% endif %}"
+                >
+                    All Products
+                </a>
+
+
+                {% for category in categories %}
+
+                    <a
+                        href="{{ url_for(
+                            'shop',
+                            category=category
+                        ) }}"
+                        class="filter-link
+                        {% if selected_category|lower == category|lower %}
+                            active
+                        {% endif %}"
+                    >
+                        {{ category }}
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+
+
+            <!-- TYPES -->
+
+            {% if
+                selected_category != "All"
+                and
+                product_types.get(selected_category)
+            %}
+
+
+                <div class="filter-block">
+
+                    <h4>
+                        {{ selected_category }} Types
+                    </h4>
+
+
+                    {% for type in product_types.get(
+                        selected_category,
+                        []
+                    ) %}
+
+                        <a
+                            href="{{ url_for(
+                                'shop',
+                                category=selected_category,
+                                subcategory=type
+                            ) }}"
+                            class="filter-sub-link
+                            {% if selected_subcategory|lower == type|lower %}
+                                active
+                            {% endif %}"
+                        >
+
+                            {{ type }}
+
+                        </a>
+
+                    {% endfor %}
+
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- PRICE -->
+
+            <div class="filter-block">
+
+                <h4>
+                    Price
+                </h4>
+
+
+                <div class="price-grid">
+
+                    <input
+                        type="number"
+                        id="minPrice"
+                        class="price-input"
+                        placeholder="Min"
+                        min="0"
+                    >
+
+
+                    <input
+                        type="number"
+                        id="maxPrice"
+                        class="price-input"
+                        placeholder="Max"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="price-button"
+                    onclick="applyPriceFilter()"
+                >
+                    APPLY
+                </button>
+
+
+                <span
+                    class="price-clear"
+                    onclick="clearPriceFilter()"
+                >
+                    Clear
+                </span>
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =====================================================
+             PRODUCTS AREA
+        ===================================================== -->
+
+        <div class="products-area">
+
+
+            {% if
+                selected_subcategory != "All"
+                or
+                selected_category != "All"
+            %}
+
+
+                <div class="collection-header">
+
+
+                    <span class="collection-label">
+
+                        {% if selected_subcategory != "All" %}
+
+                            {{ selected_category }}
+
+                        {% else %}
+
+                            COLLECTION
+
+                        {% endif %}
+
+                    </span>
+
+
+                    <h2 class="collection-title">
+
+                        {% if selected_subcategory != "All" %}
+
+                            {{ selected_subcategory }}
+
+                        {% else %}
+
+                            {{ selected_category }}
+
+                        {% endif %}
+
+                    </h2>
+
+
+                </div>
+
+            {% endif %}
+
+
+
+            {% if products %}
+
+
+                <div
+                    class="product-grid"
+                    id="productGrid"
+                >
+
+
+                    {% for product in products %}
+
+
+                        {% set original_price =
+                            product.price|float
+                        %}
+
+
+                        {% set discount =
+                            (product.discount or 0)|float
+                        %}
+
+
+                        {% set final_price =
+                            original_price
+                            -
+                            (
+                                original_price
+                                * discount
+                                / 100
+                            )
+                        %}
+
+
+
+                        <article
+                            class="product-card"
+                            data-price="{{ final_price }}"
+                        >
+
+
+                            <!-- PRODUCT IMAGE -->
+
+                            <div class="product-visual">
+
+
+                                <a
+                                    href="{{ url_for(
+                                        'product_details',
+                                        product_id=product.id
+                                    ) }}"
+                                    class="product-image-link"
+                                >
+
+
+                                    {% if discount > 0 %}
+
+
+                                        <span class="badge-sale">
+
+                                            -{{ discount|round|int }}%
+
+                                        </span>
+
+
+                                    {% else %}
+
+
+                                        <span class="badge-new">
+                                            NEW
+                                        </span>
+
+
+                                    {% endif %}
+
+
+
+                                    {% if product.image %}
+
+
+                                        {% set image_path =
+                                            product.image.replace(
+                                                '\\',
+                                                '/'
+                                            )
+                                        %}
+
+
+
+                                        {% if
+                                            image_path.startswith('http://')
+                                            or
+                                            image_path.startswith('https://')
+                                        %}
+
+
+                                            <img
+                                                src="{{ image_path }}"
+                                                alt="{{ product.name }}"
+                                            >
+
+
+                                        {% elif
+                                            image_path.startswith('/static/')
+                                        %}
+
+
+                                            <img
+                                                src="{{ image_path }}"
+                                                alt="{{ product.name }}"
+                                            >
+
+
+                                        {% elif
+                                            image_path.startswith('C:/')
+                                            or
+                                            '/Users/' in image_path
+                                        %}
+
+
+                                            <img
+                                                src="{{ url_for(
+                                                    'static',
+                                                    filename='images/products/'
+                                                    ~
+                                                    image_path.split('/')[-1]
+                                                ) }}"
+                                                alt="{{ product.name }}"
+                                            >
+
+
+                                        {% else %}
+
+
+                                            <img
+                                                src="{{ url_for(
+                                                    'static',
+                                                    filename=image_path
+                                                ) }}"
+                                                alt="{{ product.name }}"
+                                            >
+
+
+                                        {% endif %}
+
+
+                                    {% else %}
+
+
+                                        <div
+                                            style="
+                                                width:100%;
+                                                height:100%;
+                                                display:flex;
+                                                align-items:center;
+                                                justify-content:center;
+                                                background:#f0f0ed;
+                                                font-size:20px;
+                                                font-weight:900;
+                                            "
+                                        >
+                                            NEON
+                                        </div>
+
+
+                                    {% endif %}
+
+
+                                </a>
+
+
+
+                                <!-- WISHLIST -->
+
+                                <button
+                                    type="button"
+                                    class="wishlist"
+                                    data-product-id="{{ product.id }}"
+                                    title="Add to wishlist"
+                                >
+                                    ♡
+                                </button>
+
+
+
+                                <!-- QUICK SHOP -->
+
+                                <a
+                                    href="{{ url_for(
+                                        'product_details',
+                                        product_id=product.id
+                                    ) }}"
+                                    class="quick-shop"
+                                >
+                                    QUICK SHOP
+                                </a>
+
+
+                            </div>
+
+
+
+                            <!-- PRODUCT DETAILS -->
+
+                            <div class="product-details">
+
+
+                                <div class="product-category">
+
+                                    {{ product.category }}
+
+                                    {% if product.subcategory %}
+
+                                        <span>
+                                            · {{ product.subcategory }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+
+                                <div class="product-name">
+
+                                    <a
+                                        href="{{ url_for(
+                                            'product_details',
+                                            product_id=product.id
+                                        ) }}"
+                                    >
+                                        {{ product.name }}
+                                    </a>
+
+                                </div>
+
+
+
+                                <!-- PRICE -->
+
+                                <div class="product-price">
+
+
+                                    {% if discount > 0 %}
+
+
+                                        <span class="price-old">
+
+                                            ₹{{ "%.0f"|format(
+                                                original_price
+                                            ) }}
+
+                                        </span>
+
+
+                                        <span class="price-sale">
+
+                                            ₹{{ "%.0f"|format(
+                                                final_price
+                                            ) }}
+
+                                        </span>
+
+
+                                    {% else %}
+
+
+                                        <span class="price-normal">
+
+                                            ₹{{ "%.0f"|format(
+                                                original_price
+                                            ) }}
+
+                                        </span>
+
+
+                                    {% endif %}
+
+
+                                </div>
+
+
+
+
+<!-- SIZES -->
+
+<div class="sizes">
+
+    {% set category = (product.category or '')|lower %}
+    {% set name = (product.name or '')|lower %}
+
+    {% if 'jeans' in category
+        or 'pants' in category
+        or 'pant' in category
+        or 'track' in category
+        or 'jeans' in name
+        or 'pants' in name
+        or 'pant' in name
+    %}
+
+        <!-- PANTS / JEANS / TRACK PANTS -->
+
+        {% for size in ["30", "32", "36", "38"] %}
+
+            <span class="size">
+                {{ size }}
+            </span>
+
+        {% endfor %}
+
+    {% else %}
+
+        <!-- SHIRTS / T-SHIRTS / HOODIES -->
+
+        {% for size in ["M", "L", "XL", "XXL"] %}
+
+            <span class="size">
+                {{ size }}
+            </span>
+
+        {% endfor %}
+
+    {% endif %}
+
+</div>
+
+
+
+                                <!-- CART -->
+
+                                {% if product.stock and product.stock > 0 %}
+
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('add_to_cart') }}"
+                                        class="cart-form"
+                                    >
+
+
+                                        <input
+                                            type="hidden"
+                                            name="product_id"
+                                            value="{{ product.id }}"
+                                        >
+
+
+                                        <select
+                                            name="size"
+                                            class="size-select"
+                                            required
+                                        >
+
+                                            <option
+                                                value=""
+                                            >
+                                                Select Size
+                                            </option>
+
+
+                                            {% for size in [
+                                                "XS",
+                                                "S",
+                                                "M",
+                                                "L",
+                                                "XL",
+                                                "XXL"
+                                            ] %}
+
+                                                <option
+                                                    value="{{ size }}"
+                                                >
+                                                    {{ size }}
+                                                </option>
+
+                                            {% endfor %}
+
+                                        </select>
+
+
+                                        <button
+                                            type="submit"
+                                            class="add-button"
+                                        >
+                                            ADD TO CART
+                                        </button>
+
+
+                                    </form>
+
+
+                                    <div class="stock">
+
+                                        {{ product.stock }}
+                                        available
+
+                                    </div>
+
+
+                                {% else %}
+
+
+                                    <div class="stock">
+                                        Out of stock
+                                    </div>
+
+
+                                {% endif %}
+
+
+                            </div>
+
+
+                        </article>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="empty">
+
+
+                    <h2>
+                        No products found
+                    </h2>
+
+
+                    <p>
+                        Try another category or product type.
+                    </p>
+
+
+                    <a href="{{ url_for('shop') }}">
+                        VIEW ALL PRODUCTS
+                    </a>
+
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+
+    <div class="footer-inner">
+
+
+        <div>
+
+            <div class="footer-brand-name">
+                NEON
+            </div>
+
+            <p>
+                Modern clothing for everyday style.
+                Discover the latest collection from
+                Neon Clothing.
+            </p>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h4>
+                SHOP
+            </h4>
+
+            <a
+                href="{{ url_for(
+                    'shop',
+                    category='Shirts'
+                ) }}"
+            >
+                Shirts
+            </a>
+
+            <a
+                href="{{ url_for(
+                    'shop',
+                    category='T-Shirts'
+                ) }}"
+            >
+                T-Shirts
+            </a>
+
+            <a
+                href="{{ url_for(
+                    'shop',
+                    category='Jeans'
+                ) }}"
+            >
+                Jeans
+            </a>
+
+            <a
+                href="{{ url_for(
+                    'shop',
+                    category='Hoodies'
+                ) }}"
+            >
+                Hoodies
+            </a>
+
+            <a
+                href="{{ url_for(
+                    'shop',
+                    category='Track Pants'
+                ) }}"
+            >
+                Track Pants
+            </a>
+
+            <a
+                href="{{ url_for(
+                    'shop',
+                    category='Formal Pants'
+                ) }}"
+            >
+                Formal Pants
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h4>
+                HELP
+            </h4>
+
+            <a href="{{ url_for('track_order') }}">
+                Track Order
+            </a>
+
+            <a href="{{ url_for('contact') }}">
+                Contact Us
+            </a>
+
+            <a href="{{ url_for('about_us') }}">
+                About Us
+            </a>
+
+            <a href="{{ url_for('our_store') }}">
+                Our Store
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h4>
+                ACCOUNT
+            </h4>
+
+            <a href="{{ url_for('login') }}">
+                Login
+            </a>
+
+            <a href="{{ url_for('register') }}">
+                Register
+            </a>
+
+            <a href="{{ url_for('orders') }}">
+                My Orders
+            </a>
+
+            <a href="{{ url_for('cart') }}">
+                Shopping Cart
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 Neon Clothing
+        </span>
+
+        <span>
+            All Rights Reserved
+        </span>
+
+    </div>
+
+
+</footer>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function openSearch() {
+
+    const overlay =
+        document.getElementById(
+            "searchOverlay"
+        );
+
+    if (!overlay) {
+        return;
+    }
+
+    overlay.classList.add(
+        "open"
+    );
+
+    setTimeout(
+        function () {
+
+            const input =
+                document.getElementById(
+                    "shopSearchInput"
+                );
+
+            if (input) {
+                input.focus();
+            }
+
+        },
+        100
+    );
+
+}
+
+
+function closeSearch() {
+
+    const overlay =
+        document.getElementById(
+            "searchOverlay"
+        );
+
+    if (overlay) {
+
+        overlay.classList.remove(
+            "open"
+        );
+
+    }
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Escape") {
+
+            closeSearch();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   SEARCH PRODUCTS
+========================================================= */
+
+function searchProducts(event) {
+
+    event.preventDefault();
+
+
+    const input =
+        document.getElementById(
+            "shopSearchInput"
+        );
+
+
+    if (!input) {
+        return false;
+    }
+
+
+    const query =
+        input.value
+            .trim()
+            .toLowerCase();
+
+
+    if (!query) {
+        return false;
+    }
+
+
+    const cards =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    let found = 0;
+
+
+    cards.forEach(
+        function (card) {
+
+            const text =
+                card.innerText
+                    .toLowerCase();
+
+
+            if (
+                text.includes(query)
+            ) {
+
+                card.style.display =
+                    "";
+
+                found++;
+
+            } else {
+
+                card.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+    closeSearch();
+
+
+    if (found === 0) {
+
+        alert(
+            "No matching products found."
+        );
+
+    }
+
+
+    return false;
+
+}
+
+
+
+/* =========================================================
+   MOBILE FILTER
+========================================================= */
+
+function toggleFilter() {
+
+    const sidebar =
+        document.getElementById(
+            "filterSidebar"
+        );
+
+
+    if (!sidebar) {
+        return;
+    }
+
+
+    if (
+        sidebar.style.display ===
+        "block"
+    ) {
+
+        sidebar.style.display =
+            "none";
+
+    } else {
+
+        sidebar.style.display =
+            "block";
+
+        sidebar.style.position =
+            "fixed";
+
+        sidebar.style.left =
+            "0";
+
+        sidebar.style.top =
+            "0";
+
+        sidebar.style.width =
+            "300px";
+
+        sidebar.style.height =
+            "100vh";
+
+        sidebar.style.background =
+            "#ffffff";
+
+        sidebar.style.padding =
+            "25px";
+
+        sidebar.style.overflowY =
+            "auto";
+
+        sidebar.style.zIndex =
+            "9999";
+
+        sidebar.style.boxShadow =
+            "10px 0 35px rgba(0,0,0,.15)";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   PRICE FILTER
+========================================================= */
+
+function applyPriceFilter() {
+
+    const minInput =
+        document.getElementById(
+            "minPrice"
+        );
+
+
+    const maxInput =
+        document.getElementById(
+            "maxPrice"
+        );
+
+
+    const min =
+        Number(
+            minInput.value
+        ) || 0;
+
+
+    const max =
+        Number(
+            maxInput.value
+        ) || Infinity;
+
+
+    const cards =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    let visible = 0;
+
+
+    cards.forEach(
+        function (card) {
+
+            const price =
+                Number(
+                    card.dataset.price
+                );
+
+
+            if (
+                price >= min &&
+                price <= max
+            ) {
+
+                card.style.display =
+                    "";
+
+                visible++;
+
+            } else {
+
+                card.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+    if (visible === 0) {
+
+        alert(
+            "No products found in this price range."
+        );
+
+    }
+
+}
+
+
+function clearPriceFilter() {
+
+    const minInput =
+        document.getElementById(
+            "minPrice"
+        );
+
+
+    const maxInput =
+        document.getElementById(
+            "maxPrice"
+        );
+
+
+    minInput.value = "";
+
+    maxInput.value = "";
+
+
+    document
+        .querySelectorAll(
+            ".product-card"
+        )
+        .forEach(
+            function (card) {
+
+                card.style.display =
+                    "";
+
+            }
+        );
+
+}
+
+
+
+/* =========================================================
+   WISHLIST
+========================================================= */
+
+function getWishlist() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "wishlist"
+            ) || "[]"
+        ).map(Number);
+
+    } catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+function saveWishlist(
+    wishlist
+) {
+
+    localStorage.setItem(
+        "wishlist",
+        JSON.stringify(
+            wishlist
+        )
+    );
+
+}
+
+
+function updateWishlistCount() {
+
+    const wishlist =
+        getWishlist();
+
+
+    const count =
+        document.getElementById(
+            "wishlistCount"
+        );
+
+
+    if (count) {
+
+        count.textContent =
+            wishlist.length;
+
+    }
+
+}
+
+
+function updateWishlistButtons() {
+
+    const wishlist =
+        getWishlist();
+
+
+    document
+        .querySelectorAll(
+            ".wishlist"
+        )
+        .forEach(
+            function (button) {
+
+
+                const productId =
+                    Number(
+                        button.dataset.productId
+                    );
+
+
+                if (
+                    wishlist.includes(
+                        productId
+                    )
+                ) {
+
+                    button.textContent =
+                        "♥";
+
+                    button.classList.add(
+                        "active"
+                    );
+
+                } else {
+
+                    button.textContent =
+                        "♡";
+
+                    button.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+}
+
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        updateWishlistCount();
+
+        updateWishlistButtons();
+
+
+        document
+            .querySelectorAll(
+                ".wishlist"
+            )
+            .forEach(
+                function (button) {
+
+
+                    button.addEventListener(
+                        "click",
+                        function (event) {
+
+
+                            event.preventDefault();
+
+                            event.stopPropagation();
+
+
+                            const productId =
+                                Number(
+                                    this.dataset.productId
+                                );
+
+
+                            let wishlist =
+                                getWishlist();
+
+
+                            if (
+                                wishlist.includes(
+                                    productId
+                                )
+                            ) {
+
+                                wishlist =
+                                    wishlist.filter(
+                                        function (id) {
+
+                                            return (
+                                                id !==
+                                                productId
+                                            );
+
+                                        }
+                                    );
+
+                            } else {
+
+                                wishlist.push(
+                                    productId
+                                );
+
+                            }
+
+
+                            saveWishlist(
+                                wishlist
+                            );
+
+
+                            updateWishlistCount();
+
+                            updateWishlistButtons();
+
+
+                        }
+                    );
+
+
+                }
+            );
+
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>

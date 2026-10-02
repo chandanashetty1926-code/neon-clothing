@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login | Neon Clothing</title>
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/login.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     NAVBAR
+===================================== -->
+
+<header class="navbar">
+
+    <a
+        href="{{ url_for('home') }}"
+        class="logo"
+    >
+        NEON<span>.</span>
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('products') }}">
+            Products
+        </a>
+
+        <a href="{{ url_for('wishlist') }}">
+            Wishlist
+        </a>
+
+        <a href="{{ url_for('cart') }}">
+            Cart
+        </a>
+
+        <a href="{{ url_for('orders') }}">
+            Orders
+        </a>
+
+        <a
+            href="{{ url_for('login') }}"
+            class="active"
+        >
+            Profile
+        </a>
+
+        <a href="/admin">
+            Admin Panel
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================
+     LOGIN PAGE
+===================================== -->
+
+<main class="login-page">
+
+
+    <div class="login-wrapper">
+
+
+        <!-- =====================================
+             LEFT BRAND SECTION
+        ====================================== -->
+
+        <section class="login-brand">
+
+
+            <div class="brand-content">
+
+
+                <div class="brand-mark">
+                    N
+                </div>
+
+
+                <p class="brand-small">
+                    WELCOME TO
+                </p>
+
+
+                <h1>
+                    NEON<span>.</span>
+                </h1>
+
+
+                <p class="brand-description">
+                    Discover modern fashion.
+                    Shop your style. Wear your confidence.
+                </p>
+
+
+                <div class="brand-line"></div>
+
+
+                <p class="brand-tagline">
+                    STYLE THAT<br>
+                    <strong>STANDS OUT.</strong>
+                </p>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             LOGIN SECTION
+        ====================================== -->
+
+        <section class="login-section">
+
+
+            <div class="login-card">
+
+
+                <div class="login-header">
+
+
+                    <p class="login-label">
+                        ACCOUNT
+                    </p>
+
+
+                    <h2>
+                        Welcome Back
+                    </h2>
+
+
+                    <p>
+                        Sign in to continue shopping with Neon.
+                    </p>
+
+
+                </div>
+
+
+                <!-- FLASH MESSAGES -->
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+
+
+                    {% if messages %}
+
+
+                        <div class="flash-container">
+
+
+                            {% for category, message in messages %}
+
+
+                                <div class="flash-message {{ category }}">
+                                    {{ message }}
+                                </div>
+
+
+                            {% endfor %}
+
+
+                        </div>
+
+
+                    {% endif %}
+
+
+                {% endwith %}
+
+
+                <!-- LOGIN FORM -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for('login') }}"
+                    class="login-form"
+                >
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                required
+                                autocomplete="email"
+                            >
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+
+                        <div class="password-label">
+
+
+                            <label for="password">
+                                Password
+                            </label>
+
+
+                            <a href="#">
+                                Forgot Password?
+                            </a>
+
+
+                        </div>
+
+
+                        <div class="input-wrapper">
+
+
+                            <span class="input-icon">
+                                •
+                            </span>
+
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                required
+                                autocomplete="current-password"
+                            >
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- REMEMBER ME -->
+
+                    <div class="login-options">
+
+
+                        <label class="remember-me">
+
+
+                            <input
+                                type="checkbox"
+                                name="remember"
+                            >
+
+
+                            <span>
+                                Remember me
+                            </span>
+
+
+                        </label>
+
+
+                    </div>
+
+
+                    <!-- LOGIN BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                    >
+
+                        LOGIN TO NEON
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+
+                </form>
+
+
+                <!-- REGISTER -->
+
+                <div class="register-section">
+
+
+                    <span>
+                        Don't have an account?
+                    </span>
+
+
+                    <a href="{{ url_for('register') }}">
+                        Create Account
+                    </a>
+
+
+                </div>
+
+
+                <!-- BACK HOME -->
+
+                <a
+                    href="{{ url_for('home') }}"
+                    class="back-home"
+                >
+                    ← Back to Home
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 Neon Clothing. All rights reserved.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
