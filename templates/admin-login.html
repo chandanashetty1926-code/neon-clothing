@@ -1,286 +1,831 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Admin Login | Neon Clothing</title>
-
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}"
-    >
+    <title>Admin Login | NEON CLOTHING</title>
 
     <style>
-
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --black: #080808;
+            --dark: #111111;
+            --dark2: #171919;
+            --white: #ffffff;
+            --gray: #888888;
+            --border: #292929;
+            --lime: #dfff00;
+            --red: #ef4035;
+        }
+
         body {
-            margin: 0;
-            min-height: 100vh;
-            background: #0b0b0b;
-            color: #ffffff;
             font-family: Arial, Helvetica, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .top-bar {
+            height: 38px;
+            background: #242828;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .admin-login-container {
-            width: 100%;
-            max-width: 430px;
-            padding: 20px;
-        }
+        /* =========================
+           HEADER
+        ========================= */
 
-        .admin-login-card {
-            background: #151515;
-            border: 1px solid #292929;
-            border-radius: 14px;
-            padding: 40px;
-            box-shadow: 0 0 35px rgba(223, 255, 0, 0.08);
+        .header {
+            height: 82px;
+            border-bottom: 1px solid var(--border);
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .logo {
-            text-align: center;
+            text-decoration: none;
             color: #ffffff;
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: 5px;
-            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
         }
 
-        .logo span {
-            color: #dfff00;
+        .logo-main {
+            font-size: 29px;
+            font-weight: 900;
+            letter-spacing: 4px;
+        }
+
+        .logo-sub {
+            color: var(--lime);
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 5px;
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        .store-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .store-link:hover {
+            color: var(--lime);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .admin-section {
+            min-height: calc(100vh - 120px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-section::before {
+            content: "ADMIN";
+            position: absolute;
+            left: -40px;
+            bottom: 10px;
+            font-size: 180px;
+            font-weight: 900;
+            letter-spacing: -12px;
+            color: rgba(255, 255, 255, 0.025);
+            pointer-events: none;
+        }
+
+        .admin-section::after {
+            content: "NEON";
+            position: absolute;
+            right: -40px;
+            top: 80px;
+            font-size: 170px;
+            font-weight: 900;
+            letter-spacing: -10px;
+            color: rgba(223, 255, 0, 0.025);
+            pointer-events: none;
+        }
+
+        /* =========================
+           ADMIN CARD
+        ========================= */
+
+        .admin-card {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 570px;
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+        }
+
+        /* =========================
+           LEFT PANEL
+        ========================= */
+
+        .admin-info {
+            padding: 55px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(223, 255, 0, 0.09),
+                    transparent 55%
+                ),
+                #141717;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-info::before {
+            content: "";
+            position: absolute;
+            width: 310px;
+            height: 310px;
+            border: 1px solid rgba(223, 255, 0, 0.18);
+            border-radius: 50%;
+            right: -160px;
+            top: -100px;
+        }
+
+        .admin-info::after {
+            content: "";
+            position: absolute;
+            width: 210px;
+            height: 210px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 50%;
+            right: -100px;
+            top: -50px;
         }
 
         .admin-label {
-            text-align: center;
-            color: #dfff00;
+            position: relative;
+            z-index: 2;
+            color: var(--lime);
             font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .admin-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .admin-content h1 {
+            font-size: 62px;
+            line-height: 0.9;
             font-weight: 900;
-            letter-spacing: 2px;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .admin-content h1 span {
+            color: var(--lime);
+        }
+
+        .admin-content p {
+            color: #909090;
+            max-width: 350px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .admin-features {
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 13px;
+            color: #a0a0a0;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            border: 1px solid #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--lime);
+            font-size: 11px;
+        }
+
+        /* =========================
+           LOGIN PANEL
+        ========================= */
+
+        .admin-form {
+            background: #ffffff;
+            color: #111111;
+            padding: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-top {
+            margin-bottom: 32px;
+        }
+
+        .form-top .eyebrow {
+            color: #777777;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .form-top h2 {
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
             margin-bottom: 8px;
         }
 
-        .login-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .login-title h1 {
-            margin: 0 0 8px;
-            font-size: 24px;
-        }
-
-        .login-title p {
-            margin: 0;
+        .form-top p {
             color: #777777;
-            font-size: 12px;
+            font-size: 13px;
+            line-height: 1.6;
         }
 
-        .flash-container {
+        /* =========================
+           FLASH MESSAGE
+        ========================= */
+
+        .flash-messages {
             margin-bottom: 20px;
         }
 
         .flash-message {
-            padding: 12px;
-            border-radius: 7px;
-            margin-bottom: 8px;
+            padding: 12px 14px;
+            background: #fff2f2;
+            border: 1px solid #efc5c5;
+            color: #c62828;
             font-size: 12px;
+            margin-bottom: 8px;
         }
 
-        .flash-message.error {
-            background: rgba(255, 80, 80, 0.10);
-            border: 1px solid rgba(255, 80, 80, 0.20);
-            color: #ff8585;
-        }
-
-        .flash-message.success {
-            background: rgba(223, 255, 0, 0.10);
-            border: 1px solid rgba(223, 255, 0, 0.20);
-            color: #dfff00;
-        }
+        /* =========================
+           FORM
+        ========================= */
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 21px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #cccccc;
-            font-size: 12px;
-            font-weight: 700;
+            margin-bottom: 9px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
 
-        .form-group input {
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap input {
             width: 100%;
-            height: 45px;
-            padding: 0 14px;
-            background: #0d0d0d;
-            color: #ffffff;
-            border: 1px solid #333333;
-            border-radius: 7px;
+            height: 53px;
+            border: 1px solid #d7d7d7;
+            background: #fafafa;
+            color: #111111;
+            padding: 0 16px;
+            font-size: 14px;
             outline: none;
-            font-size: 12px;
+            transition: 0.25s;
         }
 
-        .form-group input:focus {
-            border-color: #dfff00;
+        .input-wrap input:focus {
+            border-color: #111111;
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(223, 255, 0, 0.5);
         }
+
+        .input-wrap input::placeholder {
+            color: #aaa;
+        }
+
+        .password-input {
+            padding-right: 65px !important;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            color: #555;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        .show-password:hover {
+            color: #111;
+        }
+
+        /* =========================
+           OPTIONS
+        ========================= */
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0 27px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #777;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .remember input {
+            width: 14px;
+            height: 14px;
+            accent-color: #111;
+        }
+
+        .forgot {
+            color: #222;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .forgot:hover {
+            color: #7e9200;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
 
         .login-button {
             width: 100%;
-            height: 46px;
-            border: none;
-            border-radius: 7px;
-            background: #dfff00;
-            color: #000000;
-            font-size: 11px;
-            font-weight: 900;
-            letter-spacing: 1px;
+            height: 54px;
+            border: 1px solid #111111;
+            background: #111111;
+            color: #ffffff;
             cursor: pointer;
-            transition: 0.2s ease;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
         }
 
         .login-button:hover {
-            background: #ffffff;
+            background: var(--lime);
+            border-color: var(--lime);
+            color: #111111;
         }
 
-        .back-store {
-            display: block;
-            margin-top: 20px;
+        /* =========================
+           FOOTER AREA
+        ========================= */
+
+        .admin-footer {
+            margin-top: 26px;
+            padding-top: 20px;
+            border-top: 1px solid #e8e8e8;
             text-align: center;
-            color: #777777;
+        }
+
+        .admin-footer p {
+            color: #999999;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .admin-footer a {
+            color: #111111;
+            font-weight: 800;
             text-decoration: none;
-            font-size: 11px;
         }
 
-        .back-store:hover {
-            color: #dfff00;
+        .secure {
+            margin-top: 17px;
+            color: #999999;
+            font-size: 10px;
+            text-align: center;
         }
 
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .admin-card {
+                grid-template-columns: 1fr;
+                max-width: 570px;
+            }
+
+            .admin-info {
+                min-height: 300px;
+                padding: 40px;
+            }
+
+            .admin-content h1 {
+                font-size: 48px;
+            }
+
+            .admin-form {
+                padding: 45px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                height: 72px;
+                padding: 0 22px;
+            }
+
+            .logo-main {
+                font-size: 23px;
+            }
+
+            .logo-sub {
+                font-size: 7px;
+            }
+
+            .store-link {
+                font-size: 9px;
+            }
+
+            .admin-section {
+                padding: 20px 15px;
+            }
+
+            .admin-info {
+                padding: 30px 25px;
+                min-height: 270px;
+            }
+
+            .admin-content h1 {
+                font-size: 42px;
+            }
+
+            .admin-content p {
+                font-size: 12px;
+            }
+
+            .admin-form {
+                padding: 35px 25px;
+            }
+
+            .form-top h2 {
+                font-size: 30px;
+            }
+
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
     </style>
-
 </head>
-
 
 <body>
 
-<div class="admin-login-container">
-
-    <div class="admin-login-card">
-
-        <div class="logo">
-            NEON<span>.</span>
-        </div>
-
-        <div class="admin-label">
-            ADMIN PANEL
-        </div>
-
-        <div class="login-title">
-
-            <h1>
-                Administrator Login
-            </h1>
-
-            <p>
-                Login to manage Neon Clothing
-            </p>
-
-        </div>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        NEON CLOTHING · ADMINISTRATOR ACCESS · SECURE AREA
+    </div>
 
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
+    <!-- HEADER -->
+    <header class="header">
 
-            {% if messages %}
+        <a href="{{ url_for('home') }}" class="logo">
+            <span class="logo-main">NEON</span>
+            <span class="logo-sub">CLOTHING</span>
+        </a>
 
-                <div class="flash-container">
+        <a href="{{ url_for('home') }}" class="store-link">
+            ← Back to Store
+        </a>
 
-                    {% for category, message in messages %}
+    </header>
 
-                        <div class="flash-message {{ category }}">
-                            {{ message }}
-                        </div>
 
-                    {% endfor %}
+    <!-- ADMIN LOGIN -->
+    <main class="admin-section">
+
+        <div class="admin-card">
+
+            <!-- LEFT INFORMATION PANEL -->
+            <section class="admin-info">
+
+                <div class="admin-label">
+                    NEON CLOTHING / CONTROL PANEL
+                </div>
+
+
+                <div class="admin-content">
+
+                    <h1>
+                        Admin<br>
+                        <span>Access.</span>
+                    </h1>
+
+                    <p>
+                        Welcome to the NEON CLOTHING management portal.
+                        Sign in to manage products, orders, customers
+                        and your online store.
+                    </p>
 
                 </div>
 
-            {% endif %}
 
-        {% endwith %}
+                <div class="admin-features">
+
+                    <div class="feature">
+
+                        <span class="feature-icon">✓</span>
+
+                        <span>
+                            Product Management
+                        </span>
+
+                    </div>
 
 
-        <form
-            method="POST"
-            action="{{ url_for('admin_login') }}"
-        >
+                    <div class="feature">
 
-            <div class="form-group">
+                        <span class="feature-icon">✓</span>
 
-                <label for="email">
-                    Admin Email
-                </label>
+                        <span>
+                            Order Management
+                        </span>
 
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter admin email"
-                    required
+                    </div>
+
+
+                    <div class="feature">
+
+                        <span class="feature-icon">✓</span>
+
+                        <span>
+                            Customer Management
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- FORM -->
+            <section class="admin-form">
+
+                <div class="form-top">
+
+                    <div class="eyebrow">
+                        Administrator Login
+                    </div>
+
+                    <h2>Sign In</h2>
+
+                    <p>
+                        Enter your administrator credentials
+                        to continue.
+                    </p>
+
+                </div>
+
+
+                <!-- FLASH MESSAGES -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+
+                    {% if messages %}
+
+                        <div class="flash-messages">
+
+                            {% for category, message in messages %}
+
+                                <div class="flash-message">
+                                    {{ message }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+
+                <!-- ADMIN FORM -->
+                <form
+                    method="POST"
+                    action="{{ url_for('admin_login') }}"
                 >
 
-            </div>
+                    <div class="form-group">
+
+                        <label for="email">
+                            Admin Email
+                        </label>
+
+                        <div class="input-wrap">
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter admin email"
+                                autocomplete="username"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
 
 
-            <div class="form-group">
+                    <div class="form-group">
 
-                <label for="password">
-                    Admin Password
-                </label>
+                        <label for="password">
+                            Password
+                        </label>
 
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Enter admin password"
-                    required
-                >
+                        <div class="input-wrap">
 
-            </div>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="password-input"
+                                placeholder="Enter admin password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                id="passwordToggle"
+                                onclick="togglePassword()"
+                            >
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
 
 
-            <button
-                type="submit"
-                class="login-button"
-            >
-                LOGIN TO ADMIN PANEL
-            </button>
+                    <div class="form-options">
 
-        </form>
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                name="remember"
+                            >
+
+                            <span>
+                                Remember me
+                            </span>
+
+                        </label>
 
 
-        <a
-            href="{{ url_for('home') }}"
-            class="back-store"
-        >
-            ← Back to Neon Clothing
-        </a>
+                        <a
+                            href="#"
+                            class="forgot"
+                            onclick="return false;"
+                        >
+                            Forgot Password?
+                        </a>
 
-    </div>
+                    </div>
 
-</div>
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                    >
+                        Access Admin Panel
+                    </button>
+
+                </form>
+
+
+                <div class="admin-footer">
+
+                    <p>
+                        Not an administrator?
+                        <a href="{{ url_for('login') }}">
+                            Customer Login
+                        </a>
+                    </p>
+
+                </div>
+
+
+                <div class="secure">
+                    🔒 Secure administrator access
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.getElementById("passwordToggle");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                button.textContent = "Hide";
+
+            } else {
+
+                password.type = "password";
+                button.textContent = "Show";
+
+            }
+
+        }
+
+    </script>
 
 </body>
-
 </html>
