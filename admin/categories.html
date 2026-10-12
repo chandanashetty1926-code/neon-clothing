@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categories - Neon Clothing Admin</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{min-width:320px;font-family:Arial,Helvetica,sans-serif;background:#f5f5f5;color:#222}
+button,input{font:inherit}
+a{-webkit-tap-highlight-color:transparent}
+.navbar{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 42px;background:#fff;border-bottom:1px solid #e4e4e4;position:sticky;top:0;z-index:1000}
+.logo{color:#111;font-size:24px;font-weight:900;letter-spacing:3px}.logo span{color:#879400}
+.header-actions{display:flex;align-items:center;gap:8px}.header-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 14px;border:1px solid #d5d5d5;border-radius:6px;background:#fff;color:#333;text-decoration:none;font-size:10px;font-weight:800;transition:.2s}.header-link:hover{background:#f1f1f1;border-color:#bdbdbd}.header-link.primary:hover{background:#dfff00;border-color:#dfff00;color:#111}
+.page{width:min(1180px,calc(100% - 40px));margin:0 auto;padding:42px 0 60px}.page-heading{margin-bottom:28px}.eyebrow{display:block;margin-bottom:7px;color:#858585;font-size:9px;font-weight:900;letter-spacing:2px;text-transform:uppercase}.page-heading h1{color:#111;font-size:38px;font-weight:900;line-height:1;letter-spacing:-1px}.page-heading p{max-width:680px;margin-top:9px;color:#777;font-size:12px;line-height:1.5}
+.flash-stack{margin-bottom:18px}.flash-message{display:flex;align-items:center;gap:9px;min-height:42px;margin-bottom:8px;padding:10px 13px;border:1px solid #dedede;border-radius:6px;background:#fff;font-size:11px}.flash-message.success{background:#f4ffd1;border-color:#d4e78a;color:#495600}.flash-message.error{background:#fff1f1;border-color:#efcaca;color:#ae3030}.flash-icon{width:21px;height:21px;flex:0 0 21px;display:grid;place-items:center;border-radius:50%;background:rgba(0,0,0,.06);font-size:11px;font-weight:900}
+.top-grid{display:grid;grid-template-columns:minmax(0,390px) minmax(0,1fr);gap:18px;align-items:start;margin-bottom:18px}.card{background:#fff;border:1px solid #dfdfdf;border-radius:8px;box-shadow:0 3px 14px rgba(0,0,0,.045)}
+.add-card,.overview-card{padding:21px}.card-heading,.overview-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}.card-heading-copy h2,.overview-head h2{color:#222;font-size:18px;line-height:1.2}.card-heading-copy p{margin-top:5px;color:#818181;font-size:10px;line-height:1.5}.mini-badge{padding:5px 7px;border-radius:4px;background:#f0f0f0;color:#707070;font-size:7px;font-weight:900;letter-spacing:.9px;white-space:nowrap}
+.category-form{display:flex;flex-direction:column;gap:12px}.field-label{display:block;margin-bottom:7px;color:#555;font-size:8px;font-weight:900;letter-spacing:1px;text-transform:uppercase}.category-input{width:100%;min-height:46px;padding:0 12px;border:1px solid #ccc;border-radius:5px;outline:none;background:#fff;color:#222;font-size:13px;transition:.18s}.category-input::placeholder{color:#a0a0a0}.category-input:focus{border-color:#99a600;box-shadow:0 0 0 2px rgba(223,255,0,.22)}.add-button{min-height:45px;padding:0 16px;border:1px solid #111;border-radius:5px;background:#111;color:#fff;font-size:10px;font-weight:900;letter-spacing:.8px;cursor:pointer;transition:.2s}.add-button:hover{background:#dfff00;border-color:#dfff00;color:#111}.form-note{color:#8a8a8a;font-size:9px;line-height:1.5}
+.category-count-total{display:inline-flex;align-items:center;justify-content:center;min-width:35px;min-height:27px;padding:0 8px;border-radius:4px;background:#dfff00;color:#111;font-size:10px;font-weight:900}.quick-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.summary-box{padding:13px;border:1px solid #e5e5e5;border-radius:6px;background:#fafafa}.summary-box-label{color:#858585;font-size:8px;font-weight:900;letter-spacing:1px;text-transform:uppercase}.summary-box-value{margin-top:6px;color:#222;font-size:22px;font-weight:900}.overview-note{margin-top:12px;padding:11px 12px;border-radius:5px;background:#f6ffd8;color:#5a6500;font-size:9px;line-height:1.5}
+.list-card{overflow:hidden}.list-header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px 20px;border-bottom:1px solid #e9e9e9}.list-header h2{color:#222;font-size:18px}.search-box{width:260px;max-width:100%}.search-input{width:100%;height:38px;padding:0 11px;border:1px solid #d1d1d1;border-radius:5px;background:#fff;color:#222;outline:none;font-size:10px}.search-input:focus{border-color:#9da600}
+.category-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:18px 20px 20px}.category-item{padding:15px;border:1px solid #e4e4e4;border-radius:7px;background:#fff;transition:.18s}.category-item:hover{border-color:#cfcfcf;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.05)}.category-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px}.category-info{min-width:0}.category-name{color:#202020;font-size:15px;font-weight:900;overflow-wrap:anywhere}.category-subtitle{margin-top:4px;color:#8a8a8a;font-size:8px;letter-spacing:.5px}.product-count-badge{flex:0 0 auto;min-height:27px;padding:0 8px;display:inline-flex;align-items:center;justify-content:center;border-radius:4px;background:#f1f1f1;color:#555;font-size:8px;font-weight:900}.type-section{padding-top:12px;border-top:1px solid #eee}.type-title{margin-bottom:7px;color:#858585;font-size:7px;font-weight:900;letter-spacing:1px;text-transform:uppercase}.type-list{display:flex;flex-wrap:wrap;gap:5px}.type-chip{padding:5px 7px;border:1px solid #e0e0e0;border-radius:4px;background:#fafafa;color:#5d5d5d;font-size:8px}.no-types{color:#999;font-size:8px}
+.category-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid #eee}.view-products{color:#626c00;text-decoration:none;font-size:8px;font-weight:900;letter-spacing:.6px}.view-products:hover{text-decoration:underline}.delete-button{min-height:30px;padding:0 9px;border:1px solid #e6caca;border-radius:4px;background:#fff4f4;color:#b23636;font-size:8px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;transition:.18s}.delete-button:hover{background:#ffe1e1;border-color:#dfa9a9}
+.empty-state{padding:70px 20px;text-align:center}.empty-icon{width:62px;height:62px;margin:0 auto 15px;display:grid;place-items:center;border-radius:50%;background:#f4f4f4;font-size:28px}.empty-state h3{color:#222;font-size:17px;margin-bottom:6px}.empty-state p{color:#888;font-size:10px}.footer{padding:28px 20px 34px;border-top:1px solid #dfdfdf;background:#fff;text-align:center}.footer-logo{color:#111;font-size:19px;font-weight:900;letter-spacing:4px}.footer p{margin-top:7px;color:#8a8a8a;font-size:8px}
+@media(max-width:900px){.navbar{padding:0 24px}.page{width:min(100% - 30px,760px);padding-top:30px}.top-grid{grid-template-columns:1fr}.category-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.navbar{min-height:62px;padding:0 14px}.logo{font-size:18px;letter-spacing:2px}.header-link{min-height:36px;padding:0 9px;font-size:8px}.header-link.products-link{display:none}.page{width:calc(100% - 18px);padding:24px 0 40px}.page-heading{margin-bottom:22px}.page-heading h1{font-size:30px}.page-heading p{font-size:10px}.add-card,.overview-card{padding:16px}.category-list{grid-template-columns:1fr;padding:14px}.list-header{align-items:stretch;flex-direction:column;padding:15px}.search-box{width:100%}.quick-summary{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.header-actions{gap:5px}.header-link{padding:0 7px}.logo{font-size:15px;letter-spacing:1.5px}.page-heading h1{font-size:27px}.quick-summary{grid-template-columns:1fr}.category-actions{align-items:stretch;flex-direction:column}.view-products,.delete-button{width:100%;text-align:center}.category-actions .view-products{padding:8px 0;border:1px solid #e2e2e2;border-radius:4px}}
+:focus-visible{outline:2px solid #97a300;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">NEON <span>CLOTHING</span></div>
+    <div class="header-actions">
+        <a href="/admin/products" class="header-link products-link">PRODUCTS</a>
+        <a href="/admin" class="header-link primary">← DASHBOARD</a>
+    </div>
+</header>
+
+<main class="page">
+
+    <section class="page-heading">
+        <span class="eyebrow">NEON CLOTHING ADMIN</span>
+        <h1>Categories</h1>
+        <p>Organize your store by main clothing categories and manage the product types available under each category.</p>
+    </section>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-stack">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">
+                        <span class="flash-icon">{% if category == 'success' %}✓{% else %}!{% endif %}</span>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <section class="top-grid">
+
+        <div class="card add-card">
+            <div class="card-heading">
+                <div class="card-heading-copy">
+                    <h2>Add New Category</h2>
+                    <p>Create a new top-level clothing category.</p>
+                </div>
+                <span class="mini-badge">ADMIN</span>
+            </div>
+
+            <form method="POST" action="{{ url_for('admin_categories') }}" class="category-form">
+                <div>
+                    <label for="category" class="field-label">Category Name</label>
+                    <input type="text" id="category" name="category" class="category-input" placeholder="Example: Jackets" maxlength="100" autocomplete="off" required>
+                </div>
+                <button type="submit" class="add-button">+ ADD CATEGORY</button>
+                <p class="form-note">Use a clear category name such as Shirts, Jeans, T-Shirts or Hoodies.</p>
+            </form>
+        </div>
+
+        <div class="card overview-card">
+            <div class="overview-head">
+                <h2>Category Overview</h2>
+                <span class="category-count-total">{{ categories|length }}</span>
+            </div>
+
+            {% set total_products = namespace(value=0) %}
+            {% for category in categories %}
+                {% set total_products.value = total_products.value + category.count %}
+            {% endfor %}
+
+            <div class="quick-summary">
+                <div class="summary-box">
+                    <div class="summary-box-label">Categories</div>
+                    <div class="summary-box-value">{{ categories|length }}</div>
+                </div>
+                <div class="summary-box">
+                    <div class="summary-box-label">Total Products</div>
+                    <div class="summary-box-value">{{ total_products.value }}</div>
+                </div>
+            </div>
+
+            <div class="overview-note">
+                Categories with existing products cannot be deleted. This protects your product data and prevents broken category references.
+            </div>
+        </div>
+
+    </section>
+
+    <section class="card list-card">
+        <div class="list-header">
+            <div><h2>Store Categories</h2></div>
+            <div class="search-box">
+                <input type="search" id="categorySearch" class="search-input" placeholder="Search categories..." autocomplete="off">
+            </div>
+        </div>
+
+        {% if categories %}
+            <div class="category-list" id="categoryList">
+
+                {% for category in categories %}
+                    <article class="category-item" data-category="{{ category.name|lower }}">
+                        <div class="category-top">
+                            <div class="category-info">
+                                <div class="category-name">{{ category.name }}</div>
+                                <div class="category-subtitle">MAIN CLOTHING CATEGORY</div>
+                            </div>
+
+                            <span class="product-count-badge">
+                                {{ category.count }}
+                                {% if category.count == 1 %}PRODUCT{% else %}PRODUCTS{% endif %}
+                            </span>
+                        </div>
+
+                        <div class="type-section">
+                            <div class="type-title">Available Product Types</div>
+                            <div class="type-list">
+                                {% set types = product_types.get(category.name, []) %}
+                                {% if types %}
+                                    {% for type in types %}
+                                        <span class="type-chip">{{ type }}</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <span class="no-types">No predefined product types</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="category-actions">
+                            <a href="{{ url_for('products', category=category.name) }}" class="view-products">VIEW PRODUCTS →</a>
+
+                            {% if category.count == 0 %}
+                                <a href="{{ url_for('admin_delete_category', category_name=category.name) }}" class="delete-button" onclick="return confirm('Delete category {{ category.name|e }}?');">DELETE</a>
+                            {% else %}
+                                <span class="delete-button" style="opacity:.45;cursor:not-allowed" title="Cannot delete a category that has products.">IN USE</span>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+
+            </div>
+
+            <div id="searchEmpty" class="empty-state" style="display:none;">
+                <div class="empty-icon">🔎</div>
+                <h3>No Matching Categories</h3>
+                <p>Try a different category name.</p>
+            </div>
+
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">📂</div>
+                <h3>No Categories Yet</h3>
+                <p>Add your first clothing category using the form above.</p>
+            </div>
+        {% endif %}
+
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-logo">NEON</div>
+    <p>© 2026 Neon Clothing Admin. All rights reserved.</p>
+</footer>
+
+<script>
+const searchInput=document.getElementById('categorySearch');
+const categoryItems=document.querySelectorAll('.category-item');
+const searchEmpty=document.getElementById('searchEmpty');
+
+if(searchInput){
+    searchInput.addEventListener('input',function(){
+        const search=this.value.trim().toLowerCase();
+        let visible=0;
+        categoryItems.forEach(function(item){
+            const name=item.dataset.category||'';
+            const show=name.includes(search);
+            item.style.display=show?'':'none';
+            if(show) visible++;
+        });
+        if(searchEmpty){
+            searchEmpty.style.display=(search && visible===0)?'block':'none';
+        }
+    });
+}
+</script>
+
+</body>
+</html>
