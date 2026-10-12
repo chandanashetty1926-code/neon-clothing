@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Add Product - Neon Clothing Admin</title>
+
+
+    <style>
+
+        /* =================================================
+           RESET
+        ================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =================================================
+           BODY
+        ================================================= */
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #111111;
+        }
+
+
+        /* =================================================
+           ADMIN LAYOUT
+        ================================================= */
+
+        .admin-layout {
+            min-height: 100vh;
+            display: flex;
+        }
+
+
+        /* =================================================
+           SIDEBAR
+        ================================================= */
+
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            background: #111111;
+            border-right: 1px solid #222222;
+
+            padding: 25px 16px;
+
+            z-index: 1000;
+        }
+
+
+        .brand {
+            padding: 10px 14px 30px;
+
+            border-bottom: 1px solid #292929;
+        }
+
+
+        .brand h1 {
+            color: #dfff00;
+
+            font-size: 28px;
+            font-weight: 900;
+
+            letter-spacing: 3px;
+        }
+
+
+        .brand p {
+            margin-top: 6px;
+
+            color: #777777;
+
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+
+        /* =================================================
+           NAVIGATION
+        ================================================= */
+
+        .admin-nav {
+            margin-top: 25px;
+        }
+
+
+        .nav-title {
+            margin: 0 12px 10px;
+
+            color: #666666;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        .admin-nav a {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 13px 14px;
+
+            margin-bottom: 5px;
+
+            color: #999999;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: 0.25s ease;
+        }
+
+
+        .admin-nav a:hover {
+            background: #1d1d1d;
+            color: #ffffff;
+        }
+
+
+        .admin-nav a.active {
+            background: #dfff00;
+            color: #000000;
+        }
+
+
+        .nav-icon {
+            width: 22px;
+
+            text-align: center;
+
+            font-size: 15px;
+        }
+
+
+        /* =================================================
+           MAIN CONTENT
+        ================================================= */
+
+        .main-content {
+
+            width: calc(100% - 250px);
+
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+            background: #f5f5f5;
+        }
+
+
+        /* =================================================
+           TOP BAR
+        ================================================= */
+
+        .topbar {
+
+            height: 75px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            background: #ffffff;
+
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+
+        .topbar h2 {
+
+            font-size: 20px;
+
+            color: #111111;
+        }
+
+
+        .topbar p {
+
+            margin-top: 4px;
+
+            color: #777777;
+
+            font-size: 11px;
+        }
+
+
+        /* =================================================
+           ADMIN PROFILE
+        ================================================= */
+
+        .admin-profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .admin-avatar {
+
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #dfff00;
+
+            color: #000000;
+
+            border-radius: 50%;
+
+            font-size: 14px;
+
+            font-weight: 900;
+        }
+
+
+        .admin-profile span {
+
+            color: #333333;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        /* =================================================
+           PAGE CONTENT
+        ================================================= */
+
+        .page-content {
+
+            padding: 35px;
+        }
+
+
+        .page-heading {
+
+            margin-bottom: 28px;
+        }
+
+
+        .page-heading span {
+
+            color: #7f9900;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.7px;
+        }
+
+
+        .page-heading h1 {
+
+            margin-top: 8px;
+
+            color: #111111;
+
+            font-size: 30px;
+        }
+
+
+        .page-heading p {
+
+            margin-top: 7px;
+
+            color: #777777;
+
+            font-size: 12px;
+        }
+
+
+        /* =================================================
+           FORM CARD
+        ================================================= */
+
+        .form-card {
+
+            max-width: 1050px;
+
+            background: #ffffff;
+
+            border: 1px solid #e4e4e4;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.04);
+        }
+
+
+        /* =================================================
+           FORM HEADER
+        ================================================= */
+
+        .form-header {
+
+            padding: 22px 25px;
+
+            background: #ffffff;
+
+            border-bottom: 1px solid #eeeeee;
+        }
+
+
+        .form-header h2 {
+
+            color: #111111;
+
+            font-size: 16px;
+        }
+
+
+        .form-header p {
+
+            margin-top: 5px;
+
+            color: #777777;
+
+            font-size: 11px;
+        }
+
+
+        /* =================================================
+           PRODUCT FORM
+        ================================================= */
+
+        .product-form {
+
+            padding: 28px 25px;
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            margin-bottom: 20px;
+        }
+
+
+        .form-group.full {
+
+            grid-column: 1 / -1;
+        }
+
+
+        /* =================================================
+           LABEL
+        ================================================= */
+
+        .form-group label {
+
+            margin-bottom: 8px;
+
+            color: #333333;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =================================================
+           INPUTS
+        ================================================= */
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+
+            width: 100%;
+
+            background: #ffffff;
+
+            color: #111111;
+
+            border: 1px solid #d7d7d7;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            transition: 0.25s ease;
+        }
+
+
+        .form-group input,
+        .form-group select {
+
+            height: 46px;
+
+            padding: 0 13px;
+        }
+
+
+        .form-group textarea {
+
+            min-height: 140px;
+
+            padding: 13px;
+
+            resize: vertical;
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+
+            border-color: #b9d500;
+
+            box-shadow:
+                0 0 0 3px rgba(223, 255, 0, 0.12);
+        }
+
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+
+            color: #999999;
+        }
+
+
+        /* =================================================
+           HELP TEXT
+        ================================================= */
+
+        .help-text {
+
+            margin-top: 6px;
+
+            color: #777777;
+
+            font-size: 9px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =================================================
+           FILE INPUT
+        ================================================= */
+
+        .form-group input[type="file"] {
+
+            height: auto;
+
+            min-height: 50px;
+
+            padding: 7px;
+
+            cursor: pointer;
+
+            background: #ffffff;
+        }
+
+
+        .form-group input[type="file"]::file-selector-button {
+
+            background: #111111;
+
+            color: #dfff00;
+
+            border: none;
+
+            padding: 10px 16px;
+
+            margin-right: 12px;
+
+            border-radius: 6px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+
+        .form-group input[type="file"]::file-selector-button:hover {
+
+            background: #dfff00;
+
+            color: #000000;
+        }
+
+
+        /* =================================================
+           IMAGE UPLOAD INFORMATION
+        ================================================= */
+
+        .image-upload-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-top: 12px;
+
+            padding: 13px 15px;
+
+            background: #f8ffe0;
+
+            border: 1px solid #e6f2a8;
+
+            border-radius: 8px;
+        }
+
+
+        .image-upload-info-icon {
+
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #dfff00;
+
+            color: #000000;
+
+            border-radius: 50%;
+
+            font-size: 14px;
+
+            font-weight: 900;
+
+            flex-shrink: 0;
+        }
+
+
+        .image-upload-info-text {
+
+            color: #444444;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+        }
+
+
+        .image-upload-info-text strong {
+
+            color: #111111;
+        }
+
+
+        /* =================================================
+           IMAGE PREVIEW SECTION
+        ================================================= */
+
+        .image-preview-wrapper {
+
+            margin-top: 18px;
+
+            display: none;
+        }
+
+
+        .image-preview-title {
+
+            margin-bottom: 12px;
+
+            color: #333333;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+
+        .image-preview-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 15px;
+        }
+
+
+        /* =================================================
+           IMAGE PREVIEW ITEM
+        ================================================= */
+
+        .preview-item {
+
+            position: relative;
+
+            background: #f7f7f7;
+
+            border: 1px solid #dddddd;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            min-height: 220px;
+        }
+
+
+        .preview-item img {
+
+            width: 100%;
+
+            height: 220px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+
+        /* =================================================
+           PREVIEW NUMBER
+        ================================================= */
+
+        .preview-number {
+
+            position: absolute;
+
+            top: 10px;
+            left: 10px;
+
+            background: #111111;
+
+            color: #dfff00;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            z-index: 2;
+        }
+
+
+        /* =================================================
+           MAIN PHOTO LABEL
+        ================================================= */
+
+        .main-photo-label {
+
+            position: absolute;
+
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+
+            padding: 8px 10px;
+
+            background: rgba(0, 0, 0, 0.82);
+
+            color: #ffffff;
+
+            text-align: center;
+
+            border-radius: 6px;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .main-photo-label span {
+
+            color: #dfff00;
+        }
+
+
+        /* =================================================
+           IMAGE COUNT
+        ================================================= */
+
+        .image-count {
+
+            margin-top: 10px;
+
+            color: #777777;
+
+            font-size: 10px;
+        }
+
+
+        .image-count.valid {
+
+            color: #4d7500;
+
+            font-weight: 700;
+        }
+
+
+        .image-count.invalid {
+
+            color: #c0392b;
+
+            font-weight: 700;
+        }
+
+
+        /* =================================================
+           DISCOUNT BOX
+        ================================================= */
+
+        .discount-box {
+
+            padding: 16px;
+
+            margin-top: 5px;
+
+            margin-bottom: 22px;
+
+            background: #fbffe9;
+
+            border: 1px solid #eaf3b7;
+
+            border-radius: 9px;
+        }
+
+
+        .discount-box h3 {
+
+            margin-bottom: 6px;
+
+            color: #799100;
+
+            font-size: 12px;
+        }
+
+
+        .discount-box p {
+
+            color: #707070;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =================================================
+           FORM ACTIONS
+        ================================================= */
+
+        .form-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #eeeeee;
+        }
+
+
+        /* =================================================
+           CANCEL BUTTON
+        ================================================= */
+
+        .cancel-button {
+
+            height: 45px;
+
+            padding: 0 20px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #ffffff;
+
+            color: #555555;
+
+            border: 1px solid #d6d6d6;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            transition: 0.25s ease;
+        }
+
+
+        .cancel-button:hover {
+
+            background: #f3f3f3;
+
+            color: #111111;
+        }
+
+
+        /* =================================================
+           SAVE BUTTON
+        ================================================= */
+
+        .save-button {
+
+            height: 45px;
+
+            padding: 0 25px;
+
+            background: #111111;
+
+            color: #dfff00;
+
+            border: none;
+
+            border-radius: 7px;
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+
+        .save-button:hover {
+
+            background: #dfff00;
+
+            color: #000000;
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 1000px) {
+
+            .image-preview-grid {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+        }
+
+
+        @media (max-width: 850px) {
+
+            .sidebar {
+
+                width: 70px;
+
+                padding: 20px 10px;
+            }
+
+
+            .brand {
+
+                text-align: center;
+
+                padding: 10px 0 20px;
+            }
+
+
+            .brand h1 {
+
+                font-size: 18px;
+            }
+
+
+            .brand p,
+            .nav-title,
+            .admin-nav a span {
+
+                display: none;
+            }
+
+
+            .admin-nav a {
+
+                justify-content: center;
+
+                padding: 13px 5px;
+            }
+
+
+            .main-content {
+
+                width: calc(100% - 70px);
+
+                margin-left: 70px;
+            }
+
+
+            .topbar {
+
+                padding: 0 20px;
+            }
+
+
+            .page-content {
+
+                padding: 20px;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .form-group.full {
+
+                grid-column: auto;
+            }
+
+
+            .image-preview-grid {
+
+                grid-template-columns: 1fr 1fr;
+            }
+
+
+            .preview-item,
+            .preview-item img {
+
+                min-height: 190px;
+
+                height: 190px;
+            }
+
+
+            .form-actions {
+
+                flex-direction: column-reverse;
+
+                align-items: stretch;
+            }
+
+
+            .cancel-button,
+            .save-button {
+
+                width: 100%;
+            }
+
+
+            .admin-profile span {
+
+                display: none;
+            }
+
+
+            .topbar h2 {
+
+                font-size: 17px;
+            }
+
+
+            .page-heading h1 {
+
+                font-size: 25px;
+            }
+        }
+
+
+        @media (max-width: 430px) {
+
+            .image-preview-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .preview-item,
+            .preview-item img {
+
+                min-height: 240px;
+
+                height: 240px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <h1>NEON</h1>
+
+            <p>
+                ADMIN PANEL
+            </p>
+
+        </div>
+
+
+        <nav class="admin-nav">
+
+
+            <div class="nav-title">
+                MAIN MENU
+            </div>
+
+
+            <a href="/admin">
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="/admin/products">
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                <span>
+                    Products
+                </span>
+
+            </a>
+
+
+            <a
+                href="/admin/add-products"
+                class="active"
+            >
+
+                <span class="nav-icon">
+                    ＋
+                </span>
+
+                <span>
+                    Add Product
+                </span>
+
+            </a>
+
+
+            <a href="/admin/categories">
+
+                <span class="nav-icon">
+                    ▤
+                </span>
+
+                <span>
+                    Categories
+                </span>
+
+            </a>
+
+
+            <a href="/admin/orders">
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Orders
+                </span>
+
+            </a>
+
+
+            <a href="/admin/users">
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Users
+                </span>
+
+            </a>
+
+
+            <div
+                class="nav-title"
+                style="margin-top:25px;"
+            >
+                SYSTEM
+            </div>
+
+
+            <a href="/">
+
+                <span class="nav-icon">
+                    ↗
+                </span>
+
+                <span>
+                    View Website
+                </span>
+
+            </a>
+
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================= -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOPBAR
+        ================================================= -->
+
+        <header class="topbar">
+
+
+            <div>
+
+                <h2>
+                    Add Product
+                </h2>
+
+                <p>
+                    Add a new product to Neon Clothing
+                </p>
+
+            </div>
+
+
+            <div class="admin-profile">
+
+                <div class="admin-avatar">
+                    A
+                </div>
+
+                <span>
+                    Administrator
+                </span>
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================= -->
+
+        <section class="page-content">
+
+
+            <div class="page-heading">
+
+
+                <span>
+                    PRODUCT MANAGEMENT
+                </span>
+
+
+                <h1>
+                    Add New Product
+                </h1>
+
+
+                <p>
+                    Add product category, type, images, price and stock.
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FORM CARD
+            ================================================= -->
+
+            <div class="form-card">
+
+
+                <div class="form-header">
+
+
+                    <h2>
+                        Product Information
+                    </h2>
+
+
+                    <p>
+                        Choose a category, product type and upload 3 to 4 product photos.
+                    </p>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRODUCT FORM
+                ================================================= -->
+
+                <form
+                    method="POST"
+                    action="/admin/add-products"
+                    class="product-form"
+                    enctype="multipart/form-data"
+                    id="productForm"
+                >
+
+
+                    <div class="form-grid">
+
+
+                        <!-- =================================================
+                             PRODUCT NAME
+                        ================================================= -->
+
+                        <div class="form-group full">
+
+
+                            <label for="name">
+                                PRODUCT NAME
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Example: Premium Black Formal Shirt"
+                                required
+                            >
+
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             CATEGORY
+                        ================================================= -->
+
+                        <div class="form-group">
+
+
+                            <label for="category">
+                                CATEGORY
+                            </label>
+
+
+                            <select
+                                id="category"
+                                name="category"
+                                required
+                            >
+
+
+                                <option
+                                    value=""
+                                    selected
+                                    disabled
+                                >
+                                    Select Category
+                                </option>
+
+
+                                <option value="Shirts">
+                                    Shirts
+                                </option>
+
+
+                                <option value="Jeans">
+                                    Jeans
+                                </option>
+
+
+                                <option value="T-Shirts">
+                                    T-Shirts
+                                </option>
+
+
+                                <option value="Hoodies">
+                                    Hoodies
+                                </option>
+
+
+                                <option value="Track Pants">
+                                    Track Pants
+                                </option>
+
+
+                                <option value="Formal Pants">
+                                    Formal Pants
+                                </option>
+
+
+                            </select>
+
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             PRODUCT TYPE
+                        ================================================= -->
+
+                        <div class="form-group">
+
+
+                            <label for="subcategory">
+                                PRODUCT TYPE
+                            </label>
+
+
+                            <select
+                                id="subcategory"
+                                name="subcategory"
+                                required
+                            >
+
+
+                                <option
+                                    value=""
+                                    selected
+                                    disabled
+                                >
+                                    Select Product Type
+                                </option>
+
+
+                            </select>
+
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             PRICE
+                        ================================================= -->
+
+                        <div class="form-group">
+
+
+                            <label for="price">
+                                PRICE (₹)
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="price"
+                                name="price"
+                                placeholder="1299"
+                                min="1"
+                                step="0.01"
+                                required
+                            >
+
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             DISCOUNT
+                        ================================================= -->
+
+                        <div class="form-group">
+
+
+                            <label for="discount">
+                                DISCOUNT (%)
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="discount"
+                                name="discount"
+                                placeholder="10"
+                                min="0"
+                                max="100"
+                                step="0.01"
+                                value="0"
+                            >
+
+
+                            <span class="help-text">
+                                Enter 0 if there is no discount.
+                            </span>
+
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             STOCK
+                        ================================================= -->
+
+                        <div class="form-group">
+
+
+                            <label for="stock">
+                                STOCK QUANTITY
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="stock"
+                                name="stock"
+                                placeholder="20"
+                                min="0"
+                                required
+                            >
+
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             MULTIPLE PRODUCT IMAGE UPLOAD
+                        ================================================= -->
+
+                        <div class="form-group full">
+
+
+                            <label for="image_files">
+                                PRODUCT IMAGES
+                            </label>
+
+
+                            <input
+    type="file"
+    id="image_files"
+    name="image_files"
+    accept=".jpg,.jpeg,.png,.webp"
+    multiple
+>
+
+
+                           <span class="help-text">
+    Select one or more product photos.
+    You can upload as many photos as required.
+</span>
+
+
+
+                            <!-- =================================================
+                                 UPLOAD INFORMATION
+                            ================================================= -->
+
+                            <div class="image-upload-info">
+
+
+                                <div class="image-upload-info-icon">
+                                    ✓
+                                </div>
+
+
+                                <div class="image-upload-info-text">
+
+                                    <strong>
+                                        Product Photo Guide:
+                                    </strong>
+
+                                    Select 3 or 4 clear photos such as
+                                    front view, back view, side view and
+                                    close-up/detail view.
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!-- =================================================
+                                 IMAGE PREVIEW
+                            ================================================= -->
+
+                            <div
+                                class="image-preview-wrapper"
+                                id="imagePreviewWrapper"
+                            >
+
+
+                                <div class="image-preview-title">
+                                    SELECTED PRODUCT PHOTOS
+                                </div>
+
+
+                                <div
+                                    class="image-preview-grid"
+                                    id="imagePreviewGrid"
+                                >
+                                </div>
+
+
+                                <div
+                                    class="image-count"
+                                    id="imageCount"
+                                >
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             DESCRIPTION
+                        ================================================= -->
+
+                        <div class="form-group full">
+
+
+                            <label for="description">
+                                PRODUCT DESCRIPTION
+                            </label>
+
+
+                            <textarea
+                                id="description"
+                                name="description"
+                                placeholder="Describe the product, material, style and fit..."
+                                required
+                            ></textarea>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         PRICING INFORMATION
+                    ================================================= -->
+
+                    <div class="discount-box">
+
+
+                        <h3>
+                            PRODUCT PRICING
+                        </h3>
+
+
+                        <p>
+                            The discount percentage is applied automatically
+                            to the customer selling price.
+                        </p>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         FORM ACTIONS
+                    ================================================= -->
+
+                    <div class="form-actions">
+
+
+                        <a
+                            href="/admin/products"
+                            class="cancel-button"
+                        >
+                            CANCEL
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="save-button"
+                            id="saveButton"
+                        >
+                            ADD PRODUCT
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =================================================
+     JAVASCRIPT
+================================================= -->
+
+<script>
+
+
+    /* =================================================
+       CATEGORY → PRODUCT TYPE
+    ================================================= */
+
+
+    const categorySelect =
+        document.getElementById("category");
+
+
+    const subcategorySelect =
+        document.getElementById("subcategory");
+
+
+    const productTypes = {
+
+
+        "Shirts": [
+
+            "Formal Shirt",
+
+            "Casual Shirt",
+
+            "Checked Shirt",
+
+            "Half Sleeve Shirt",
+
+            "Striped Shirt",
+
+            "Linen Shirt",
+
+            "Oversized Shirt"
+
+        ],
+
+
+        "Jeans": [
+
+            "Regular Jeans",
+
+            "Mom Fit Jeans",
+
+            "Baggy Jeans"
+
+        ],
+
+
+        "T-Shirts": [
+
+            "Round Neck",
+
+            "Printed Neck",
+
+            "Oversized T-Shirt",
+
+            "Graphic T-Shirt"
+
+        ],
+
+
+        "Hoodies": [
+
+            "Oversized Hoodie",
+
+            "Acid Wash Hoodie",
+
+            "Zipper Hoodie"
+
+        ],
+
+
+        "Track Pants": [
+
+            "Straight Fit Pants"
+
+        ],
+
+
+        "Formal Pants": [
+
+            "Gurkha Pants",
+
+            "Slim Fit",
+
+            "Bootcut"
+
+        ]
+
+    };
+
+
+
+    categorySelect.addEventListener(
+        "change",
+        function () {
+
+
+            const category =
+                this.value;
+
+
+            subcategorySelect.innerHTML =
+
+                '<option value="" selected disabled>Select Product Type</option>';
+
+
+
+            if (productTypes[category]) {
+
+
+                productTypes[category].forEach(
+                    function (type) {
+
+
+                        const option =
+                            document.createElement("option");
+
+
+                        option.value =
+                            type;
+
+
+                        option.textContent =
+                            type;
+
+
+                        subcategorySelect.appendChild(
+                            option
+                        );
+
+
+                    }
+                );
+
+            }
+
+
+        }
+    );
+
+
+
+    /* =================================================
+       MULTIPLE IMAGE PREVIEW
+    ================================================= */
+
+
+    const imageInput =
+        document.getElementById("image_files");
+
+
+    const imagePreviewWrapper =
+        document.getElementById("imagePreviewWrapper");
+
+
+    const imagePreviewGrid =
+        document.getElementById("imagePreviewGrid");
+
+
+    const imageCount =
+        document.getElementById("imageCount");
+
+
+    const productForm =
+        document.getElementById("productForm");
+
+
+    const saveButton =
+        document.getElementById("saveButton");
+
+
+
+    imageInput.addEventListener(
+        "change",
+        function () {
+
+
+            imagePreviewGrid.innerHTML = "";
+
+            imagePreviewWrapper.style.display =
+                "none";
+
+            imageCount.textContent =
+                "";
+
+
+            const files =
+                Array.from(this.files);
+
+
+
+            /* ---------------------------------------------
+               NO FILES
+            --------------------------------------------- */
+
+            if (files.length === 0) {
+
+                return;
+            }
+
+
+
+            /* ---------------------------------------------
+               MAXIMUM 4 PHOTOS
+            --------------------------------------------- */
+
+            if (files.length > 4) {
+
+
+                alert(
+                    "You can upload maximum 4 product photos."
+                );
+
+
+                this.value = "";
+
+                return;
+            }
+
+
+
+            /* ---------------------------------------------
+               PREVIEW
+            --------------------------------------------- */
+
+            imagePreviewWrapper.style.display =
+                "block";
+
+
+
+            files.forEach(
+                function (file, index) {
+
+
+                    const previewItem =
+                        document.createElement("div");
+
+
+                    previewItem.className =
+                        "preview-item";
+
+
+
+                    const previewNumber =
+                        document.createElement("div");
+
+
+                    previewNumber.className =
+                        "preview-number";
+
+
+                    previewNumber.textContent =
+                        "Photo " + (index + 1);
+
+
+
+                    const image =
+                        document.createElement("img");
+
+
+                    image.alt =
+                        "Product Photo " + (index + 1);
+
+
+
+                    const reader =
+                        new FileReader();
+
+
+
+                    reader.onload =
+                        function (event) {
+
+
+                            image.src =
+                                event.target.result;
+
+
+                        };
+
+
+
+                    reader.readAsDataURL(file);
+
+
+
+                    previewItem.appendChild(
+                        image
+                    );
+
+
+                    previewItem.appendChild(
+                        previewNumber
+                    );
+
+
+
+                    /* -----------------------------------------
+                       FIRST PHOTO = MAIN PHOTO
+                    ----------------------------------------- */
+
+                    if (index === 0) {
+
+
+                        const mainLabel =
+                            document.createElement("div");
+
+
+                        mainLabel.className =
+                            "main-photo-label";
+
+
+                        mainLabel.innerHTML =
+                            '<span>MAIN PHOTO</span> — used for product listing';
+
+
+                        previewItem.appendChild(
+                            mainLabel
+                        );
+
+                    }
+
+
+
+                    imagePreviewGrid.appendChild(
+                        previewItem
+                    );
+
+
+                }
+            );
+
+
+
+            /* ---------------------------------------------
+               IMAGE COUNT MESSAGE
+            --------------------------------------------- */
+
+            if (files.length >= 3) {
+
+
+                imageCount.textContent =
+                    files.length +
+                    " photos selected ✓";
+
+
+                imageCount.className =
+                    "image-count valid";
+
+
+            } else {
+
+
+                imageCount.textContent =
+                    "Please select at least 3 photos.";
+
+
+                imageCount.className =
+                    "image-count invalid";
+
+            }
+
+
+        }
+    );
+
+
+
+    /* =================================================
+       FORM SUBMIT VALIDATION
+    ================================================= */
+
+
+    productForm.addEventListener(
+        "submit",
+        function (event) {
+
+
+            const files =
+                Array.from(imageInput.files);
+
+
+
+            /* ---------------------------------------------
+               CHECK NUMBER OF IMAGES
+            --------------------------------------------- */
+
+        if (files.length === 0) {
+    alert("Please select at least one product photo.");
+    imageInput.focus();
+    return;
+}
+
+
+            /* ---------------------------------------------
+               CHECK IMAGE FILE TYPES
+            --------------------------------------------- */
+
+            const allowedTypes = [
+
+                "image/jpeg",
+
+                "image/png",
+
+                "image/webp"
+
+            ];
+
+
+
+            for (
+                let i = 0;
+                i < files.length;
+                i++
+            ) {
+
+
+                if (
+                    !allowedTypes.includes(
+                        files[i].type
+                    )
+                ) {
+
+
+                    event.preventDefault();
+
+
+                    alert(
+                        "Only JPG, JPEG, PNG and WEBP images are allowed."
+                    );
+
+
+                    imageInput.focus();
+
+                    return;
+                }
+
+            }
+
+
+
+            /* ---------------------------------------------
+               BUTTON STATE
+            --------------------------------------------- */
+
+            saveButton.textContent =
+                "ADDING PRODUCT...";
+
+
+            saveButton.disabled =
+                true;
+
+
+            saveButton.style.opacity =
+                "0.7";
+
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
