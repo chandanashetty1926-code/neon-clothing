@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Admin Dashboard | Neon Clothing
+    </title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                #f5f6f7;
+
+            color:
+                #151515;
+
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        button {
+            font-family: inherit;
+        }
+
+
+
+        /* =====================================================
+           LAYOUT
+        ===================================================== */
+
+        .admin-layout {
+
+            min-height:
+                100vh;
+
+            display:
+                flex;
+
+        }
+
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .admin-sidebar {
+
+            width:
+                250px;
+
+            min-height:
+                100vh;
+
+            background:
+                #111111;
+
+            color:
+                #ffffff;
+
+            position:
+                fixed;
+
+            left:
+                0;
+
+            top:
+                0;
+
+            bottom:
+                0;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+        }
+
+
+        .brand {
+
+            padding:
+                30px 25px;
+
+            border-bottom:
+                1px solid
+                #272727;
+
+        }
+
+
+        .brand-main {
+
+            font-size:
+                25px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                -1px;
+
+        }
+
+
+        .brand-sub {
+
+            display:
+                block;
+
+            margin-top:
+                6px;
+
+            font-size:
+                8px;
+
+            letter-spacing:
+                3px;
+
+            color:
+                #a5a5a5;
+
+        }
+
+
+
+        /* =====================================================
+           SIDEBAR NAV
+        ===================================================== */
+
+        .sidebar-nav {
+
+            padding:
+                22px 13px;
+
+            flex:
+                1;
+
+        }
+
+
+        .sidebar-label {
+
+            padding:
+                0 12px;
+
+            margin-bottom:
+                12px;
+
+            font-size:
+                9px;
+
+            color:
+                #777777;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                1.5px;
+
+        }
+
+
+        .sidebar-link {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            padding:
+                13px 12px;
+
+            margin-bottom:
+                4px;
+
+            color:
+                #b8b8b8;
+
+            border-radius:
+                6px;
+
+            font-size:
+                13px;
+
+            transition:
+                .2s ease;
+
+        }
+
+
+        .sidebar-link:hover {
+
+            color:
+                #ffffff;
+
+            background:
+                #1d1d1d;
+
+        }
+
+
+        .sidebar-link.active {
+
+            background:
+                #dfff00;
+
+            color:
+                #111111;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .sidebar-icon {
+
+            width:
+                20px;
+
+            text-align:
+                center;
+
+            font-size:
+                15px;
+
+        }
+
+
+        .sidebar-bottom {
+
+            padding:
+                15px;
+
+            border-top:
+                1px solid
+                #272727;
+
+        }
+
+
+        .logout-link {
+
+            display:
+                block;
+
+            text-align:
+                center;
+
+            background:
+                #242424;
+
+            color:
+                #ffffff;
+
+            padding:
+                12px;
+
+            border-radius:
+                6px;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .logout-link:hover {
+
+            background:
+                #333333;
+
+        }
+
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .admin-main {
+
+            margin-left:
+                250px;
+
+            width:
+                calc(100% - 250px);
+
+            min-height:
+                100vh;
+
+            padding:
+                35px;
+
+        }
+
+
+
+        /* =====================================================
+           TOP HEADER
+        ===================================================== */
+
+        .dashboard-top {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                32px;
+
+        }
+
+
+        .dashboard-heading h1 {
+
+            font-size:
+                30px;
+
+            letter-spacing:
+                -1px;
+
+            margin-bottom:
+                8px;
+
+        }
+
+
+        .dashboard-heading p {
+
+            color:
+                #777777;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .admin-store-link {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            padding:
+                11px 16px;
+
+            border:
+                1px solid
+                #dddddd;
+
+            background:
+                #ffffff;
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .admin-store-link:hover {
+
+            background:
+                #111111;
+
+            color:
+                #ffffff;
+
+        }
+
+
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stats-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap:
+                18px;
+
+            margin-bottom:
+                28px;
+
+        }
+
+
+        .stat-card {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid
+                #e8e8e8;
+
+            padding:
+                24px;
+
+            border-radius:
+                8px;
+
+        }
+
+
+        .stat-top {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .stat-title {
+
+            font-size:
+                10px;
+
+            color:
+                #777777;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                1px;
+
+        }
+
+
+        .stat-icon {
+
+            width:
+                35px;
+
+            height:
+                35px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                #f1f1f1;
+
+            border-radius:
+                50%;
+
+            font-size:
+                15px;
+
+        }
+
+
+        .stat-value {
+
+            font-size:
+                29px;
+
+            font-weight:
+                800;
+
+            line-height:
+                1;
+
+            margin-bottom:
+                9px;
+
+        }
+
+
+        .stat-description {
+
+            color:
+                #888888;
+
+            font-size:
+                11px;
+
+        }
+
+
+
+        /* =====================================================
+           SECONDARY INFO
+        ===================================================== */
+
+        .secondary-info {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                18px;
+
+            margin-bottom:
+                28px;
+
+        }
+
+
+        .info-card {
+
+            background:
+                #111111;
+
+            color:
+                #ffffff;
+
+            padding:
+                22px;
+
+            border-radius:
+                8px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+        }
+
+
+        .info-card h3 {
+
+            font-size:
+                12px;
+
+            margin-bottom:
+                6px;
+
+        }
+
+
+        .info-card p {
+
+            color:
+                #9d9d9d;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .info-number {
+
+            color:
+                #dfff00;
+
+            font-size:
+                27px;
+
+            font-weight:
+                800;
+
+        }
+
+
+
+        /* =====================================================
+           SECTION HEADER
+        ===================================================== */
+
+        .section-heading {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                17px;
+
+        }
+
+
+        .section-heading h2 {
+
+            font-size:
+                18px;
+
+            letter-spacing:
+                -.3px;
+
+        }
+
+
+        .view-all {
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            color:
+                #555555;
+
+        }
+
+
+        .view-all:hover {
+
+            color:
+                #111111;
+
+        }
+
+
+
+        /* =====================================================
+           RECENT ORDERS
+        ===================================================== */
+
+        .orders-card {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid
+                #e8e8e8;
+
+            border-radius:
+                8px;
+
+            overflow:
+                hidden;
+
+            margin-bottom:
+                30px;
+
+        }
+
+
+        .orders-table {
+
+            width:
+                100%;
+
+            border-collapse:
+                collapse;
+
+        }
+
+
+        .orders-table th {
+
+            background:
+                #fafafa;
+
+            color:
+                #777777;
+
+            padding:
+                15px 18px;
+
+            text-align:
+                left;
+
+            font-size:
+                9px;
+
+            letter-spacing:
+                .8px;
+
+            text-transform:
+                uppercase;
+
+            border-bottom:
+                1px solid
+                #eeeeee;
+
+        }
+
+
+        .orders-table td {
+
+            padding:
+                16px 18px;
+
+            font-size:
+                12px;
+
+            border-bottom:
+                1px solid
+                #eeeeee;
+
+        }
+
+
+        .orders-table tr:last-child td {
+
+            border-bottom:
+                none;
+
+        }
+
+
+        .order-id {
+
+            font-weight:
+                800;
+
+        }
+
+
+        .customer-name {
+
+            font-weight:
+                600;
+
+        }
+
+
+        .order-date {
+
+            color:
+                #888888;
+
+            font-size:
+                10px;
+
+        }
+
+
+        .order-amount {
+
+            font-weight:
+                800;
+
+        }
+
+
+        .status {
+
+            display:
+                inline-flex;
+
+            padding:
+                6px 9px;
+
+            border-radius:
+                20px;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .status-pending {
+
+            background:
+                #fff3cd;
+
+            color:
+                #8a6300;
+
+        }
+
+
+        .status-confirmed {
+
+            background:
+                #e6f5ff;
+
+            color:
+                #17648a;
+
+        }
+
+
+        .status-packed {
+
+            background:
+                #f0e8ff;
+
+            color:
+                #643a9b;
+
+        }
+
+
+        .status-shipped {
+
+            background:
+                #e5f6e9;
+
+            color:
+                #28733d;
+
+        }
+
+
+        .status-delivered {
+
+            background:
+                #dfff00;
+
+            color:
+                #111111;
+
+        }
+
+
+        .empty-orders {
+
+            padding:
+                50px 20px;
+
+            text-align:
+                center;
+
+            color:
+                #888888;
+
+        }
+
+
+        .empty-orders strong {
+
+            display:
+                block;
+
+            color:
+                #444444;
+
+            font-size:
+                14px;
+
+            margin-bottom:
+                5px;
+
+        }
+
+
+
+        /* =====================================================
+           QUICK ACTIONS
+        ===================================================== */
+
+        .quick-actions {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap:
+                14px;
+
+        }
+
+
+        .quick-action {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid
+                #e8e8e8;
+
+            padding:
+                20px;
+
+            border-radius:
+                8px;
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+
+        }
+
+
+        .quick-action:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,.07);
+
+        }
+
+
+        .quick-action-icon {
+
+            width:
+                37px;
+
+            height:
+                37px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                #111111;
+
+            color:
+                #dfff00;
+
+            border-radius:
+                6px;
+
+            margin-bottom:
+                15px;
+
+            font-size:
+                15px;
+
+        }
+
+
+        .quick-action h3 {
+
+            font-size:
+                13px;
+
+            margin-bottom:
+                6px;
+
+        }
+
+
+        .quick-action p {
+
+            color:
+                #888888;
+
+            font-size:
+                10px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .stats-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .quick-actions {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .admin-sidebar {
+
+                width:
+                    70px;
+
+            }
+
+
+            .brand-main {
+
+                font-size:
+                    0;
+
+            }
+
+
+            .brand-main::after {
+
+                content:
+                    "N";
+
+                font-size:
+                    22px;
+
+            }
+
+
+            .brand-sub,
+            .sidebar-label,
+            .sidebar-link span:not(.sidebar-icon) {
+
+                display:
+                    none;
+
+            }
+
+
+            .sidebar-link {
+
+                justify-content:
+                    center;
+
+            }
+
+
+            .sidebar-bottom {
+
+                padding:
+                    10px;
+
+            }
+
+
+            .logout-link {
+
+                font-size:
+                    0;
+
+            }
+
+
+            .logout-link::after {
+
+                content:
+                    "↪";
+
+                font-size:
+                    17px;
+
+            }
+
+
+            .admin-main {
+
+                margin-left:
+                    70px;
+
+                width:
+                    calc(100% - 70px);
+
+                padding:
+                    22px;
+
+            }
+
+
+            .secondary-info {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .dashboard-top {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+                gap:
+                    15px;
+
+            }
+
+
+            .stats-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .quick-actions {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .orders-card {
+
+                overflow-x:
+                    auto;
+
+            }
+
+
+            .orders-table {
+
+                min-width:
+                    700px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="admin-sidebar">
+
+
+        <div class="brand">
+
+            <div class="brand-main">
+                NEON
+            </div>
+
+            <span class="brand-sub">
+                CLOTHING ADMIN
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+
+            <div class="sidebar-label">
+                ADMINISTRATION
+            </div>
+
+
+            <!-- DASHBOARD -->
+
+            <a
+                href="{{ url_for('admin_dashboard') }}"
+                class="sidebar-link active"
+            >
+                <span class="sidebar-icon">
+                    ▦
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+            </a>
+
+
+            <!-- PRODUCTS -->
+
+            <a
+                href="{{ url_for('admin_products') }}"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">
+                    ◈
+                </span>
+
+                <span>
+                    Products
+                </span>
+            </a>
+
+
+            <!-- ADD PRODUCT -->
+
+            <a
+                href="{{ url_for('admin_add_product') }}"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">
+                    ＋
+                </span>
+
+                <span>
+                    Add Product
+                </span>
+            </a>
+
+
+            <!-- CATEGORIES -->
+
+            <a
+                href="{{ url_for('admin_categories') }}"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">
+                    ◫
+                </span>
+
+                <span>
+                    Categories
+                </span>
+            </a>
+
+
+            <!-- ORDERS -->
+
+            <a
+                href="{{ url_for('admin_orders') }}"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Orders
+                </span>
+            </a>
+
+
+            <!-- USERS -->
+
+            <a
+                href="{{ url_for('admin_users') }}"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Customers
+                </span>
+            </a>
+
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="{{ url_for('admin_logout') }}"
+                class="logout-link"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main class="admin-main">
+
+
+        <!-- TOP -->
+
+        <div class="dashboard-top">
+
+
+            <div class="dashboard-heading">
+
+                <h1>
+                    Welcome to Neon Clothing
+                </h1>
+
+                <p>
+                    Manage products, orders, customers
+                    and store operations from your admin dashboard.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('shop') }}"
+                class="admin-store-link"
+            >
+                VIEW STORE →
+            </a>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="stats-grid">
+
+
+            <!-- SALES -->
+
+            <article class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-title">
+                        Total Sales
+                    </span>
+
+                    <span class="stat-icon">
+                        ₹
+                    </span>
+
+                </div>
+
+
+                <div class="stat-value">
+
+                    ₹{{ "{:,.0f}".format(
+                        total_sales
+                    ) }}
+
+                </div>
+
+
+                <div class="stat-description">
+                    Total revenue
+                </div>
+
+            </article>
+
+
+
+            <!-- ORDERS -->
+
+            <article class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-title">
+                        Orders
+                    </span>
+
+                    <span class="stat-icon">
+                        ▣
+                    </span>
+
+                </div>
+
+
+                <div class="stat-value">
+
+                    {{ total_orders }}
+
+                </div>
+
+
+                <div class="stat-description">
+                    Total orders
+                </div>
+
+            </article>
+
+
+
+            <!-- PRODUCTS -->
+
+            <article class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-title">
+                        Products
+                    </span>
+
+                    <span class="stat-icon">
+                        ◈
+                    </span>
+
+                </div>
+
+
+                <div class="stat-value">
+
+                    {{ total_products }}
+
+                </div>
+
+
+                <div class="stat-description">
+                    Products available
+                </div>
+
+            </article>
+
+
+
+            <!-- CUSTOMERS -->
+
+            <article class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-title">
+                        Customers
+                    </span>
+
+                    <span class="stat-icon">
+                        ◉
+                    </span>
+
+                </div>
+
+
+                <div class="stat-value">
+
+                    {{ total_customers }}
+
+                </div>
+
+
+                <div class="stat-description">
+                    Registered customers
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             SECONDARY INFO
+        ================================================== -->
+
+        <section class="secondary-info">
+
+
+            <div class="info-card">
+
+                <div>
+
+                    <h3>
+                        Pending Orders
+                    </h3>
+
+                    <p>
+                        Orders waiting for confirmation
+                    </p>
+
+                </div>
+
+
+                <div class="info-number">
+                    {{ pending_orders }}
+                </div>
+
+            </div>
+
+
+
+            <div class="info-card">
+
+                <div>
+
+                    <h3>
+                        Low Stock Products
+                    </h3>
+
+                    <p>
+                        Products with 5 or fewer items
+                    </p>
+
+                </div>
+
+
+                <div class="info-number">
+                    {{ low_stock_products }}
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECENT ORDERS
+        ================================================== -->
+
+        <div class="section-heading">
+
+            <h2>
+                Recent Orders
+            </h2>
+
+
+            <a
+                href="{{ url_for('admin_orders') }}"
+                class="view-all"
+            >
+                VIEW ALL →
+            </a>
+
+        </div>
+
+
+        <section class="orders-card">
+
+
+            {% if recent_orders %}
+
+
+                <table class="orders-table">
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Order
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for order in recent_orders %}
+
+
+                            <tr>
+
+
+                                <td>
+
+                                    <span class="order-id">
+
+                                        #{{ order.id }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="customer-name">
+
+                                        {{ order.name }}
+
+                                    </div>
+
+                                    <div class="order-date">
+
+                                        {{ order.phone }}
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="order-date">
+
+                                        {{ order.created_at }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="order-amount">
+
+                                        ₹{{ "%.0f"|format(
+                                            order.total|float
+                                        ) }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+
+                                    {% set status_class =
+                                        order.status
+                                        |lower
+                                        |replace(" ", "-")
+                                    %}
+
+
+                                    <span
+                                        class="
+                                            status
+                                            status-{{ status_class }}
+                                        "
+                                    >
+
+                                        {{ order.status }}
+
+                                    </span>
+
+
+                                </td>
+
+
+                            </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+                </table>
+
+
+            {% else %}
+
+
+                <div class="empty-orders">
+
+                    <strong>
+                        No orders yet
+                    </strong>
+
+                    <span>
+                        Customer orders will appear here automatically.
+                    </span>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================== -->
+
+        <div class="section-heading">
+
+            <h2>
+                Quick Actions
+            </h2>
+
+        </div>
+
+
+        <section class="quick-actions">
+
+
+            <!-- ADD PRODUCT -->
+
+            <a
+                href="{{ url_for('admin_add_product') }}"
+                class="quick-action"
+            >
+
+                <div class="quick-action-icon">
+                    ＋
+                </div>
+
+                <h3>
+                    Add Product
+                </h3>
+
+                <p>
+                    Add a new clothing product
+                    with image, category and stock.
+                </p>
+
+            </a>
+
+
+
+            <!-- PRODUCTS -->
+
+            <a
+                href="{{ url_for('admin_products') }}"
+                class="quick-action"
+            >
+
+                <div class="quick-action-icon">
+                    ◈
+                </div>
+
+                <h3>
+                    Manage Products
+                </h3>
+
+                <p>
+                    View, edit and delete products
+                    from your store.
+                </p>
+
+            </a>
+
+
+
+            <!-- ORDERS -->
+
+            <a
+                href="{{ url_for('admin_orders') }}"
+                class="quick-action"
+            >
+
+                <div class="quick-action-icon">
+                    ▣
+                </div>
+
+                <h3>
+                    Manage Orders
+                </h3>
+
+                <p>
+                    View customer orders and update
+                    order status.
+                </p>
+
+            </a>
+
+
+
+            <!-- CUSTOMERS -->
+
+            <a
+                href="{{ url_for('admin_users') }}"
+                class="quick-action"
+            >
+
+                <div class="quick-action-icon">
+                    ◉
+                </div>
+
+                <h3>
+                    Customers
+                </h3>
+
+                <p>
+                    View registered customers
+                    and customer information.
+                </p>
+
+            </a>
+
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+</body>
+
+</html>
