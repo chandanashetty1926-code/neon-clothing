@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Users | Neon Clothing Admin</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f6f7;
+            color: #161616;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        /* =====================================================
+           TOP NAVBAR
+        ===================================================== */
+
+        .admin-topbar {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e7e7e7;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 34px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            background: #161616;
+            color: #dfff00;
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .brand-text strong {
+            display: block;
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+
+        .brand-text span {
+            display: block;
+            margin-top: 3px;
+            font-size: 10px;
+            color: #888888;
+            letter-spacing: 1.4px;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .view-site {
+            color: #666666;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .view-site:hover {
+            color: #161616;
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 18px;
+            border-left: 1px solid #e5e5e5;
+        }
+
+        .admin-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #dfff00;
+            color: #161616;
+            display: grid;
+            place-items: center;
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .admin-user span {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* =====================================================
+           LAYOUT
+        ===================================================== */
+
+        .page-wrap {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 36px 34px 50px;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: #8a8a8a;
+            margin-bottom: 14px;
+        }
+
+        .breadcrumb span {
+            color: #161616;
+            font-weight: 700;
+        }
+
+        .page-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .heading-copy small {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            color: #707070;
+            letter-spacing: 2px;
+            margin-bottom: 9px;
+        }
+
+        .heading-copy h1 {
+            font-size: 34px;
+            line-height: 1.05;
+            letter-spacing: -1px;
+        }
+
+        .heading-copy p {
+            margin-top: 9px;
+            color: #777777;
+            font-size: 14px;
+        }
+
+        .user-count-badge {
+            background: #ffffff;
+            border: 1px solid #e4e4e4;
+            border-radius: 12px;
+            min-width: 120px;
+            padding: 16px 18px;
+            text-align: center;
+        }
+
+        .user-count-badge strong {
+            display: block;
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .user-count-badge span {
+            display: block;
+            margin-top: 6px;
+            color: #7a7a7a;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        /* =====================================================
+           FLASH MESSAGES
+        ===================================================== */
+
+        .flash-wrap {
+            margin-bottom: 20px;
+        }
+
+        .flash {
+            border: 1px solid #dfe3e6;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 13px 15px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .flash.success {
+            border-left: 4px solid #9bc000;
+        }
+
+        .flash.error {
+            border-left: 4px solid #d94235;
+        }
+
+        /* =====================================================
+           TOOLBAR
+        ===================================================== */
+
+        .toolbar {
+            background: #ffffff;
+            border: 1px solid #e4e5e7;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 520px;
+        }
+
+        .search-box input {
+            width: 100%;
+            height: 46px;
+            border: 1px solid #dcdfe2;
+            border-radius: 10px;
+            padding: 0 15px 0 44px;
+            outline: none;
+            color: #161616;
+            background: #fafafa;
+        }
+
+        .search-box input:focus {
+            border-color: #b8c95a;
+            background: #ffffff;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777777;
+            font-size: 16px;
+        }
+
+        .toolbar-note {
+            color: #777777;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        /* =====================================================
+           USER TABLE
+        ===================================================== */
+
+        .table-card {
+            background: #ffffff;
+            border: 1px solid #e4e5e7;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .table-scroll {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        thead th {
+            background: #fafafa;
+            color: #666666;
+            text-align: left;
+            padding: 15px 18px;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 11px;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        tbody td {
+            padding: 17px 18px;
+            border-bottom: 1px solid #eeeeee;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: #fcfcfc;
+        }
+
+        .user-id {
+            color: #8a8a8a;
+            font-weight: 700;
+        }
+
+        .user-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .user-name {
+            font-weight: 800;
+            color: #1c1c1c;
+        }
+
+        .email {
+            color: #666666;
+            word-break: break-word;
+        }
+
+        .joined {
+            color: #666666;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: #eff6d1;
+            color: #4e6100;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #78a000;
+        }
+
+        .delete-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 84px;
+            height: 36px;
+            padding: 0 12px;
+            border: 1px solid #e1d1cf;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #b13227;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.7px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background: #b13227;
+            border-color: #b13227;
+            color: #ffffff;
+        }
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+
+        .empty-state {
+            padding: 60px 24px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: grid;
+            place-items: center;
+            font-size: 24px;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 7px;
+        }
+
+        .empty-state p {
+            color: #7d7d7d;
+            font-size: 13px;
+        }
+
+        .no-results {
+            display: none;
+            padding: 34px 20px;
+            text-align: center;
+            color: #777777;
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+            text-align: center;
+            color: #8a8a8a;
+            font-size: 11px;
+            margin-top: 24px;
+        }
+
+        .footer strong {
+            color: #161616;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .admin-topbar {
+                padding: 0 18px;
+            }
+
+            .view-site {
+                display: none;
+            }
+
+            .page-wrap {
+                padding: 26px 18px 40px;
+            }
+
+            .page-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .user-count-badge {
+                min-width: 110px;
+            }
+
+            .toolbar {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+
+            .toolbar-note {
+                white-space: normal;
+            }
+        }
+
+        @media (max-width: 540px) {
+
+            .admin-topbar {
+                height: 64px;
+            }
+
+            .brand-mark {
+                width: 36px;
+                height: 36px;
+            }
+
+            .brand-text strong {
+                font-size: 14px;
+            }
+
+            .brand-text span {
+                font-size: 9px;
+            }
+
+            .admin-user span {
+                display: none;
+            }
+
+            .page-wrap {
+                padding: 22px 14px 32px;
+            }
+
+            .heading-copy h1 {
+                font-size: 28px;
+            }
+
+            .heading-copy p {
+                line-height: 1.5;
+            }
+
+            .table-card {
+                border-radius: 10px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =====================================================
+         TOP BAR
+    ===================================================== -->
+
+    <header class="admin-topbar">
+
+        <a
+            href="/admin/dashboard"
+            class="brand"
+            aria-label="Neon Clothing Admin Dashboard"
+        >
+
+            <div class="brand-mark">
+                N
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    NEON CLOTHING
+                </strong>
+
+                <span>
+                    ADMINISTRATION
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <div class="topbar-right">
+
+            <a
+                href="/"
+                class="view-site"
+            >
+                VIEW WEBSITE ↗
+            </a>
+
+            <div class="admin-user">
+
+                <div class="admin-avatar">
+                    A
+                </div>
+
+                <span>
+                    Administrator
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main class="page-wrap">
+
+        <div class="breadcrumb">
+            ADMIN / <span>USERS</span>
+        </div>
+
+
+        <!-- HEADING -->
+
+        <section class="page-heading">
+
+            <div class="heading-copy">
+
+                <small>
+                    CUSTOMER MANAGEMENT
+                </small>
+
+                <h1>
+                    Registered Users
+                </h1>
+
+                <p>
+                    View customer accounts and manage registered users.
+                </p>
+
+            </div>
+
+
+            <div class="user-count-badge">
+
+                <strong id="totalUsers">
+                    {{ users|length }}
+                </strong>
+
+                <span>
+                    Total Users
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- FLASH -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                <div class="flash-wrap">
+
+                    {% for category, message in messages %}
+
+                        <div class="flash {{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- TOOLBAR -->
+
+        <section class="toolbar">
+
+            <div class="search-box">
+
+                <span class="search-icon">
+                    ⌕
+                </span>
+
+                <input
+                    type="text"
+                    id="userSearch"
+                    placeholder="Search by name or email..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <div class="toolbar-note">
+                {{ users|length }} registered account(s) found
+            </div>
+
+        </section>
+
+
+        <!-- USER TABLE -->
+
+        <section class="table-card">
+
+            {% if users %}
+
+                <div class="table-scroll">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    ID
+                                </th>
+
+                                <th>
+                                    Customer
+                                </th>
+
+                                <th>
+                                    Email
+                                </th>
+
+                                <th>
+                                    Joined
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="usersTableBody">
+
+                            {% for user in users %}
+
+                                <tr
+                                    class="user-row"
+                                    data-search="{{ user.name|default('')|lower }} {{ user.email|default('')|lower }}"
+                                >
+
+                                    <td class="user-id">
+                                        #{{ user.id }}
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="user-main">
+
+                                            <div class="user-circle">
+
+                                                {{ (user.name|default('U'))[:1]|upper }}
+
+                                            </div>
+
+                                            <div class="user-name">
+
+                                                {{ user.name|default('Unknown User') }}
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <td class="email">
+
+                                        {{ user.email|default('—') }}
+
+                                    </td>
+
+
+                                    <td class="joined">
+
+                                        {{ user.created_at|default('—') }}
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span class="status-pill">
+
+                                            <span class="status-dot"></span>
+
+                                            Active
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <form
+                                            action="{{ url_for('admin_delete_user', user_id=user.id) }}"
+                                            method="GET"
+                                            onsubmit="return confirm('Delete this user account? This action cannot be undone.');"
+                                        >
+
+                                            <button
+                                                type="submit"
+                                                class="delete-btn"
+                                            >
+                                                DELETE
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div
+                    id="noResults"
+                    class="no-results"
+                >
+                    No users match your search.
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        ◉
+                    </div>
+
+                    <h3>
+                        No registered users
+                    </h3>
+
+                    <p>
+                        Customer accounts will appear here after registration.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <div class="footer">
+            NEON CLOTHING · <strong>USER MANAGEMENT</strong>
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         SEARCH SCRIPT
+    ===================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const searchInput =
+                    document.getElementById(
+                        "userSearch"
+                    );
+
+                const rows =
+                    document.querySelectorAll(
+                        ".user-row"
+                    );
+
+                const noResults =
+                    document.getElementById(
+                        "noResults"
+                    );
+
+                if (!searchInput) {
+                    return;
+                }
+
+                searchInput.addEventListener(
+                    "input",
+                    function () {
+
+                        const query =
+                            this.value
+                                .trim()
+                                .toLowerCase();
+
+                        let visibleCount = 0;
+
+                        rows.forEach(
+                            function (row) {
+
+                                const searchableText =
+                                    row.getAttribute(
+                                        "data-search"
+                                    ) || "";
+
+                                const matched =
+                                    searchableText.includes(
+                                        query
+                                    );
+
+                                row.style.display =
+                                    matched
+                                        ? ""
+                                        : "none";
+
+                                if (matched) {
+                                    visibleCount++;
+                                }
+
+                            }
+                        );
+
+                        if (noResults) {
+
+                            noResults.style.display =
+                                visibleCount === 0
+                                    ? "block"
+                                    : "none";
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
