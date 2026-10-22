@@ -56,6 +56,10 @@ VALID_SIZES = [
 FREE_DELIVERY_LIMIT = 2000
 DELIVERY_CHARGE = 99
 
+# =====================================================
+# PRODUCT IMAGE SETTINGS
+# =====================================================
+
 ALLOWED_IMAGE_EXTENSIONS = {
     "jpg",
     "jpeg",
@@ -66,10 +70,8 @@ ALLOWED_IMAGE_EXTENSIONS = {
 PRODUCT_IMAGE_FOLDER = os.path.join(
     BASE_DIR,
     "static",
-    "images",
-    "products"
+    "uploads"
 )
-
 
 # =====================================================
 # REVIEW / RATING SETTINGS
@@ -241,14 +243,10 @@ def ensure_product_subcategory_column():
 
 
 # =====================================================
-# IMAGE HELPERS
+# PRODUCT IMAGE HELPERS
 # =====================================================
 
 def is_allowed_image(filename):
-    """
-    Check whether uploaded filename has an allowed extension.
-    """
-
     if not filename or "." not in filename:
         return False
 
@@ -259,104 +257,72 @@ def is_allowed_image(filename):
 
 def save_product_image(image_file):
     """
-    Save uploaded product image into:
-
-    static/images/products/
-
-    Returns the database path:
-    images/products/filename.jpg
+    Save new product images to static/uploads.
+    Store uploads/filename.jpg in the database.
     """
 
-    if not image_file:
+    if not image_file or not image_file.filename:
         return None, None
 
-    original_filename = image_file.filename
-
-    if not original_filename:
-        return None, None
-
-    if not is_allowed_image(original_filename):
+    if not is_allowed_image(image_file.filename):
         raise ValueError(
             "Only JPG, JPEG, PNG and WEBP images are allowed."
         )
 
-    os.makedirs(
-        PRODUCT_IMAGE_FOLDER,
-        exist_ok=True
-    )
+    safe_filename = secure_filename(image_file.filename)
 
-    safe_filename = secure_filename(
-        original_filename
-    )
+    if not safe_filename or "." not in safe_filename:
+        raise ValueError("Invalid image filename.")
 
-    if not safe_filename:
-        raise ValueError(
-            "Invalid image filename."
-        )
+    extension = safe_filename.rsplit(".", 1)[1].lower()
+    unique_filename = f"{uuid.uuid4().hex}.{extension}"
 
-    extension = safe_filename.rsplit(
-        ".",
-        1
-    )[1].lower()
-
-    unique_filename = (
-        f"{uuid.uuid4().hex}.{extension}"
-    )
+    os.makedirs(PRODUCT_IMAGE_FOLDER, exist_ok=True)
 
     filesystem_path = os.path.join(
         PRODUCT_IMAGE_FOLDER,
         unique_filename
     )
 
-    image_file.save(
-        filesystem_path
-    )
+    image_file.save(filesystem_path)
 
-    database_path = (
-        f"images/products/{unique_filename}"
-    )
+    database_path = f"uploads/{unique_filename}"
 
     return database_path, filesystem_path
 
 
 def delete_local_product_image(image_path):
     """
-    Delete only locally uploaded product images.
-
-    External URLs are not touched.
+    Delete an image only if it is inside the local uploads folder.
+    Do not delete external URLs or other image paths.
     """
 
     if not image_path:
         return
 
-    normalized_path = image_path.replace("\\", "/")
+    normalized_path = str(image_path).replace("\\", "/").strip()
 
-    prefix = "images/products/"
+    prefix = "uploads/"
 
     if not normalized_path.startswith(prefix):
         return
 
-    filename = normalized_path[
-        len(prefix):
-    ]
+    filename = normalized_path[len(prefix):]
 
-    if not filename:
+    # Do not allow nested paths or directory traversal
+    if not filename or "/" in filename or filename in (".", ".."):
         return
 
     full_path = os.path.join(
         PRODUCT_IMAGE_FOLDER,
-        os.path.basename(filename)
+        filename
     )
 
     try:
-
         if os.path.isfile(full_path):
             os.remove(full_path)
-
     except OSError:
-
         pass
-
 
 # =====================================================
 # PRODUCT IMAGE GALLERY DATABASE HELPERS
