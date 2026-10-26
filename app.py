@@ -2366,11 +2366,13 @@ def order_success(order_id):
         order = cursor.fetchone()
 
         if not order:
+    return (
+        "Order not found",
+        404
+    )
 
-            return (
-                "Order not found",
-                404
-            )
+# ADD THIS LINE
+order["order_id"] = order["id"]
 
         cursor.execute(
             """
