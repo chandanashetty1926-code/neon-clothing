@@ -1,13 +1,457 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop | NEON CLOTHING</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/products.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+
+    <style>
+        /* Responsive catalogue styles */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            overflow-x: clip;
+        }
+
+        body.shop-page {
+            margin: 0;
+            width: 100%;
+            min-width: 0;
+            overflow-x: clip;
+        }
+
+        .catalogue {
+            width: min(1440px, 100%);
+            margin-inline: auto;
+            padding: clamp(20px, 4vw, 56px);
+        }
+
+        .catalogue-heading {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .catalogue-heading .eyebrow {
+            letter-spacing: 3px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .catalogue-heading h1 {
+            margin: 10px 0;
+            font-size: clamp(34px, 5vw, 64px);
+            line-height: 1.1;
+        }
+
+        .catalogue-heading > p:last-child {
+            margin: 12px 0 0;
+            color: #888;
+            font-size: clamp(14px, 2vw, 17px);
+        }
+
+        .catalogue-filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 28px 0 38px;
+        }
+
+        .catalogue-filters a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 9px 17px;
+            border: 1px solid #dedede;
+            border-radius: 24px;
+            text-decoration: none;
+            color: inherit;
+            font-size: 14px;
+            transition: background .2s, color .2s;
+        }
+
+        .catalogue-filters a.active,
+        .catalogue-filters a:hover {
+            background: #dfff00;
+            border-color: #dfff00;
+            color: #111;
+        }
+
+        .catalogue-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .catalogue-meta h2 {
+            margin: 0;
+            font-size: clamp(19px, 2.5vw, 26px);
+        }
+
+        .catalogue-meta span {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .catalogue-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 28px 20px;
+            align-items: start;
+        }
+
+        .catalogue-card {
+            position: relative;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .catalogue-image {
+            position: relative;
+            display: block;
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background: #f3f3f3;
+            color: #111;
+        }
+
+        .catalogue-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .35s ease;
+        }
+
+        .catalogue-card:hover .catalogue-image img {
+            transform: scale(1.035);
+        }
+
+        .discount-pill {
+            position: absolute;
+            z-index: 2;
+            top: 12px;
+            left: 12px;
+            padding: 6px 9px;
+            background: #dfff00;
+            color: #111;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .catalogue-card-info {
+            padding-top: 13px;
+        }
+
+        .product-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .product-type {
+            margin: 0;
+            color: #888;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+        }
+
+        .catalogue-card-info h3 {
+            margin: 8px 0;
+            font-size: clamp(14px, 1.4vw, 17px);
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .catalogue-card-info h3 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .product-subcategory {
+            margin: 4px 0 9px;
+            color: #888;
+            font-size: 13px;
+        }
+
+        .product-price {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin: 10px 0;
+            font-size: 15px;
+        }
+
+        .product-price strong {
+            color: inherit;
+        }
+
+        .original-price {
+            color: #888;
+            text-decoration: line-through;
+        }
+
+        .heart-button {
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            background: #fff;
+            color: #111;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .heart-button.saved,
+        .heart-button.liked {
+            color: #e53945;
+        }
+
+        .quick-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 5px;
+            padding: 8px 0;
+            color: inherit;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        /* Hover controls are hidden on touch screens */
+        .card-hover {
+            display: none;
+        }
+
+        .empty-products {
+            grid-column: 1 / -1;
+            padding: 50px 15px;
+            text-align: center;
+        }
+
+        .empty-products a {
+            color: inherit;
+        }
+
+        .shop-promises {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+            width: min(1300px, 100%);
+            margin: 20px auto 0;
+            padding: 32px clamp(20px, 4vw, 56px);
+            border-top: 1px solid #ddd;
+        }
+
+        .shop-promises > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .shop-promises > div > span {
+            font-size: 26px;
+        }
+
+        .shop-promises strong {
+            font-size: 14px;
+        }
+
+        .shop-promises p {
+            margin: 5px 0 0;
+            color: #888;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .catalogue-footer {
+            padding: 25px 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        .catalogue-footer > a {
+            color: inherit;
+            font-size: 25px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .catalogue-footer > a span {
+            color: #dfff00;
+        }
+
+        .catalogue-footer p {
+            color: #888;
+            font-size: 12px;
+        }
+
+        /* Laptops and smaller desktops */
+        @media (max-width: 1100px) {
+            .catalogue-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 25px 16px;
+            }
+
+            .catalogue {
+                padding: 32px 24px;
+            }
+        }
+
+        /* Tablets */
+        @media (max-width: 760px) {
+            .catalogue {
+                padding: 28px 18px;
+            }
+
+            .catalogue-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 24px 14px;
+            }
+
+            .catalogue-heading {
+                margin-bottom: 25px;
+            }
+
+            .catalogue-filters {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding: 0 0 8px;
+                margin: 22px 0 28px;
+                scrollbar-width: thin;
+            }
+
+            .catalogue-filters a {
+                flex: 0 0 auto;
+            }
+
+            .shop-promises {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 26px 20px;
+            }
+
+            .shop-promises > div {
+                justify-content: flex-start;
+                width: min(320px, 100%);
+                margin-inline: auto;
+            }
+        }
+
+        /* Phones */
+        @media (max-width: 480px) {
+            .catalogue {
+                padding: 24px 12px;
+            }
+
+            .catalogue-heading h1 {
+                font-size: 36px;
+            }
+
+            .catalogue-heading .eyebrow {
+                font-size: 10px;
+            }
+
+            .catalogue-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 22px 10px;
+            }
+
+            .catalogue-image {
+                aspect-ratio: 3 / 4;
+            }
+
+            .discount-pill {
+                top: 7px;
+                left: 7px;
+                padding: 5px 7px;
+                font-size: 10px;
+            }
+
+            .catalogue-card-info {
+                padding-top: 9px;
+            }
+
+            .catalogue-card-info h3 {
+                margin: 6px 0;
+                font-size: 13px;
+            }
+
+            .product-type,
+            .product-subcategory {
+                font-size: 11px;
+            }
+
+            .product-price {
+                gap: 5px;
+                font-size: 13px;
+            }
+
+            .heart-button {
+                width: 34px;
+                height: 34px;
+                font-size: 20px;
+            }
+
+            .quick-view {
+                font-size: 12px;
+            }
+
+            .catalogue-meta h2 {
+                font-size: 18px;
+            }
+
+            .catalogue-meta span {
+                font-size: 12px;
+            }
+        }
+
+        /* Very narrow phones */
+        @media (max-width: 350px) {
+            .catalogue {
+                padding-inline: 8px;
+            }
+
+            .catalogue-grid {
+                gap: 18px 8px;
+            }
+
+            .catalogue-card-info h3 {
+                font-size: 12px;
+            }
+
+            .product-price {
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
+
 <body class="shop-page">
 
 {% include 'navbar.html' %}
@@ -20,9 +464,16 @@
     </div>
 
     <nav class="catalogue-filters" aria-label="Product categories">
-        <a href="{{ url_for('products', category='All') }}" class="{% if selected_category == 'All' %}active{% endif %}">All</a>
+        <a href="{{ url_for('products', category='All') }}"
+           class="{% if selected_category == 'All' %}active{% endif %}">
+            All
+        </a>
+
         {% for category in categories %}
-        <a href="{{ url_for('products', category=category) }}" class="{% if selected_category == category %}active{% endif %}">{{ category }}</a>
+        <a href="{{ url_for('products', category=category) }}"
+           class="{% if selected_category == category %}active{% endif %}">
+            {{ category }}
+        </a>
         {% endfor %}
     </nav>
 
@@ -35,304 +486,195 @@
         {% for product in products %}
         {% set discount = product.discount or 0 %}
         {% set sale_price = product.price * (100 - discount) / 100 %}
+
         <article class="catalogue-card">
-            <a class="catalogue-image" href="{{ url_for('product_details', product_id=product.id) }}">
-                {% if discount > 0 %}<span class="discount-pill">-{{ discount|int }}%</span>{% endif %}
-                <img src="{% if product.image and (product.image.startswith('http://') or product.image.startswith('https://')) %}{{ product.image }}{% elif product.image %}{{ url_for('static', filename=product.image) }}{% else %}{{ url_for('static', filename='images/products/placeholder.png') }}{% endif %}" alt="{{ product.name }}">
+            <a class="catalogue-image"
+               href="{{ url_for('product_details', product_id=product.id) }}">
+
+                {% if discount > 0 %}
+                <span class="discount-pill">-{{ discount|int }}%</span>
+                {% endif %}
+
+                <img
+                    src="{% if product.image and (product.image.startswith('http://') or product.image.startswith('https://')) %}{{ product.image }}{% elif product.image %}{{ url_for('static', filename=product.image) }}{% else %}{{ url_for('static', filename='images/products/placeholder.png') }}{% endif %}"
+                    alt="{{ product.name }}"
+                    loading="lazy"
+                >
             </a>
-            <div class="card-hover" aria-label="Quick product actions">
-                <a class="hover-action" href="{{ url_for('product_details', product_id=product.id) }}" aria-label="Choose size for {{ product.name }}">▣</a>
-                <button
-    class="heart-button"
-    type="button"
-    data-product-id="{{ product.id }}"
-    aria-label="Add {{ product.name }} to wishlist"
->
-    ♡
-</button>
-                <a class="hover-action" href="{{ url_for('product_details', product_id=product.id) }}" aria-label="View {{ product.name }}">◉</a>
-                <div class="hover-sizes"><span>Choose size</span><a href="{{ url_for('product_details', product_id=product.id) }}#choose-size">S</a><a href="{{ url_for('product_details', product_id=product.id) }}#choose-size">M</a><a href="{{ url_for('product_details', product_id=product.id) }}#choose-size">L</a><a href="{{ url_for('product_details', product_id=product.id) }}#choose-size">XL</a></div>
-            </div>
+
             <div class="catalogue-card-info">
                 <div class="product-line">
                     <p class="product-type">{{ product.category }}</p>
-                    <button class="heart-button" type="button" data-product-id="{{ product.id }}" aria-label="Add {{ product.name }} to wishlist">♡</button>
+
+                    <button
+                        class="heart-button"
+                        type="button"
+                        data-product-id="{{ product.id }}"
+                        aria-label="Add {{ product.name }} to wishlist"
+                    >♡</button>
                 </div>
-                <h3><a href="{{ url_for('product_details', product_id=product.id) }}">{{ product.name }}</a></h3>
-                {% if product.subcategory %}<p class="product-subcategory">{{ product.subcategory }}</p>{% endif %}
-                <p class="product-price">{% if discount > 0 %}<span class="original-price">₹{{ '%.0f'|format(product.price) }}</span>{% endif %}<strong>₹{{ '%.0f'|format(sale_price) }}</strong></p>
-                <a class="quick-view" href="{{ url_for('product_details', product_id=product.id) }}">View product <span>↗</span></a>
+
+                <h3>
+                    <a href="{{ url_for('product_details', product_id=product.id) }}">
+                        {{ product.name }}
+                    </a>
+                </h3>
+
+                {% if product.subcategory %}
+                <p class="product-subcategory">{{ product.subcategory }}</p>
+                {% endif %}
+
+                <p class="product-price">
+                    {% if discount > 0 %}
+                    <span class="original-price">₹{{ '%.0f'|format(product.price) }}</span>
+                    {% endif %}
+                    <strong>₹{{ '%.0f'|format(sale_price) }}</strong>
+                </p>
+
+                <a class="quick-view"
+                   href="{{ url_for('product_details', product_id=product.id) }}">
+                    View product <span>↗</span>
+                </a>
             </div>
         </article>
+
         {% else %}
-        <div class="empty-products"><h2>No products in this category yet.</h2><a href="{{ url_for('products') }}">View all products</a></div>
+        <div class="empty-products">
+            <h2>No products in this category yet.</h2>
+            <a href="{{ url_for('products') }}">View all products</a>
+        </div>
         {% endfor %}
     </section>
 </main>
 
 <section class="shop-promises" aria-label="Shopping benefits">
-    <div><span>▣</span><div><strong>Secure payment</strong><p>Safe checkout for every order</p></div></div>
-    <div><span>↩</span><div><strong>Easy returns</strong><p>Simple returns within 7 days</p></div></div>
-    <div><span>♧</span><div><strong>Customer support</strong><p>We're here when you need us</p></div></div>
+    <div>
+        <span>▣</span>
+        <div>
+            <strong>Secure payment</strong>
+            <p>Safe checkout for every order</p>
+        </div>
+    </div>
+
+    <div>
+        <span>↩</span>
+        <div>
+            <strong>Easy returns</strong>
+            <p>Simple returns within 7 days</p>
+        </div>
+    </div>
+
+    <div>
+        <span>♧</span>
+        <div>
+            <strong>Customer support</strong>
+            <p>We're here when you need us</p>
+        </div>
+    </div>
 </section>
 
-<footer class="catalogue-footer"><a href="{{ url_for('home') }}">NEON<span>.</span></a><p>© 2026 Neon Clothing. All rights reserved.</p></footer>
+<footer class="catalogue-footer">
+    <a href="{{ url_for('home') }}">NEON<span>.</span></a>
+    <p>© 2026 Neon Clothing. All rights reserved.</p>
+</footer>
 
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
-
-    /* =====================================================
-       GET WISHLIST
-    ===================================================== */
-
     function getWishlist() {
-
         try {
+            const value = JSON.parse(localStorage.getItem("wishlist") || "[]");
 
-            const wishlist = JSON.parse(
-                localStorage.getItem("wishlist") || "[]"
-            );
+            if (!Array.isArray(value)) return [];
 
-            if (!Array.isArray(wishlist)) {
-                return [];
-            }
-
-            return [
-                ...new Set(
-                    wishlist
-                        .map(Number)
-                        .filter(Number.isFinite)
-                )
-            ];
-
+            return [...new Set(
+                value.map(Number).filter(id => Number.isFinite(id) && id > 0)
+            )];
         } catch (error) {
-
             return [];
-
         }
-
     }
-
-
-    /* =====================================================
-       SAVE WISHLIST
-    ===================================================== */
 
     function saveWishlist(wishlist) {
-
-        localStorage.setItem(
-            "wishlist",
-            JSON.stringify(wishlist)
-        );
-
+        try {
+            localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        } catch (error) {
+            console.error("Could not save wishlist.", error);
+        }
     }
-
-
-    /* =====================================================
-       UPDATE HEARTS
-    ===================================================== */
-
-    function updateWishlistHearts() {
-
-        const wishlist = getWishlist();
-
-        document
-            .querySelectorAll(".heart-button, .hover-wishlist")
-            .forEach(function (button) {
-
-                const productId =
-                    Number(
-                        button.getAttribute("data-product-id")
-                    );
-
-                if (!productId) {
-                    return;
-                }
-
-                const saved =
-                    wishlist.includes(productId);
-
-                button.textContent =
-                    saved ? "♥" : "♡";
-
-                button.classList.toggle(
-                    "saved",
-                    saved
-                );
-
-                button.classList.toggle(
-                    "liked",
-                    saved
-                );
-
-                button.setAttribute(
-                    "title",
-                    saved
-                        ? "Remove from wishlist"
-                        : "Add to wishlist"
-                );
-
-            });
-
-    }
-
-
-    /* =====================================================
-       HEART CLICK
-    ===================================================== */
-
-    document
-        .querySelectorAll(".heart-button, .hover-wishlist")
-        .forEach(function (button) {
-
-            button.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    const productId =
-                        Number(
-                            this.getAttribute(
-                                "data-product-id"
-                            )
-                        );
-
-                    if (!productId) {
-                        return;
-                    }
-
-                    let wishlist =
-                        getWishlist();
-
-
-                    /* ADD */
-
-                    if (
-                        !wishlist.includes(
-                            productId
-                        )
-                    ) {
-
-                        wishlist.push(
-                            productId
-                        );
-
-                    }
-
-
-                    /* REMOVE */
-
-                    else {
-
-                        wishlist =
-                            wishlist.filter(
-                                function (id) {
-
-                                    return (
-                                        id !== productId
-                                    );
-
-                                }
-                            );
-
-                    }
-
-
-                    saveWishlist(
-                        wishlist
-                    );
-
-                    updateWishlistHearts();
-
-                    updateWishlistCount();
-
-                }
-            );
-
-        });
-
-
-    /* =====================================================
-       WISHLIST COUNT
-    ===================================================== */
 
     function updateWishlistCount() {
+        const count = getWishlist().length;
 
-        const wishlist =
-            getWishlist();
-
-        document
-            .querySelectorAll(
-                "#wishlistCount, .wishlist-count"
-            )
-            .forEach(function (element) {
-
-                element.textContent =
-                    wishlist.length;
-
+        document.querySelectorAll("#wishlistCount, .wishlist-count")
+            .forEach(element => {
+                element.textContent = count;
             });
-
     }
 
+    function updateWishlistHearts() {
+        const wishlist = getWishlist();
 
-    /* =====================================================
-       NAVBAR WISHLIST
-    ===================================================== */
+        document.querySelectorAll(".heart-button[data-product-id]")
+            .forEach(button => {
+                const id = Number(button.dataset.productId);
+                const saved = wishlist.includes(id);
 
-    document
-        .querySelectorAll(".wishlist-nav-link")
-        .forEach(function (link) {
+                button.textContent = saved ? "♥" : "♡";
+                button.classList.toggle("saved", saved);
+                button.classList.toggle("liked", saved);
 
-            link.addEventListener(
-                "click",
-                function (event) {
+                button.setAttribute(
+                    "aria-label",
+                    saved ? "Remove from wishlist" : "Add to wishlist"
+                );
+                button.setAttribute(
+                    "aria-pressed",
+                    String(saved)
+                );
+            });
+    }
 
-                    event.preventDefault();
+    document.querySelectorAll(".heart-button[data-product-id]")
+        .forEach(button => {
+            button.addEventListener("click", function () {
+                const id = Number(this.dataset.productId);
+                if (!id) return;
 
-                    const wishlist =
-                        getWishlist();
+                let wishlist = getWishlist();
 
-                    const baseUrl =
-                        this.getAttribute("href")
-                        || "/wishlist";
-
-
-                    if (
-                        wishlist.length === 0
-                    ) {
-
-                        window.location.href =
-                            baseUrl;
-
-                        return;
-
-                    }
-
-
-                    window.location.href =
-                        baseUrl +
-                        "?ids=" +
-                        wishlist.join(",");
-
+                if (wishlist.includes(id)) {
+                    wishlist = wishlist.filter(item => item !== id);
+                } else {
+                    wishlist.push(id);
                 }
-            );
 
+                saveWishlist(wishlist);
+                updateWishlistHearts();
+                updateWishlistCount();
+            });
         });
 
+    document.querySelectorAll(".wishlist-nav-link")
+        .forEach(link => {
+            link.addEventListener("click", function (event) {
+                const wishlist = getWishlist();
 
-    /* =====================================================
-       INITIAL LOAD
-    ===================================================== */
+                if (wishlist.length > 0) {
+                    event.preventDefault();
+
+                    const baseUrl = this.getAttribute("href") || "/wishlist";
+                    const separator = baseUrl.includes("?") ? "&" : "?";
+
+                    window.location.href =
+                        baseUrl + separator + "ids=" + wishlist.join(",");
+                }
+            });
+        });
 
     updateWishlistHearts();
-
     updateWishlistCount();
-
 });
-
 </script>
+
 </body>
 </html>
