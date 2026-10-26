@@ -1,154 +1,247 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* ======================================
+   NEON CLOTHING — ORDER SUCCESS PAGE
+====================================== */
 
-    <title>Order Placed | Neon Clothing</title>
+.success-page {
+    min-height: 65vh;
+    padding: 65px 20px 75px;
+    background: #f6f6f6;
+    color: #171717;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-   <link rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}">
+.success-container {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 45px;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/navbar.css') }}">
+.success-icon {
+    display: flex;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 24px;
+    align-items: center;
+    justify-content: center;
+    background: #dfff00;
+    color: #111111;
+    border-radius: 50%;
+    font-size: 40px;
+    font-weight: 800;
+}
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/order-success.css') }}">
-</head>
+.success-container h1 {
+    margin: 0 0 14px;
+    color: #111111;
+    font-size: clamp(27px, 4vw, 38px);
+    line-height: 1.2;
+    font-weight: 800;
+}
 
-<body>
+.success-message {
+    margin: 0 0 8px;
+    font-size: 16px;
+    line-height: 1.7;
+}
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
+.success-subtext {
+    margin: 0 0 30px;
+    color: #777777;
+    font-size: 14px;
+    line-height: 1.7;
+}
 
-        <div class="logo">
-            NEON<span>.</span>
-        </div>
+/* ORDER DETAILS CARD */
 
-        <div class="nav-links">
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('products') }}">Shop</a>
-            <a href="{{ url_for('wishlist') }}">Wishlist</a>
-            <a href="{{ url_for('contact') }}">Contact</a>
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('register') }}">Register</a>
-            <a href="{{ url_for('cart') }}">Cart</a>
-        </div>
+.order-card {
+    margin: 25px 0;
+    padding: 25px;
+    background: #fafafa;
+    border: 1px solid #e6e6e6;
+    border-radius: 9px;
+}
 
-    </nav>
+.order-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 24px;
+}
 
+.order-row > div:not(.divider) {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+}
 
-    <!-- ORDER SUCCESS -->
+.label {
+    color: #777777;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
 
-    <main class="success-page">
+.order-id,
+.order-total {
+    color: #111111;
+    font-size: 23px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
 
-        <div class="success-container">
+.divider {
+    width: 1px;
+    height: 55px;
+    background: #dddddd;
+}
 
-            <!-- SUCCESS ICON -->
+/* ACTION BUTTONS */
 
-            <div class="success-icon">
-                ✓
-            </div>
+.success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 13px;
+    margin: 28px 0;
+}
 
+.success-actions a {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 22px;
+    border: 1px solid #111111;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    transition: 0.2s ease;
+}
 
-            <!-- HEADING -->
+.btn-primary {
+    color: #ffffff;
+    background: #111111;
+}
 
-            <h1>Order Placed Successfully!</h1>
+.btn-primary:hover {
+    color: #111111;
+    background: #dfff00;
+    border-color: #dfff00;
+}
 
-            <p class="success-message">
-                Thank you for shopping with
-                <strong>Neon Clothing</strong>.
-            </p>
+.btn-secondary {
+    color: #111111;
+    background: #ffffff;
+}
 
-            <p class="success-subtext">
-                Your order has been received and is being processed.
-            </p>
+.btn-secondary:hover {
+    background: #dfff00;
+    border-color: #dfff00;
+}
 
+/* CONFIRMATION NOTE */
 
-            <!-- ORDER CARD -->
+.success-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+    padding: 15px;
+    background: #f7f9e9;
+    border: 1px solid #ebefce;
+    border-radius: 6px;
+    text-align: left;
+}
 
-            <div class="order-card">
+.success-note > span {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    background: #dfff00;
+    border-radius: 50%;
+    font-weight: 800;
+}
 
-                <div class="order-row">
+.success-note p {
+    margin: 0;
+    color: #444444;
+    font-size: 13px;
+    line-height: 1.6;
+}
 
-                    <div>
-                        <span class="label">
-                            ORDER ID
-                        </span>
+.brand-message {
+    margin: 25px 0 0;
+    color: #777777;
+    font-size: 13px;
+}
 
-                        <strong class="order-id">
-                            #{{ order.order_id }}
-                        </strong>
-                    </div>
+/* FOOTER */
 
+.footer {
+    padding: 28px 20px;
+    color: #999999;
+    background: #050505;
+    text-align: center;
+}
 
-                    <div class="divider"></div>
+.footer p {
+    margin: 0;
+    font-size: 12px;
+}
 
+/* MOBILE RESPONSIVE */
 
-                    <div>
-                        <span class="label">
-                            TOTAL AMOUNT
-                        </span>
+@media (max-width: 600px) {
+    .success-page {
+        padding: 28px 14px 40px;
+    }
 
-                        <strong class="order-total">
-                            ₹{{ order.total }}
-                        </strong>
-                    </div>
+    .success-container {
+        padding: 28px 18px;
+    }
 
-                </div>
+    .success-icon {
+        width: 65px;
+        height: 65px;
+        font-size: 34px;
+    }
 
-            </div>
+    .order-card {
+        padding: 20px 12px;
+    }
 
+    .order-row {
+        gap: 12px;
+    }
 
-            <!-- BUTTONS -->
+    .order-id,
+    .order-total {
+        font-size: 18px;
+    }
 
-            <div class="success-actions">
+    .label {
+        font-size: 9px;
+        letter-spacing: 0.5px;
+    }
 
-                <a href="{{ url_for('orders') }}"
-                   class="btn-primary">
-                    VIEW MY ORDERS
-                </a>
+    .success-actions {
+        flex-direction: column;
+    }
 
-                <a href="{{ url_for('products') }}"
-                   class="btn-secondary">
-                    CONTINUE SHOPPING
-                </a>
-
-            </div>
-
-
-            <!-- SMALL INFO -->
-
-            <div class="success-note">
-
-                <span>✓</span>
-
-                <p>
-                    Your order details are available in
-                    <strong>My Orders</strong>.
-                </p>
-
-            </div>
-
-
-            <p class="brand-message">
-                Thank you for choosing <strong>NEON CLOTHING</strong>
-            </p>
-
-        </div>
-
-    </main>
-
-
-    <!-- FOOTER -->
-
-    <footer class="footer">
-
-        <p>
-            © 2026 Neon Clothing. All rights reserved.
-        </p>
-
-    </footer>
-
-</body>
-</html>
+    .success-actions a {
+        width: 100%;
+    }
+}
