@@ -1,53 +1,540 @@
-/* NEON product catalogue — uses the existing Flask/MySQL product data. */
-.shop-page { background: #fff; color: #111; }
-.catalogue { width: min(1775px, 94%); margin: 0 auto; padding: 70px 0 80px; }
-.catalogue-heading { margin-bottom: 32px; }
-.eyebrow { color: #6d6d6d; font-size: 11px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
-.catalogue-heading h1 { font-size: clamp(42px, 5vw, 66px); font-weight: 500; letter-spacing: -2px; line-height: 1; text-transform: uppercase; }
-.catalogue-heading > p:last-child { color: #717171; font-size: 15px; margin-top: 12px; }
-.catalogue-filters { display: flex; flex-wrap: wrap; gap: 10px 28px; padding-bottom: 18px; border-bottom: 1px solid #e7e7e7; }
-.catalogue-filters a { color: #818181; font-size: 13px; font-weight: 600; letter-spacing: .7px; padding: 9px 13px; text-decoration: none; text-transform: uppercase; }
-.catalogue-filters a:hover, .catalogue-filters a.active { border: 1px solid #111; border-radius: 5px; color: #111; padding: 8px 12px; }
-.catalogue-meta { align-items: baseline; display: flex; justify-content: space-between; padding: 28px 0 20px; }
-.catalogue-meta h2 { font-size: 20px; font-weight: 500; }
-.catalogue-meta span { color: #777; font-size: 13px; }
-.catalogue-grid { display: grid; gap: 34px 38px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.catalogue-card { min-width: 0; }
-.catalogue-card { position: relative; }
-.catalogue-image { background: #f5f4f2; display: block; height: clamp(330px, 31vw, 545px); overflow: hidden; position: relative; }
-.catalogue-image img { display: block; height: 100%; object-fit: cover; transition: transform .35s ease; width: 100%; }
-.catalogue-card:hover .catalogue-image img { transform: scale(1.035); }
-.discount-pill { background: #ff593d; border-radius: 100px; color: #fff; font-size: 12px; font-weight: 700; padding: 10px 12px; position: absolute; right: 14px; top: 14px; z-index: 1; }
-.card-hover { align-items: center; background: rgba(20, 20, 20, .65); bottom: 0; display: flex; gap: 8px; justify-content: center; left: 0; opacity: 0; padding: 14px; pointer-events: none; position: absolute; transform: translateY(12px); transition: opacity .2s ease, transform .2s ease; width: 100%; z-index: 3; }
-.catalogue-card:hover .card-hover, .catalogue-card:focus-within .card-hover { opacity: 1; pointer-events: auto; transform: translateY(0); }
-.hover-action { align-items: center; background: #fff; border: 0; border-radius: 4px; color: #111; cursor: pointer; display: flex; font-size: 21px; height: 45px; justify-content: center; line-height: 1; text-decoration: none; width: 45px; }
-.hover-action:hover, .hover-action.saved { background: #111; color: #fff; }
-.hover-sizes { align-items: center; border-left: 1px solid rgba(255,255,255,.5); display: flex; gap: 10px; margin-left: 4px; padding-left: 13px; }
-.hover-sizes span { color: #fff; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-.hover-sizes a { color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; }
-.hover-sizes a:hover { color: #ffdf00; }
-.catalogue-card-info { padding-top: 14px; }
-.product-line { align-items: center; display: flex; justify-content: space-between; }
-.product-type, .product-subcategory { color: #777; font-size: 11px; letter-spacing: .8px; text-transform: uppercase; }
-.heart-button { background: transparent; border: 0; color: #222; cursor: pointer; font-size: 26px; line-height: .8; padding: 0; }
-.heart-button.saved { color: #e32d35; }
-.catalogue-card h3 { font-size: 17px; font-weight: 500; line-height: 1.3; margin: 7px 0 6px; }
-.catalogue-card h3 a { color: #111; text-decoration: none; }
-.product-price { align-items: center; display: flex; gap: 8px; margin-top: 12px; }
-.product-price strong { color: #e02222; font-size: 16px; }
-.original-price { color: #777; font-size: 14px; text-decoration: line-through; }
-.quick-view { border-bottom: 1px solid #111; color: #111; display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .8px; margin-top: 15px; padding-bottom: 3px; text-decoration: none; text-transform: uppercase; }
-.quick-view span { font-size: 15px; }
-.empty-products { grid-column: 1 / -1; padding: 90px 0; text-align: center; }
-.empty-products h2 { font-size: 24px; font-weight: 500; }
-.empty-products a { color: #111; display: inline-block; margin-top: 18px; }
-.shop-promises { border-bottom: 1px solid #e9e9e9; border-top: 1px solid #e9e9e9; display: grid; gap: 25px; grid-template-columns: repeat(3, 1fr); padding: 46px 6%; }
-.shop-promises > div { align-items: center; display: flex; gap: 18px; justify-content: center; }
-.shop-promises > div > span { align-items: center; border: 1px solid #e4e4e4; border-radius: 50%; display: flex; font-size: 23px; height: 50px; justify-content: center; width: 50px; }
-.shop-promises strong { font-size: 15px; font-weight: 600; }
-.shop-promises p { color: #777; font-size: 13px; margin-top: 5px; }
-.catalogue-footer { align-items: center; background: #f7f7f7; display: flex; justify-content: space-between; padding: 35px 6%; }
-.catalogue-footer a { color: #111; font-size: 27px; font-weight: 900; letter-spacing: 3px; text-decoration: none; }
-.catalogue-footer p { color: #707070; font-size: 12px; }
-@media (max-width: 1050px) { .catalogue-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 720px) { .catalogue { padding-top: 42px; } .catalogue-grid { gap: 26px 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); } .catalogue-image { height: 270px; } .card-hover { display: none; } .catalogue-card h3 { font-size: 14px; } .catalogue-filters { gap: 5px; } .catalogue-filters a { font-size: 10px; } .shop-promises { grid-template-columns: 1fr; padding: 35px 7%; } .shop-promises > div { justify-content: flex-start; } .catalogue-footer { align-items: flex-start; flex-direction: column; gap: 10px; } }
+/* =========================================
+   NEON CLOTHING — PRODUCTS PAGE
+   Premium dark streetwear design
+========================================= */
+
+.shop-page {
+    margin: 0;
+    min-height: 100vh;
+    background: #080808;
+    color: #f5f5f5;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.shop-page * {
+    box-sizing: border-box;
+}
+
+.shop-page a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.shop-page button {
+    font: inherit;
+}
+
+.catalogue {
+    width: min(1440px, 100%);
+    margin: 0 auto;
+    padding: 54px 5% 76px;
+}
+
+/* Page heading */
+
+.catalogue-heading {
+    margin-bottom: 34px;
+}
+
+.catalogue-heading .eyebrow {
+    margin: 0 0 18px;
+    color: #dfff00;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.catalogue-heading h1 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(44px, 7vw, 82px);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+}
+
+.catalogue-heading > p:last-child {
+    margin: 18px 0 0;
+    color: #aaa;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Category filters */
+
+.catalogue-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 34px 0 42px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #292929;
+}
+
+.catalogue-filters a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 18px;
+    border: 1px solid #333;
+    border-radius: 2px;
+    color: #c3c3c3;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.catalogue-filters a:hover,
+.catalogue-filters a.active {
+    border-color: #dfff00;
+    background: #dfff00;
+    color: #080808;
+}
+
+/* Product count row */
+
+.catalogue-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.catalogue-meta h2 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.catalogue-meta > span {
+    color: #999;
+    font-size: 13px;
+}
+
+/* Responsive product grid */
+
+.catalogue-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 34px 20px;
+    align-items: start;
+}
+
+/* Product card */
+
+.catalogue-card {
+    position: relative;
+    min-width: 0;
+    background: transparent;
+    color: #f5f5f5;
+}
+
+.catalogue-image {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background: #171717;
+    isolation: isolate;
+}
+
+.catalogue-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.45s ease;
+}
+
+.catalogue-card:hover .catalogue-image img {
+    transform: scale(1.045);
+}
+
+/* Sale badge */
+
+.discount-pill {
+    position: absolute;
+    z-index: 2;
+    top: 14px;
+    left: 14px;
+    display: inline-block;
+    padding: 8px 10px;
+    background: #dfff00;
+    color: #080808;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+/* Quick actions on product image */
+
+.card-hover {
+    position: absolute;
+    z-index: 3;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    padding: 10px;
+    background: rgba(8, 8, 8, 0.94);
+    border: 1px solid #333;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.22s, transform 0.22s;
+}
+
+.catalogue-card:hover .card-hover,
+.catalogue-card:focus-within .card-hover {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hover-action,
+.heart-button {
+    display: inline-flex;
+    flex: 0 0 34px;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid #444;
+    border-radius: 0;
+    background: #151515;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.hover-action:hover,
+.heart-button:hover,
+.heart-button.saved,
+.heart-button.liked {
+    border-color: #dfff00;
+    color: #dfff00;
+}
+
+.hover-sizes {
+    display: flex;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+    padding-top: 8px;
+    color: #bcbcbc;
+    font-size: 12px;
+}
+
+.hover-sizes a {
+    color: #fff;
+    font-weight: 700;
+}
+
+.hover-sizes a:hover {
+    color: #dfff00;
+}
+
+/* Product details */
+
+.catalogue-card-info {
+    padding: 17px 0 0;
+}
+
+.product-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.product-type {
+    margin: 0;
+    color: #a4a4a4;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.catalogue-card-info .product-line .heart-button {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+}
+
+.catalogue-card-info h3 {
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.catalogue-card-info h3 a {
+    color: #f5f5f5;
+    transition: color 0.2s;
+}
+
+.catalogue-card-info h3 a:hover {
+    color: #dfff00;
+}
+
+.product-subcategory {
+    margin: 0 0 10px;
+    color: #888;
+    font-size: 12px;
+}
+
+.product-price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0 16px;
+}
+
+.product-price strong {
+    color: #dfff00;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.original-price {
+    color: #888;
+    font-size: 14px;
+    text-decoration: line-through;
+}
+
+.quick-view {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #666;
+    color: #eee;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.quick-view:hover {
+    border-color: #dfff00;
+    color: #dfff00;
+}
+
+.quick-view span {
+    font-size: 16px;
+}
+
+/* Empty category */
+
+.empty-products {
+    grid-column: 1 / -1;
+    padding: 70px 20px;
+    border: 1px solid #292929;
+    text-align: center;
+}
+
+.empty-products h2 {
+    margin: 0 0 20px;
+    font-size: 23px;
+}
+
+.empty-products a {
+    display: inline-block;
+    padding: 13px 20px;
+    background: #dfff00;
+    color: #080808;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Shopping benefits */
+
+.shop-promises {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    padding: 30px 5%;
+    border-top: 1px solid #292929;
+    border-bottom: 1px solid #292929;
+    background: #101010;
+}
+
+.shop-promises > div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.shop-promises > div > span {
+    display: flex;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #393939;
+    color: #dfff00;
+    font-size: 20px;
+}
+
+.shop-promises strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #f5f5f5;
+    font-size: 13px;
+}
+
+.shop-promises p {
+    margin: 0;
+    color: #999;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Footer */
+
+.catalogue-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 28px 5%;
+    background: #050505;
+}
+
+.catalogue-footer > a {
+    color: #fff;
+    font-size: 21px;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.catalogue-footer > a span {
+    color: #dfff00;
+}
+
+.catalogue-footer p {
+    margin: 0;
+    color: #777;
+    font-size: 12px;
+}
+
+/* Tablet */
+
+@media (max-width: 1050px) {
+    .catalogue-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px 16px;
+    }
+
+    .catalogue {
+        padding-right: 4%;
+        padding-left: 4%;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 680px) {
+    .catalogue {
+        padding: 36px 18px 48px;
+    }
+
+    .catalogue-heading h1 {
+        letter-spacing: -1.5px;
+    }
+
+    .catalogue-filters {
+        gap: 8px;
+        margin: 26px 0 30px;
+    }
+
+    .catalogue-filters a {
+        min-height: 36px;
+        padding: 0 12px;
+        font-size: 10px;
+    }
+
+    .catalogue-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 26px 12px;
+    }
+
+    .catalogue-image {
+        aspect-ratio: 3 / 4;
+    }
+
+    .card-hover {
+        right: 5px;
+        bottom: 5px;
+        left: 5px;
+        gap: 5px;
+        padding: 6px;
+        opacity: 1;
+        transform: none;
+    }
+
+    .hover-action,
+    .card-hover > .heart-button {
+        flex-basis: 29px;
+        width: 29px;
+        height: 29px;
+        font-size: 15px;
+    }
+
+    .hover-sizes {
+        gap: 7px;
+        font-size: 11px;
+    }
+
+    .catalogue-card-info {
+        padding-top: 12px;
+    }
+
+    .catalogue-card-info h3 {
+        font-size: 14px;
+    }
+
+    .product-price strong {
+        font-size: 16px;
+    }
+
+    .shop-promises {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 25px 18px;
+    }
+
+    .catalogue-footer {
+        padding: 24px 18px;
+    }
+}
+
+/* Small phones */
+
+@media (max-width: 380px) {
+    .catalogue-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .catalogue-meta {
+        align-items: flex-start;
+    }
+}
