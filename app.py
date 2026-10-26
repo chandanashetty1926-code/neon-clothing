@@ -43,15 +43,33 @@ app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024
 # =====================================================
 
 VALID_SIZES = [
-    "M",
-    "L",
-    "XL",
-    "XXL",
-    "30",
-    "32",
-    "36",
-    "38"
+    "S", "M", "L", "XL", "XXL",
+    "30", "32", "36", "38"
 ]
+
+def get_sizes_for_product(product):
+    """
+    Return sizes appropriate for the product.
+
+    Pants, jeans and trousers: 30, 32, 36, 38
+    Other clothing: S, M, L, XL
+    """
+
+    category = str(product.get("category") or "").lower()
+    subcategory = str(product.get("subcategory") or "").lower()
+    name = str(product.get("name") or "").lower()
+
+    product_type = f"{category} {subcategory} {name}"
+
+    is_bottomwear = any(
+        word in product_type
+        for word in ("pant", "jean", "trouser")
+    )
+
+    if is_bottomwear:
+        return ["30", "32", "36", "38"]
+
+    return ["S", "M", "L", "XL"]
 
 FREE_DELIVERY_LIMIT = 2000
 DELIVERY_CHARGE = 99
@@ -1428,13 +1446,71 @@ def products():
 # =====================================================
 # PRODUCT DETAILS
 # =====================================================
+
 @app.route("/product/<int:product_id>")
 def product_details(product_id):
 
     product = get_product_from_db(product_id)
 
     if product is None:
-        return ("Product not found", 404)
+        return "Product not found", 404
+
+    # Product gallery
+    gallery_rows = get_product_images(product_id)
+
+    product_images = [
+        row["image_path"]
+        for row in gallery_rows
+        if row.get("image_path")
+    ]
+
+    main_image = product.get("image")
+
+    if main_image and main_image not in product_images:
+        product_images.insert(0, main_image)
+
+    # Use the shared size helper
+    product_sizes = get_sizes_for_product(product)
+
+    # Review data
+    reviews = get_product_reviews(product_id)
+
+    rating_summary, rating_breakdown = (
+        get_product_rating_summary(product_id)
+    )
+
+    review_count = int(rating_summary["review_count"] or 0)
+    average_rating = float(rating_summary["average_rating"] or 0)
+
+    # Review permissions
+    user = session.get("user")
+
+    can_review = False
+    has_reviewed = False
+
+    if user and user.get("id"):
+        user_id = user["id"]
+
+        can_review = user_purchased_product(
+            user_id, product_id
+        )
+
+        has_reviewed = has_user_reviewed_product(
+            user_id, product_id
+        )
+
+    return render_template(
+        "products-details.html",
+        product=product,
+        product_images=product_images,
+        product_sizes=product_sizes,
+        reviews=reviews,
+        review_count=review_count,
+        average_rating=average_rating,
+        rating_breakdown=rating_breakdown,
+        can_review=can_review,
+        has_reviewed=has_reviewed
+    )
 
     # ========================================================
     # PRODUCT GALLERY
@@ -1597,166 +1673,99 @@ def wishlist():
 # ADD TO CART
 # =====================================================
 
-@app.route(
-    "/add-to-cart",
-    methods=["POST"]
-)
+@app.route("/add-to-cart", methods=["POST"])
 def add_to_cart():
 
     try:
-
-        product_id = int(
-            request.form.get(
-                "product_id"
-            )
-        )
-
+        product_id = int(request.form.get("product_id", ""))
     except (TypeError, ValueError):
+        flash("Invalid product.", "error")
+        return redirect(url_for("shop"))
 
-        flash(
-            "Invalid product.",
-            "error"
-        )
-
-        return redirect(
-            url_for("products")
-        )
-
-    size = request.form.get(
-        "size",
-        ""
-    ).strip().upper()
+    size = request.form.get("size", "").strip().upper()
 
     try:
-
-        quantity = int(
-            request.form.get(
-                "quantity",
-                1
-            )
-        )
-
+        quantity = int(request.form.get("quantity", 1))
     except (TypeError, ValueError):
-
         quantity = 1
-
-    if size not in VALID_SIZES:
-
-        flash(
-            "Please select a size before adding the product to cart.",
-            "error"
-        )
-
-        return redirect(
-            request.referrer
-            or url_for("products")
-        )
 
     if quantity < 1:
-        quantity = 1
+        flash("Quantity must be at least 1.", "error")
+        return redirect(request.referrer or url_for("shop"))
 
-    product = get_product_from_db(
-        product_id
-    )
+    product = get_product_from_db(product_id)
 
     if product is None:
+        flash("Product not found.", "error")
+        return redirect(url_for("shop"))
 
-        return (
-            "Product not found",
-            404
-        )
+    allowed_sizes = get_sizes_for_product(product)
 
-    stock = int(
-        product.get("stock") or 0
-    )
-
-    if stock <= 0:
-
+    # Validate the size for this particular product.
+    if size not in allowed_sizes:
         flash(
-            "This product is currently out of stock.",
+            "Please select a valid size for this product.",
             "error"
         )
-
         return redirect(
-            request.referrer
-            or url_for("products")
+            request.referrer or
+            url_for("product_details", product_id=product_id)
         )
 
-    cart = session.get(
-        "cart",
-        []
-    )
+    stock = int(product.get("stock") or 0)
 
+    if stock <= 0:
+        flash("This product is out of stock.", "error")
+        return redirect(
+            request.referrer or
+            url_for("product_details", product_id=product_id)
+        )
+
+    if quantity > stock:
+        flash(f"Only {stock} item(s) are available.", "error")
+        return redirect(
+            request.referrer or
+            url_for("product_details", product_id=product_id)
+        )
+
+    cart = session.get("cart", [])
     found = False
 
+    # Combine quantities only when both product and size match.
     for item in cart:
-
         if (
-            item.get("product_id")
-            == product_id
-            and item.get("size")
-            == size
+            int(item.get("product_id", 0)) == product_id
+            and str(item.get("size", "")).upper() == size
         ):
-
-            new_quantity = (
-                int(item.get("quantity", 1))
-                + quantity
-            )
+            new_quantity = int(item.get("quantity", 1)) + quantity
 
             if new_quantity > stock:
-
                 flash(
-                    f"Only {stock} item(s) are available in stock.",
+                    f"Only {stock} item(s) are available in this size.",
                     "error"
                 )
+                return redirect(url_for("cart"))
 
-                return redirect(
-                    request.referrer
-                    or url_for("products")
-                )
-
-            item["quantity"] = (
-                new_quantity
-            )
-
+            item["quantity"] = new_quantity
             found = True
-
             break
 
     if not found:
-
-        if quantity > stock:
-
-            flash(
-                f"Only {stock} item(s) are available in stock.",
-                "error"
-            )
-
-            return redirect(
-                request.referrer
-                or url_for("products")
-            )
-
-        cart.append(
-            {
-                "product_id": product_id,
-                "size": size,
-                "quantity": quantity
-            }
-        )
+        cart.append({
+            "product_id": product_id,
+            "size": size,
+            "quantity": quantity
+        })
 
     session["cart"] = cart
     session.modified = True
 
     flash(
-        f"{product['name']} ({size}) added to cart!",
+        f"{product['name']} (Size {size}) added to cart!",
         "success"
     )
 
-    return redirect(
-        url_for("cart")
-    )
-
+    return redirect(url_for("cart"))
 
 # =====================================================
 # CART
@@ -1794,90 +1803,70 @@ def cart():
 # UPDATE CART
 # =====================================================
 
-@app.route(
-    "/update-cart/<int:index>",
-    methods=["POST"]
-)
+@app.route("/update-cart/<int:index>", methods=["POST"])
 def update_cart(index):
 
+    cart = session.get("cart", [])
+
+    if not (0 <= index < len(cart)):
+        flash("Cart item not found.", "error")
+        return redirect(url_for("cart"))
+
     try:
-
-        quantity = int(
-            request.form.get(
-                "quantity",
-                1
-            )
-        )
-
+        quantity = int(request.form.get("quantity", 1))
     except (TypeError, ValueError):
-
         quantity = 1
 
-    size = request.form.get(
-        "size",
-        ""
-    ).strip().upper()
+    if quantity <= 0:
+        cart.pop(index)
+        session["cart"] = cart
+        session.modified = True
+        flash("Item removed from cart.", "success")
+        return redirect(url_for("cart"))
 
-    cart = session.get(
-        "cart",
-        []
-    )
+    product_id = cart[index].get("product_id")
+    product = get_product_from_db(product_id)
 
-    if 0 <= index < len(cart):
+    if product is None:
+        cart.pop(index)
+        session["cart"] = cart
+        session.modified = True
+        flash("Product is no longer available.", "error")
+        return redirect(url_for("cart"))
 
-        product_id = cart[index].get(
-            "product_id"
-        )
+    allowed_sizes = get_sizes_for_product(product)
 
-        product = get_product_from_db(
-            product_id
-        )
+    # Keep the current size unless the form submits a new one.
+    submitted_size = request.form.get("size", "").strip().upper()
+    current_size = str(cart[index].get("size", "")).strip().upper()
 
-        if not product:
+    size = submitted_size or current_size
 
-            cart.pop(index)
+    if size not in allowed_sizes:
+        flash("Please select a valid size for this product.", "error")
+        return redirect(url_for("cart"))
 
-        elif quantity <= 0:
+    stock = int(product.get("stock") or 0)
 
-            cart.pop(index)
+    if stock <= 0:
+        cart.pop(index)
+        session["cart"] = cart
+        session.modified = True
+        flash("This product is out of stock.", "error")
+        return redirect(url_for("cart"))
 
-        else:
+    if quantity > stock:
+        flash(f"Only {stock} item(s) are available.", "error")
+        return redirect(url_for("cart"))
 
-            stock = int(
-                product.get("stock") or 0
-            )
-
-            if stock <= 0:
-
-                cart.pop(index)
-
-            else:
-
-                if quantity > stock:
-
-                    flash(
-                        f"Only {stock} item(s) are available.",
-                        "error"
-                    )
-
-                    quantity = stock
-
-                cart[index]["quantity"] = (
-                    quantity
-                )
-
-                if size in VALID_SIZES:
-
-                    cart[index]["size"] = (
-                        size
-                    )
+    cart[index]["quantity"] = quantity
+    cart[index]["size"] = size
 
     session["cart"] = cart
     session.modified = True
 
-    return redirect(
-        url_for("cart")
-    )
+    flash("Cart updated successfully.", "success")
+    return redirect(url_for("cart"))
 
 
 # =====================================================
