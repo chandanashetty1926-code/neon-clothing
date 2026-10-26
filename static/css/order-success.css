@@ -1,0 +1,439 @@
+/* =========================================
+   ORDER SUCCESS PAGE
+========================================= */
+
+.success-page {
+    min-height: calc(100vh - 150px);
+    background: #0b0b0b;
+    color: #ffffff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 80px 20px;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.success-container {
+    width: 100%;
+    max-width: 720px;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   SUCCESS ICON
+========================================= */
+
+.success-icon {
+    width: 82px;
+    height: 82px;
+
+    margin: 0 auto 28px;
+
+    border-radius: 50%;
+
+    background: #dfff00;
+    color: #000000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 46px;
+    font-weight: 900;
+
+    box-shadow:
+        0 0 25px rgba(223, 255, 0, 0.25),
+        0 0 60px rgba(223, 255, 0, 0.08);
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.success-container h1 {
+    margin: 0 0 15px;
+
+    font-size: 38px;
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+
+    color: #ffffff;
+}
+
+
+.success-message {
+    margin: 0;
+
+    color: #dddddd;
+
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+
+.success-message strong {
+    color: #dfff00;
+}
+
+
+.success-subtext {
+    margin: 8px 0 38px;
+
+    color: #777777;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   ORDER CARD
+========================================= */
+
+.order-card {
+    width: 100%;
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 14px;
+
+    padding: 28px;
+
+    box-sizing: border-box;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================
+   ORDER ROW
+========================================= */
+
+.order-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1px 1fr;
+
+    align-items: center;
+}
+
+
+.order-row > div:not(.divider) {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.label {
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    color: #777777;
+}
+
+
+.order-id {
+    font-size: 20px;
+
+    color: #ffffff;
+}
+
+
+.order-total {
+    font-size: 24px;
+
+    font-weight: 800;
+
+    color: #dfff00;
+}
+
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.divider {
+    width: 1px;
+    height: 55px;
+
+    background: #303030;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.success-actions {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-bottom: 30px;
+}
+
+
+.success-actions a {
+    height: 48px;
+
+    padding: 0 26px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+
+    box-sizing: border-box;
+
+    transition: all 0.25s ease;
+}
+
+
+/* PRIMARY BUTTON */
+
+.btn-primary {
+    background: #dfff00;
+
+    color: #000000;
+
+    border: 1px solid #dfff00;
+}
+
+
+.btn-primary:hover {
+    background: #ffffff;
+
+    border-color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+/* SECONDARY BUTTON */
+
+.btn-secondary {
+    background: transparent;
+
+    color: #ffffff;
+
+    border: 1px solid #3a3a3a;
+}
+
+
+.btn-secondary:hover {
+    background: #ffffff;
+
+    color: #000000;
+
+    border-color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   SUCCESS NOTE
+========================================= */
+
+.success-note {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 18px;
+
+    background: #111111;
+
+    border: 1px solid #222222;
+
+    border-radius: 8px;
+
+    margin-bottom: 25px;
+}
+
+
+.success-note span {
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #dfff00;
+
+    color: #000000;
+
+    font-size: 12px;
+
+    font-weight: 900;
+}
+
+
+.success-note p {
+    margin: 0;
+
+    color: #888888;
+
+    font-size: 12px;
+}
+
+
+.success-note strong {
+    color: #ffffff;
+}
+
+
+/* =========================================
+   BRAND MESSAGE
+========================================= */
+
+.brand-message {
+    margin: 0;
+
+    color: #555555;
+
+    font-size: 11px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.brand-message strong {
+    color: #888888;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+    background: #080808;
+
+    border-top: 1px solid #202020;
+
+    text-align: center;
+
+    padding: 25px 20px;
+
+    color: #555555;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .success-page {
+        padding: 60px 18px;
+    }
+
+
+    .success-icon {
+        width: 70px;
+        height: 70px;
+
+        font-size: 38px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .success-container h1 {
+        font-size: 28px;
+    }
+
+
+    .success-message {
+        font-size: 15px;
+    }
+
+
+    .success-subtext {
+        font-size: 13px;
+
+        margin-bottom: 30px;
+    }
+
+
+    .order-card {
+        padding: 22px 15px;
+    }
+
+
+    .order-row {
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+
+    .divider {
+        width: 100%;
+        height: 1px;
+    }
+
+
+    .success-actions {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+
+    .success-actions a {
+        width: 100%;
+    }
+
+
+    .success-note {
+        max-width: 100%;
+
+        box-sizing: border-box;
+    }
+
+}
