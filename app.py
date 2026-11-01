@@ -43,15 +43,34 @@ app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024
 # =====================================================
 
 VALID_SIZES = [
-    "M",
-    "L",
-    "XL",
-    "XXL",
-    "30",
-    "32",
-    "36",
-    "38"
+    "S", "M", "L", "XL",
+    "30", "32", "36", "38"
 ]
+
+
+def get_sizes_for_product(product):
+    """
+    Return sizes appropriate for the product.
+
+    Pants, jeans, trousers and bottomwear: 30, 32, 36, 38
+    Other clothing: S, M, L, XL
+    """
+
+    category = str(product.get("category") or "").lower()
+    subcategory = str(product.get("subcategory") or "").lower()
+    name = str(product.get("name") or "").lower()
+
+    product_type = f"{category} {subcategory} {name}"
+
+    is_bottomwear = any(
+        word in product_type
+        for word in ("pant", "jean", "trouser", "bottomwear")
+    )
+
+    if is_bottomwear:
+        return ["30", "32", "36", "38"]
+
+    return ["S", "M", "L", "XL"]
 
 FREE_DELIVERY_LIMIT = 2000
 DELIVERY_CHARGE = 99
@@ -998,8 +1017,14 @@ def calculate_cart():
 
             quantity = 1
 
-        if size not in VALID_SIZES:
-            size = "M"
+        allowed_sizes = get_sizes_for_product(product)
+
+        # Keep older cart items usable while moving away from XXL.
+        if size == "XXL" and "XL" in allowed_sizes:
+            size = "XL"
+
+        if size not in allowed_sizes:
+            size = allowed_sizes[0]
 
         if quantity < 1:
             quantity = 1
@@ -1071,6 +1096,7 @@ def calculate_cart():
                 "index": len(cleaned_cart) - 1,
                 "product": product,
                 "size": size,
+                "available_sizes": allowed_sizes,
                 "quantity": quantity,
                 "original_price": original_price,
                 "discount_percent": discount_percent,
@@ -1453,26 +1479,8 @@ def product_details(product_id):
     if main_image and main_image not in product_images:
         product_images.insert(0, main_image)
 
-        # -----------------------------------------
-    # PRODUCT SIZE
-    # -----------------------------------------
-
-    category = str(product.get("category", "")).lower()
-    name = str(product.get("name", "")).lower()
-
-    if (
-        "jeans" in category
-        or "pants" in category
-        or "pant" in category
-        or "track" in category
-        or "jeans" in name
-        or "pants" in name
-        or "pant" in name
-    ):
-        product_sizes = ["30", "32", "36", "38"]
-
-    else:
-        product_sizes = ["M", "L", "XL", "XXL"]
+        # Use the same product-specific size rules throughout the store.
+    product_sizes = get_sizes_for_product(product)
 
     return render_template(
         "products-details.html",
@@ -1664,6 +1672,20 @@ def add_to_cart():
         return (
             "Product not found",
             404
+        )
+
+    allowed_sizes = get_sizes_for_product(product)
+
+    if size not in allowed_sizes:
+
+        flash(
+            "Please select a valid size for this product.",
+            "error"
+        )
+
+        return redirect(
+            request.referrer
+            or url_for("products")
         )
 
     stock = int(
@@ -1866,11 +1888,26 @@ def update_cart(index):
                     quantity
                 )
 
-                if size in VALID_SIZES:
+                allowed_sizes = get_sizes_for_product(product)
 
-                    cart[index]["size"] = (
-                        size
+                if size not in allowed_sizes:
+
+                    current_size = str(
+                        cart[index].get("size", "")
+                    ).strip().upper()
+
+                    size = (
+                        current_size
+                        if current_size in allowed_sizes
+                        else allowed_sizes[0]
                     )
+
+                    flash(
+                        "Please choose a size that is available for this product.",
+                        "error"
+                    )
+
+                cart[index]["size"] = size
 
     session["cart"] = cart
     session.modified = True
