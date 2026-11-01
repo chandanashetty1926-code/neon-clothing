@@ -3435,41 +3435,13 @@
 
 <div class="sizes">
 
-    {% set category = (product.category or '')|lower %}
-    {% set name = (product.name or '')|lower %}
+    {% for size in product_sizes_by_id[product.id] %}
 
-    {% if 'jeans' in category
-        or 'pants' in category
-        or 'pant' in category
-        or 'track' in category
-        or 'jeans' in name
-        or 'pants' in name
-        or 'pant' in name
-    %}
+        <span class="size">
+            {{ size }}
+        </span>
 
-        <!-- PANTS / JEANS / TRACK PANTS -->
-
-        {% for size in ["30", "32", "36", "38"] %}
-
-            <span class="size">
-                {{ size }}
-            </span>
-
-        {% endfor %}
-
-    {% else %}
-
-        <!-- SHIRTS / T-SHIRTS / HOODIES -->
-
-        {% for size in ["M", "L", "XL", "XXL"] %}
-
-            <span class="size">
-                {{ size }}
-            </span>
-
-        {% endfor %}
-
-    {% endif %}
+    {% endfor %}
 
 </div>
 
@@ -3507,14 +3479,7 @@
                                             </option>
 
 
-                                            {% for size in [
-                                                "XS",
-                                                "S",
-                                                "M",
-                                                "L",
-                                                "XL",
-                                                "XXL"
-                                            ] %}
+                                            {% for size in product_sizes_by_id[product.id] %}
 
                                                 <option
                                                     value="{{ size }}"
