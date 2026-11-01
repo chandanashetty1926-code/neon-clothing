@@ -4838,6 +4838,16 @@ def shop():
         )
 
     # -------------------------------------------------
+    # PRODUCT SIZE OPTIONS
+    # -------------------------------------------------
+
+    # Keep shop cards consistent with product details and cart.
+    product_sizes_by_id = {
+        int(product["id"]): get_sizes_for_product(product)
+        for product in products_data
+    }
+
+    # -------------------------------------------------
     # BEST SELLERS
     # -------------------------------------------------
 
@@ -4855,6 +4865,7 @@ def shop():
     return render_template(
         "shop.html",
         products=products_data,
+        product_sizes_by_id=product_sizes_by_id,
         best_sellers=best_sellers,
         categories=MAIN_CATEGORIES,
         product_types=PRODUCT_TYPES,
