@@ -1413,47 +1413,14 @@
                                             required
                                         >
 
-                                            <option
-                                                value="XS"
-                                                {% if item['size'] == 'XS' %}selected{% endif %}
-                                            >
-                                                XS
-                                            </option>
-
-                                            <option
-                                                value="S"
-                                                {% if item['size'] == 'S' %}selected{% endif %}
-                                            >
-                                                S
-                                            </option>
-
-                                            <option
-                                                value="M"
-                                                {% if item['size'] == 'M' %}selected{% endif %}
-                                            >
-                                                M
-                                            </option>
-
-                                            <option
-                                                value="L"
-                                                {% if item['size'] == 'L' %}selected{% endif %}
-                                            >
-                                                L
-                                            </option>
-
-                                            <option
-                                                value="XL"
-                                                {% if item['size'] == 'XL' %}selected{% endif %}
-                                            >
-                                                XL
-                                            </option>
-
-                                            <option
-                                                value="XXL"
-                                                {% if item['size'] == 'XXL' %}selected{% endif %}
-                                            >
-                                                XXL
-                                            </option>
+                                            {% for available_size in item['available_sizes'] %}
+                                                <option
+                                                    value="{{ available_size }}"
+                                                    {% if item['size'] == available_size %}selected{% endif %}
+                                                >
+                                                    {{ available_size }}
+                                                </option>
+                                            {% endfor %}
 
                                         </select>
 
