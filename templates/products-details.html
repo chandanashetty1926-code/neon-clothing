@@ -925,23 +925,7 @@
             </div>
 
             {# Determine sizes from the product's category, subcategory and name. #}
-            {% set product_type = (
-                (product.category or '') ~ ' ' ~
-                (product.subcategory or '') ~ ' ' ~
-                (product.name or '')
-            )|lower %}
-
-            {% set is_bottomwear =
-                'pant' in product_type
-                or 'trouser' in product_type
-                or 'jean' in product_type
-            %}
-
-            {% if is_bottomwear %}
-                {% set sizes = ['30', '32', '36', '38'] %}
-            {% else %}
-                {% set sizes = ['S', 'M', 'L', 'XL'] %}
-            {% endif %}
+            {% set sizes = product_sizes %}
 
             <!-- Add to cart -->
             {% if product.stock and product.stock > 0 %}
